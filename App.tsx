@@ -5,8 +5,9 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
+import {CometChat} from '@cometchat-pro/react-native-chat';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,7 +17,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
 import {
   Colors,
   DebugInstructions,
@@ -24,7 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
+import {COMETCHAT_AUTHID} from '@env';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -42,6 +42,7 @@ function Section({children, title}: SectionProps): JSX.Element {
         ]}>
         {title}
       </Text>
+
       <Text
         style={[
           styles.sectionDescription,
@@ -57,10 +58,46 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  //login method
+  let UID = 'SUPERHERO1';
+  CometChat.getLoggedinUser().then(
+    user => {
+      if (!user) {
+        CometChat.login(UID, COMETCHAT_AUTHID).then(
+          user => {
+            console.log('Login Successful:', {user});
+          },
+          error => {
+            console.log('Login failed with exception:', {error});
+          },
+        );
+      }
+    },
+    error => {
+      console.log('Some Error Occured', {error});
+    },
+  );
+
+  // create user method
+  // let uid = 'SUPERHERO1';
+  // let name = 'Kevin';
+
+  // let user = new CometChat.User(uid);
+
+  // user.setName(name);
+
+  // CometChat.createUser(user, COMETCHAT_AUTHID).then(
+  //   user => {
+  //     console.log('user created', user);+6+0
+  //   },
+  //   error => {
+  //     console.log('error', error);
+  //   },
+  // );
 
   return (
     <SafeAreaView style={backgroundStyle}>
