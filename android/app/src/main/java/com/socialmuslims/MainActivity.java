@@ -1,4 +1,4 @@
-package com.socialmuslims;
+package com.online_buzz.social_muslims;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

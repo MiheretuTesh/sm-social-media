@@ -74,9 +74,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.socialmuslims"
+    namespace "com.online_buzz.social_muslims"
     defaultConfig {
-        applicationId "com.socialmuslims"
+        applicationId "com.online_buzz.social_muslims"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
