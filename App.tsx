@@ -5,10 +5,9 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import type {PropsWithChildren} from 'react';
 
-import {CometChat} from '@cometchat-pro/react-native-chat';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,10 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import {COMETCHAT_AUTHID} from '@env';
-import {CometChatUI} from './cometchat-pro-react-native-ui-kit/CometChatWorkspace/src';
-import {CometChatAvatar} from './cometchat-pro-react-native-ui-kit/CometChatWorkspace/src';
-import {NavigationContainer} from '@react-navigation/native';
+import Navigation from './src/navigation';
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -67,24 +63,6 @@ function App(): JSX.Element {
   };
 
   //login method
-  let UID = 'SUPERHERO1';
-  CometChat.getLoggedinUser().then(
-    user => {
-      if (!user) {
-        CometChat.login(UID, COMETCHAT_AUTHID).then(
-          user => {
-            console.log('Login Successful:', {user});
-          },
-          error => {
-            console.log('Login failed with exception:', {error});
-          },
-        );
-      }
-    },
-    error => {
-      console.log('Some Error Occured', {error});
-    },
-  );
 
   // create user method
   // let uid = 'SUPERHERO1';
@@ -105,9 +83,7 @@ function App(): JSX.Element {
 
   return (
     <View style={{flex: 1}}>
-      <NavigationContainer>
-        <CometChatUI />
-      </NavigationContainer>
+      <Navigation />
     </View>
   );
 }

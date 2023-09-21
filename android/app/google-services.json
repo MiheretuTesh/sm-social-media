@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:228143531734:android:7beeb842c6fc155d2fab77",
         "android_client_info": {
-          "package_name": "com.online_buzz.social_muslims"
+          "package_name": "com.socialmuslims"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "228143531734-c3o82kgnh3p5a05ls5k412or1r5q6lbe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.online_buzz.social_muslims",
+            "package_name": "com.socialmuslims",
             "certificate_hash": "190d817fb2c6e9664a294e9cd9f338b3b6d2ab0e"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "228143531734-q8ivvvg5cfh67v35k411o00s13msqgo0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.online_buzz.social_muslims",
+            "package_name": "com.socialmuslims",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
