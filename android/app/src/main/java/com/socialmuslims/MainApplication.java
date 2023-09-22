@@ -1,4 +1,4 @@
-package com.socialmuslims;
+package com.online_buzz.social_muslims;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
