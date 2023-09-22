@@ -64,7 +64,9 @@ const SignUpScreen = ({navigation}) => {
         <Text style={{fontSize: 22, fontWeight: 'bold', color: 'white'}}>
           Hello!
         </Text>
-        <Text style={{fontSize: 16, fontWeight: '500'}}>Welcome</Text>
+        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
+          Welcome
+        </Text>
         {/* <Text style={{fontSize: 16, fontWeight: '500'}}>been missed!</Text> */}
       </View>
 
@@ -121,7 +123,7 @@ const SignUpScreen = ({navigation}) => {
 
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
-        <Text style={{fontSize: 12}}>Already a member?</Text>
+        <Text style={{fontSize: 12, color: '#969BA1'}}>Already a member?</Text>
         <TouchableOpacity onPress={() => navigation.push('LoginScreen')}>
           <Text style={styles.linkText}> Login Now</Text>
         </TouchableOpacity>

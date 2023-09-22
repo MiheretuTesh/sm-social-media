@@ -64,10 +64,12 @@ const LoginScreen = React.memo(({navigation}) => {
         <Text style={{fontSize: 22, fontWeight: 'bold', color: 'white'}}>
           Hello Again!
         </Text>
-        <Text style={{fontSize: 16, fontWeight: '500'}}>
+        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
           Welcome back you've
         </Text>
-        <Text style={{fontSize: 16, fontWeight: '500'}}>been missed!</Text>
+        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
+          been missed!
+        </Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -123,7 +125,7 @@ const LoginScreen = React.memo(({navigation}) => {
 
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
-        <Text style={{fontSize: 12}}>Not a member?</Text>
+        <Text style={{fontSize: 12, color: '#969BA1'}}>Not a member?</Text>
         <TouchableOpacity onPress={() => navigation.push('SignUpScreen')}>
           <Text style={styles.linkText}> Register Now</Text>
         </TouchableOpacity>
