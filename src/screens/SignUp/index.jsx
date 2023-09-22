@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,16 +8,32 @@ import {
   Image,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // You can replace 'FontAwesome' with the desired icon library
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch} from 'react-redux';
+import {
+  authStart,
+  authSuccess,
+  authFail,
+} from '../../store/reducers/auth/authSlice';
+import {signUp} from '../../store/reducers/auth/authAction';
 
 const SignUpScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleSignUp = () => {
+    //dispatch(authStart(true));
+
+    signUp(email, password);
+  };
   const handleGoogleLogin = () => {
-    // Implement your Google login logic here
+    return null;
   };
 
   return (
@@ -65,7 +82,6 @@ const SignUpScreen = ({navigation}) => {
           Hello!
         </Text>
         <Text style={{fontSize: 16, fontWeight: '500'}}>Welcome</Text>
-        {/* <Text style={{fontSize: 16, fontWeight: '500'}}>been missed!</Text> */}
       </View>
 
       <View style={styles.inputContainer}>
@@ -73,6 +89,8 @@ const SignUpScreen = ({navigation}) => {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#969BA1"
+          onChangeText={text => setEmail(text)}
+          value={email}
         />
         <View style={styles.passwordContainer}>
           <TextInput
@@ -83,37 +101,24 @@ const SignUpScreen = ({navigation}) => {
             placeholder="Password"
             placeholderTextColor="#969BA1"
             secureTextEntry={!showPassword}
+            onChangeText={text => setPassword(text)}
+            value={password}
           />
-          {/* <TouchableOpacity
-            style={styles.toggleButton}
-            onPress={togglePasswordVisibility}>
-            <Icon
-              name={showPassword ? 'eye-slash' : 'eye'}
-              size={20}
-              color="black"
-            />
-          </TouchableOpacity> */}
         </View>
-        {/* <TouchableOpacity style={styles.forgotPasswordLink}>
-          <Text style={styles.linkText}>Forgot Password?</Text>
-        </TouchableOpacity> */}
       </View>
 
-      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        activeOpacity={0.7}
+        onPress={handleSignUp}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-
-      {/* <View style={styles.orContainer}>
-        <View style={styles.horizontalLine} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.horizontalLine} />
-      </View> */}
 
       <TouchableOpacity
         style={styles.googleLoginButton}
         onPress={handleGoogleLogin}>
         <Image
-          source={require('../../assets/icons/Google_Icons.webp')} // Replace with your Google icon image
+          source={require('../../assets/icons/Google_Icons.webp')}
           style={{width: 30, height: 30}}
         />
         <Text style={styles.googleButtonText}>Continue with Google</Text>
@@ -131,10 +136,10 @@ const SignUpScreen = ({navigation}) => {
 };
 
 export default SignUpScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
     paddingVertical: 50,
@@ -144,14 +149,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: 130, // Set the desired width
-    height: 70, // Set the desired height
-  },
-  titleText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: 'black',
+    width: 130,
+    height: 70,
   },
   inputContainer: {
     width: '90%',
@@ -183,9 +182,6 @@ const styles = StyleSheet.create({
   borderInactive: {
     borderColor: 'black',
   },
-  toggleButton: {
-    padding: 10,
-  },
   loginButton: {
     backgroundColor: '#E51D43',
     padding: 10,
@@ -197,41 +193,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  forgotPasswordLink: {
-    alignSelf: 'flex-end', // Align "Forgot Password?" text to the right
-    marginTop: 10,
-    color: '#E51D43',
-  },
-  signUpLink: {
-    marginTop: 20,
-    flexDirection: 'row',
-  },
-  linkText: {
-    color: '#E51D43',
-    fontSize: 12,
-  },
-  buttonText: {
-    color: '#333',
-    fontSize: 18,
-    fontWeight: '800',
-  },
-
-  orContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 20,
-    width: '80%',
-  },
-  horizontalLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: 'white',
-  },
-  orText: {
-    paddingHorizontal: 10,
-    color: 'white',
   },
   googleLoginButton: {
     flexDirection: 'row',
@@ -249,5 +210,13 @@ const styles = StyleSheet.create({
   googleButtonText: {
     color: 'white',
     fontWeight: '500',
+  },
+  signUpLink: {
+    marginTop: 20,
+    flexDirection: 'row',
+  },
+  linkText: {
+    color: '#E51D43',
+    fontSize: 12,
   },
 });

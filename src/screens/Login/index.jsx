@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // You can replace 'FontAwesome' with the desired icon library
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const LoginScreen = React.memo(({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
