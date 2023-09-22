@@ -1,14 +1,21 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 
 const HeroScreen = React.memo(({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        {/* Place your image icon here */}
         <Image
           source={require('../../assets/icons/SM-logo-bg-removed.png')}
           style={styles.icon}
+          resizeMode="contain"
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -27,6 +34,8 @@ const HeroScreen = React.memo(({navigation}) => {
   );
 });
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -41,8 +50,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: '100%', // Adjust the width of your icon as needed
-    height: 200, // Adjust the height of your icon as needed
+    width: windowWidth * 0.8,
+    height: undefined,
+    aspectRatio: 1,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -52,22 +62,20 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: '#333',
-    paddingHorizontal: 30,
+    paddingHorizontal: 0.08 * windowWidth,
     paddingVertical: 10,
     borderRadius: 5,
-    marginHorizontal: 10,
-    width: '40%',
+    marginHorizontal: 0.02 * windowWidth,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   signUpButton: {
     backgroundColor: '#E51D43',
-    paddingHorizontal: 30,
+    paddingHorizontal: 0.06 * windowWidth,
     paddingVertical: 10,
     borderRadius: 5,
-    marginHorizontal: 10,
-    width: '40%',
+    marginHorizontal: 0.02 * windowWidth,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

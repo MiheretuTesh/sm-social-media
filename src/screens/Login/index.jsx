@@ -4,11 +4,14 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
   Image,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // You can replace 'FontAwesome' with the desired icon library
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const windowWidth = Dimensions.get('window').width;
 
 const LoginScreen = React.memo(({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -51,6 +54,7 @@ const LoginScreen = React.memo(({navigation}) => {
         <Image
           source={require('../../assets/icons/SM-logo-bg-removed.png')}
           style={styles.image}
+          resizeMode="contain"
         />
       </View>
 
@@ -117,7 +121,7 @@ const LoginScreen = React.memo(({navigation}) => {
         style={styles.googleLoginButton}
         onPress={handleGoogleLogin}>
         <Image
-          source={require('../../assets/icons/Google_Icons.webp')} // Replace with your Google icon image
+          source={require('../../assets/icons/Google_Icons.webp')}
           style={{width: 30, height: 30}}
         />
         <Text style={styles.googleButtonText}>Continue with Google</Text>
@@ -148,8 +152,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: 130, // Set the desired width
-    height: 70, // Set the desired height
+    width: 130,
+    height: 70,
   },
   titleText: {
     fontSize: 36,
@@ -203,7 +207,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   forgotPasswordLink: {
-    alignSelf: 'flex-end', // Align "Forgot Password?" text to the right
+    alignSelf: 'flex-end',
     marginTop: 10,
     color: '#E51D43',
   },
