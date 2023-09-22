@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -6,35 +6,80 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
-import {
-  authStart,
-  authSuccess,
-  authFail,
-} from '../../store/reducers/auth/authSlice';
-import {signUp} from '../../store/reducers/auth/authAction';
+import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
+import auth from '@react-native-firebase/auth';
+import {CometChat} from '@cometchat-pro/react-native-chat';
+import {COMETCHAT_AUTHID} from '@env';
 
 const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSignUp = () => {
-    //dispatch(authStart(true));
+  const handleSignUp = useCallback(async () => {
+    setError(null);
+    setLoading(true);
 
-    signUp(email, password);
-  };
-  const handleGoogleLogin = () => {
-    return null;
-  };
+    try {
+      // Create a Firebase user
+
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      // .then(user => {
+
+      //   console.log('User account created & signed in!');
+      // })
+      // .catch(error => {
+      //   if (error.code === 'auth/email-already-in-use') {
+      //     console.log('That email address is already in use!');
+      //   }
+
+      //   if (error.code === 'auth/invalid-email') {
+      //     console.log('That email address is invalid!');
+      //   }
+
+      //   console.error(error);
+      // });
+
+      const firebaseUser = userCredential.user;
+      const firebaseUID = firebaseUser.uid;
+
+      // Create a CometChat user
+      const cometChatUser = new CometChat.User(firebaseUID);
+      cometChatUser.setName(firebaseUser.displayName || '--');
+
+      // Create the CometChat user using Promises
+      await CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
+        user => {
+          console.log('user created', user);
+        },
+        error => {
+          console.log('error', error);
+        },
+      );
+
+      // Dispatch success action or navigate to another screen
+      dispatch(authSuccess(firebaseUser));
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch, email, password]);
 
   return (
     <View style={styles.container}>
@@ -107,22 +152,19 @@ const SignUpScreen = ({navigation}) => {
         </View>
       </View>
 
-      <TouchableOpacity
-        style={styles.loginButton}
-        activeOpacity={0.7}
-        onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="large" color="#E51D43" />
+      ) : (
+        <TouchableOpacity
+          style={styles.loginButton}
+          activeOpacity={0.7}
+          onPress={handleSignUp}
+          disabled={!email || !password}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+      )}
 
-      <TouchableOpacity
-        style={styles.googleLoginButton}
-        onPress={handleGoogleLogin}>
-        <Image
-          source={require('../../assets/icons/Google_Icons.webp')}
-          style={{width: 30, height: 30}}
-        />
-        <Text style={styles.googleButtonText}>Continue with Google</Text>
-      </TouchableOpacity>
+      {error && <Text style={styles.errorText}>{error}</Text>}
 
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
