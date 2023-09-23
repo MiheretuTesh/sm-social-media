@@ -30,7 +30,6 @@ const SignUpScreen = ({navigation}) => {
   const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
 
   useEffect(() => {
-    console.log(FIREBASE_WEB_CLIENTID);
     GoogleSignin.configure({
       webClientId: FIREBASE_WEB_CLIENTID,
     });
@@ -103,11 +102,13 @@ const SignUpScreen = ({navigation}) => {
 
         CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
           createdUser => {
-            // The CometChat user has been successfully created
-            console.log('CometChat User Created:', createdUser);
-            navigation.replace('CometChatUI');
-
-            // Handle the user information as needed
+            // login user
+            CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(
+              user => {
+                // Navigate to the CometChat UI
+                navigation.replace('CometChatUI');
+              },
+            );
           },
           error => {
             console.error('Error creating CometChat user:', error);
@@ -216,11 +217,11 @@ const SignUpScreen = ({navigation}) => {
         </TouchableOpacity>
       )}
 
-      {error && (
+      {/* {error && (
         <Text style={styles.errorText}>
           {error === 'No user found' ? '' : 'User Exists'}
         </Text>
-      )}
+      )} */}
 
       <TouchableOpacity
         style={styles.googleLoginButton}
