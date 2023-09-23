@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -13,8 +13,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
 import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
 import {CometChat} from '@cometchat-pro/react-native-chat';
-import {COMETCHAT_AUTHID} from '@env';
+import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
 
 const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -23,6 +25,13 @@ const SignUpScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log(FIREBASE_WEB_CLIENTID);
+    GoogleSignin.configure({
+      webClientId: FIREBASE_WEB_CLIENTID,
+    });
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -39,21 +48,6 @@ const SignUpScreen = ({navigation}) => {
         email,
         password,
       );
-      // .then(user => {
-
-      //   console.log('User account created & signed in!');
-      // })
-      // .catch(error => {
-      //   if (error.code === 'auth/email-already-in-use') {
-      //     console.log('That email address is already in use!');
-      //   }
-
-      //   if (error.code === 'auth/invalid-email') {
-      //     console.log('That email address is invalid!');
-      //   }
-
-      //   console.error(error);
-      // });
 
       const firebaseUser = userCredential.user;
       const firebaseUID = firebaseUser.uid;
@@ -80,6 +74,49 @@ const SignUpScreen = ({navigation}) => {
       setLoading(false);
     }
   }, [dispatch, email, password]);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      // Sign in to Firebase with Google credentials
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        userInfo.idToken,
+      );
+      await auth().signInWithCredential(googleCredential);
+
+      // Register the Firebase user with CometChat using their UID
+      const firebaseUser = auth().currentUser;
+      if (firebaseUser) {
+        const cometChatUser = new CometChat.User(firebaseUser.uid);
+        cometChatUser.setName(userInfo.user.name);
+
+        CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
+          createdUser => {
+            // The CometChat user has been successfully created
+            console.log('CometChat User Created:', createdUser);
+            // Handle the user information as needed
+          },
+          error => {
+            console.error('Error creating CometChat user:', error);
+            // Handle the error appropriately
+          },
+        );
+      }
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // User canceled the sign-in process
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // Sign-in is in progress
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // Play Services not available or outdated on the device
+      } else {
+        // Other error occurred
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -169,6 +206,16 @@ const SignUpScreen = ({navigation}) => {
       )}
 
       {error && <Text style={styles.errorText}>{error}</Text>}
+
+      <TouchableOpacity
+        style={styles.googleLoginButton}
+        onPress={handleGoogleSignIn}>
+        <Image
+          source={require('../../assets/icons/Google_Icons.webp')}
+          style={{width: 30, height: 30}}
+        />
+        <Text style={styles.googleButtonText}>Continue with Google</Text>
+      </TouchableOpacity>
 
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
