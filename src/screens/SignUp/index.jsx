@@ -245,19 +245,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#E51D43',
   },
-  signUpLink: {
-    marginTop: 20,
-    flexDirection: 'row',
-  },
-  linkText: {
-    color: '#E51D43',
-    fontSize: 12,
-  },
-  buttonText: {
-    color: '#333',
-    fontSize: 18,
-    fontWeight: '800',
-  },
+  // signUpLink: {
+  //   marginTop: 20,
+  //   flexDirection: 'row',
+  // },
+  // linkText: {
+  //   color: '#E51D43',
+  //   fontSize: 12,
+  // },
+  // buttonText: {
+  //   color: '#333',
+  //   fontSize: 18,
+  //   fontWeight: '800',
+  // },
 
   orContainer: {
     flexDirection: 'row',
