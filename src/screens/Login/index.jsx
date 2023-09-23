@@ -15,6 +15,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const LoginScreen = React.memo(({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -139,6 +140,7 @@ const LoginScreen = React.memo(({navigation}) => {
 });
 
 export default LoginScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -219,11 +221,11 @@ const styles = StyleSheet.create({
     color: '#E51D43',
     fontSize: 12,
   },
-  buttonText: {
-    color: '#333',
-    fontSize: 18,
-    fontWeight: '800',
-  },
+  // buttonText: {
+  //   color: '#333',
+  //   fontSize: 18,
+  //   fontWeight: '800',
+  // },
 
   orContainer: {
     flexDirection: 'row',

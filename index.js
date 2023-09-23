@@ -1,13 +1,8 @@
-/**
- * @format
- */
-
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {CometChat} from '@cometchat-pro/react-native-chat';
 import {name as appName} from './app.json';
-import {COMETCHAT_APPID, COMETCHAT_AUTHID, COMETCHAT_REGION} from '@env';
-import {firebase} from '@react-native-firebase/auth';
+import {COMETCHAT_APPID, COMETCHAT_REGION} from '@env';
 
 let appSetting = new CometChat.AppSettingsBuilder()
   .subscribePresenceForAllUsers()
@@ -23,7 +18,5 @@ CometChat.init(COMETCHAT_APPID, appSetting).then(
     console.log('Initialization failed with error:', error);
   },
 );
-// Initialize Firebase
-firebase.initializeApp();
 
 AppRegistry.registerComponent(appName, () => App);

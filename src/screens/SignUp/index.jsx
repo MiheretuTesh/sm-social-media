@@ -1,3 +1,4 @@
+import React, {useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -5,19 +6,80 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch} from 'react-redux';
+import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
+import auth from '@react-native-firebase/auth';
+import {CometChat} from '@cometchat-pro/react-native-chat';
+import {COMETCHAT_AUTHID} from '@env';
 
 const SignUpScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const handleGoogleLogin = () => {
-    // Implement your Google login logic here
-  };
+
+  const handleSignUp = useCallback(async () => {
+    setError(null);
+    setLoading(true);
+
+    try {
+      // Create a Firebase user
+
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      // .then(user => {
+
+      //   console.log('User account created & signed in!');
+      // })
+      // .catch(error => {
+      //   if (error.code === 'auth/email-already-in-use') {
+      //     console.log('That email address is already in use!');
+      //   }
+
+      //   if (error.code === 'auth/invalid-email') {
+      //     console.log('That email address is invalid!');
+      //   }
+
+      //   console.error(error);
+      // });
+
+      const firebaseUser = userCredential.user;
+      const firebaseUID = firebaseUser.uid;
+
+      // Create a CometChat user
+      const cometChatUser = new CometChat.User(firebaseUID);
+      cometChatUser.setName(firebaseUser.displayName || '--');
+
+      // Create the CometChat user using Promises
+      await CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
+        user => {
+          console.log('user created', user);
+        },
+        error => {
+          console.log('error', error);
+        },
+      );
+
+      // Dispatch success action or navigate to another screen
+      dispatch(authSuccess(firebaseUser));
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch, email, password]);
 
   return (
     <View style={styles.container}>
@@ -76,6 +138,8 @@ const SignUpScreen = ({navigation}) => {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#969BA1"
+          onChangeText={text => setEmail(text)}
+          value={email}
         />
         <View style={styles.passwordContainer}>
           <TextInput
@@ -86,41 +150,25 @@ const SignUpScreen = ({navigation}) => {
             placeholder="Password"
             placeholderTextColor="#969BA1"
             secureTextEntry={!showPassword}
+            onChangeText={text => setPassword(text)}
+            value={password}
           />
-          {/* <TouchableOpacity
-            style={styles.toggleButton}
-            onPress={togglePasswordVisibility}>
-            <Icon
-              name={showPassword ? 'eye-slash' : 'eye'}
-              size={20}
-              color="black"
-            />
-          </TouchableOpacity> */}
         </View>
-        {/* <TouchableOpacity style={styles.forgotPasswordLink}>
-          <Text style={styles.linkText}>Forgot Password?</Text>
-        </TouchableOpacity> */}
       </View>
 
-      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="large" color="#E51D43" />
+      ) : (
+        <TouchableOpacity
+          style={styles.loginButton}
+          activeOpacity={0.7}
+          onPress={handleSignUp}
+          disabled={!email || !password}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+      )}
 
-      {/* <View style={styles.orContainer}>
-        <View style={styles.horizontalLine} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.horizontalLine} />
-      </View> */}
-
-      <TouchableOpacity
-        style={styles.googleLoginButton}
-        onPress={handleGoogleLogin}>
-        <Image
-          source={require('../../assets/icons/Google_Icons.webp')}
-          style={{width: 30, height: 30}}
-        />
-        <Text style={styles.googleButtonText}>Continue with Google</Text>
-      </TouchableOpacity>
+      {error && <Text style={styles.errorText}>{error}</Text>}
 
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
@@ -134,10 +182,10 @@ const SignUpScreen = ({navigation}) => {
 };
 
 export default SignUpScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
     paddingVertical: 50,
@@ -149,12 +197,6 @@ const styles = StyleSheet.create({
   image: {
     width: 130,
     height: 70,
-  },
-  titleText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: 'black',
   },
   inputContainer: {
     width: '90%',
@@ -186,9 +228,6 @@ const styles = StyleSheet.create({
   borderInactive: {
     borderColor: 'black',
   },
-  toggleButton: {
-    padding: 10,
-  },
   loginButton: {
     backgroundColor: '#E51D43',
     padding: 10,
@@ -206,19 +245,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#E51D43',
   },
-  signUpLink: {
-    marginTop: 20,
-    flexDirection: 'row',
-  },
-  linkText: {
-    color: '#E51D43',
-    fontSize: 12,
-  },
-  buttonText: {
-    color: '#333',
-    fontSize: 18,
-    fontWeight: '800',
-  },
+  // signUpLink: {
+  //   marginTop: 20,
+  //   flexDirection: 'row',
+  // },
+  // linkText: {
+  //   color: '#E51D43',
+  //   fontSize: 12,
+  // },
+  // buttonText: {
+  //   color: '#333',
+  //   fontSize: 18,
+  //   fontWeight: '800',
+  // },
 
   orContainer: {
     flexDirection: 'row',
@@ -252,5 +291,13 @@ const styles = StyleSheet.create({
   googleButtonText: {
     color: 'white',
     fontWeight: '500',
+  },
+  signUpLink: {
+    marginTop: 20,
+    flexDirection: 'row',
+  },
+  linkText: {
+    color: '#E51D43',
+    fontSize: 12,
   },
 });
