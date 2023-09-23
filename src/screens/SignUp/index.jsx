@@ -113,6 +113,7 @@ const SignUpScreen = ({navigation}) => {
         <Image
           source={require('../../assets/icons/SM-logo-bg-removed.png')}
           style={styles.image}
+          resizeMode="contain"
         />
       </View>
 
@@ -126,7 +127,10 @@ const SignUpScreen = ({navigation}) => {
         <Text style={{fontSize: 22, fontWeight: 'bold', color: 'white'}}>
           Hello!
         </Text>
-        <Text style={{fontSize: 16, fontWeight: '500'}}>Welcome</Text>
+        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
+          Welcome
+        </Text>
+        {/* <Text style={{fontSize: 16, fontWeight: '500'}}>been missed!</Text> */}
       </View>
 
       <View style={styles.inputContainer}>
@@ -168,7 +172,7 @@ const SignUpScreen = ({navigation}) => {
 
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
-        <Text style={{fontSize: 12}}>Already a member?</Text>
+        <Text style={{fontSize: 12, color: '#969BA1'}}>Already a member?</Text>
         <TouchableOpacity onPress={() => navigation.push('LoginScreen')}>
           <Text style={styles.linkText}> Login Now</Text>
         </TouchableOpacity>
@@ -235,6 +239,41 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  forgotPasswordLink: {
+    alignSelf: 'flex-end',
+    marginTop: 10,
+    color: '#E51D43',
+  },
+  signUpLink: {
+    marginTop: 20,
+    flexDirection: 'row',
+  },
+  linkText: {
+    color: '#E51D43',
+    fontSize: 12,
+  },
+  buttonText: {
+    color: '#333',
+    fontSize: 18,
+    fontWeight: '800',
+  },
+
+  orContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+    width: '80%',
+  },
+  horizontalLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'white',
+  },
+  orText: {
+    paddingHorizontal: 10,
+    color: 'white',
   },
   googleLoginButton: {
     flexDirection: 'row',

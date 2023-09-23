@@ -22,5 +22,7 @@ CometChat.init(COMETCHAT_APPID, appSetting).then(
     console.log('Initialization failed with error:', error);
   },
 );
+// Initialize Firebase
+firebase.initializeApp();
 
 AppRegistry.registerComponent(appName, () => App);
