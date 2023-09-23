@@ -79,9 +79,6 @@ const SignUpScreen = ({navigation}) => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
-      // Obtain the user's UID from userInfo.user
-      const googleUID = userInfo.user.id;
 
       // Sign in to Firebase with Google credentials
       const googleCredential = auth.GoogleAuthProvider.credential(

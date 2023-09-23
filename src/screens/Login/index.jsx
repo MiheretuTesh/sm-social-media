@@ -44,8 +44,7 @@ const LoginScreen = React.memo(({navigation}) => {
       const userInfo = await GoogleSignin.signIn();
 
       // Get user details from Google
-      const {idToken, user} = userInfo;
-      const {email, givenName, familyName, id} = user;
+      const {idToken} = userInfo;
 
       // Sign in to Firebase with Google credentials
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
