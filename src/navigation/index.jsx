@@ -28,49 +28,49 @@ const Navigation = () => {
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   let UID = 'SUPERHERO1';
 
-  // useEffect(() => {
-  //   CometChat.getLoggedinUser().then(
-  //     user => {
-  //       if (!user) {
-  //         CometChat.login(UID, COMETCHAT_AUTHID).then(
-  //           user => {
-  //             console.log('Login Successful:', {user});
-  //             setIsLoggedIn(true);
-  //             setIsLoading(false); // Set loading to false when user check is complete
-  //           },
-  //           error => {
-  //             console.log('Login failed with exception:', {error});
-  //             setIsLoading(false); // Set loading to false even on login error
-  //           },
-  //         );
-  //       } else {
-  //         // User is already logged in
-  //         setIsLoggedIn(true);
-  //         setIsLoading(false); // Set loading to false when user check is complete
-  //       }
-  //     },
-  //     error => {
-  //       console.log('Some Error Occurred', {error});
-  //       setIsLoading(false); // Set loading to false on any error
-  //     },
-  //   );
-  // }, []);
+  useEffect(() => {
+    CometChat.getLoggedinUser().then(
+      user => {
+        if (!user) {
+          CometChat.login(UID, COMETCHAT_AUTHID).then(
+            user => {
+              console.log('Login Successful:', {user});
+              setIsLoggedIn(true);
+              setIsLoading(false); // Set loading to false when user check is complete
+            },
+            error => {
+              console.log('Login failed with exception:', {error});
+              setIsLoading(false); // Set loading to false even on login error
+            },
+          );
+        } else {
+          // User is already logged in
+          setIsLoggedIn(true);
+          setIsLoading(false); // Set loading to false when user check is complete
+        }
+      },
+      error => {
+        console.log('Some Error Occurred', {error});
+        setIsLoading(false); // Set loading to false on any error
+      },
+    );
+  }, []);
 
-  // if (isLoading) {
-  //   // Render a loading indicator or placeholder while user check is in progress
-  //   return (
-  //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
-  // }
+  if (isLoading) {
+    // Render a loading indicator or placeholder while user check is in progress
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
       {
         <Stack.Navigator
           headerMode="none"
-          initialRouteName={isLoggedIn ? 'CometChatUI' : 'HeroScreen'}>
+          initialRouteName={isLoggedIn ? 'CometChatUI' : 'CometChatUI'}>
           <Stack.Screen
             name="HeroScreen"
             component={HeroScreen}
