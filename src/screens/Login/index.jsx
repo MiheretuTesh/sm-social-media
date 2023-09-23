@@ -1,3 +1,4 @@
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
@@ -5,20 +6,65 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
+import auth from '@react-native-firebase/auth';
+import {CometChat} from '@cometchat-pro/react-native-chat';
+import {COMETCHAT_AUTHID} from '@env';
+import {loginUser} from '../../store/reducers/auth/authAction';
 
-const LoginScreen = React.memo(({navigation}) => {
+const SignUpScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
+
+  useEffect(() => {
+    console.log(user, 'user');
+    console.log(error, 'error');
+  }, [user, error]);
+
   const handleGoogleLogin = () => {
     // Implement your Google login logic here
   };
+
+  const handleLogin = useCallback(async () => {
+    // setError(null);
+    // setLoading(true);
+    // try {
+    //   const userCredential = await auth().signInWithEmailAndPassword(
+    //     email,
+    //     password,
+    //   );
+    //   const firebaseUser = userCredential.user;
+    //   const firebaseUID = firebaseUser.uid;
+    //   console.log(firebaseUser, firebaseUID, 'Firebase Hello');
+    // } catch (error) {
+    //   console.log(error);
+    //   if (error.message) setError('Email or Password is incorrect');
+    // } finally {
+    //   setLoading(false);
+    // }
+    dispatch(loginUser(email, password));
+  }, [dispatch, email, password]);
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      navigation.replace('CometChatUI');
+    }
+  }, [isLoggedIn]);
 
   return (
     <View style={styles.container}>
@@ -76,6 +122,8 @@ const LoginScreen = React.memo(({navigation}) => {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#969BA1"
+          onChangeText={text => setEmail(text)}
+          value={email}
         />
         <View style={styles.passwordContainer}>
           <TextInput
@@ -86,31 +134,26 @@ const LoginScreen = React.memo(({navigation}) => {
             placeholder="Password"
             placeholderTextColor="#969BA1"
             secureTextEntry={!showPassword}
+            onChangeText={text => setPassword(text)}
+            value={password}
           />
-          {/* <TouchableOpacity
-            style={styles.toggleButton}
-            onPress={togglePasswordVisibility}>
-            <Icon
-              name={showPassword ? 'eye-slash' : 'eye'}
-              size={20}
-              color="black"
-            />
-          </TouchableOpacity> */}
         </View>
         <TouchableOpacity style={styles.forgotPasswordLink}>
           <Text style={styles.linkText}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-
-      {/* <View style={styles.orContainer}>
-        <View style={styles.horizontalLine} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.horizontalLine} />
-      </View> */}
+      {loading ? (
+        <ActivityIndicator size="large" color="#E51D43" />
+      ) : (
+        <TouchableOpacity
+          style={styles.loginButton}
+          activeOpacity={0.7}
+          onPress={handleLogin}
+          disabled={!email || !password}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      )}
 
       <TouchableOpacity
         style={styles.googleLoginButton}
@@ -122,6 +165,8 @@ const LoginScreen = React.memo(({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
         <Text style={{fontSize: 12}}>Not a member?</Text>
@@ -131,14 +176,13 @@ const LoginScreen = React.memo(({navigation}) => {
       </View>
     </View>
   );
-});
+};
 
-export default LoginScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
     paddingVertical: 50,
@@ -148,14 +192,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: 130, // Set the desired width
-    height: 70, // Set the desired height
-  },
-  titleText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: 'black',
+    width: 130,
+    height: 70,
   },
   inputContainer: {
     width: '90%',
@@ -181,14 +219,20 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'white',
   },
+  forgotPasswordLink: {
+    alignSelf: 'flex-end',
+    marginTop: 10,
+    color: '#E51D43',
+  },
   borderActive: {
     borderColor: 'blue',
   },
   borderInactive: {
     borderColor: 'black',
   },
-  toggleButton: {
-    padding: 10,
+  errorText: {
+    paddingVertical: 20,
+    color: '#E51D43',
   },
   loginButton: {
     backgroundColor: '#E51D43',
@@ -201,41 +245,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  forgotPasswordLink: {
-    alignSelf: 'flex-end', // Align "Forgot Password?" text to the right
-    marginTop: 10,
-    color: '#E51D43',
-  },
-  signUpLink: {
-    marginTop: 20,
-    flexDirection: 'row',
-  },
-  linkText: {
-    color: '#E51D43',
-    fontSize: 12,
-  },
-  // buttonText: {
-  //   color: '#333',
-  //   fontSize: 18,
-  //   fontWeight: '800',
-  // },
-
-  orContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 20,
-    width: '80%',
-  },
-  horizontalLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: 'white',
-  },
-  orText: {
-    paddingHorizontal: 10,
-    color: 'white',
   },
   googleLoginButton: {
     flexDirection: 'row',
@@ -253,5 +262,13 @@ const styles = StyleSheet.create({
   googleButtonText: {
     color: 'white',
     fontWeight: '500',
+  },
+  signUpLink: {
+    marginTop: 20,
+    flexDirection: 'row',
+  },
+  linkText: {
+    color: '#E51D43',
+    fontSize: 12,
   },
 });

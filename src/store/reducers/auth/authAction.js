@@ -24,6 +24,38 @@ export const authCheckState = () => {
     }
   };
 };
+
+export const loginUser = (email, password) => async dispatch => {
+  try {
+    dispatch(authStart());
+
+    const userCredential = await auth().signInWithEmailAndPassword(
+      email,
+      password,
+    );
+    const firebaseUser = userCredential.user;
+    const firebaseUID = firebaseUser.uid;
+    // const firebaseUID = firebaseUser.uid;
+
+    // Loggin a CometChat user
+    const cometChatUser = CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
+      user => {
+        console.log('Login Successful:', {user});
+      },
+      error => {
+        console.log('Login failed with exception:', {error});
+      },
+    );
+
+    console.log(firebaseUser, 'firebaseUser firebaseUser firebaseUser');
+
+    dispatch(authSuccess(firebaseUser));
+  } catch (error) {
+    console.error('Error signing up with Firebase:', error);
+    dispatch(authFail('Error signing up with Firebase'));
+  }
+};
+
 export const signUp = (email, password) => async dispatch => {
   try {
     dispatch(authStart());
@@ -38,7 +70,7 @@ export const signUp = (email, password) => async dispatch => {
 
     // Create a CometChat user
     const cometChatUser = new CometChat.User(firebaseUID);
-    cometChatUser.setName(firebaseUser.displayName || '');
+    cometChatUser.setName(firebaseUser.displayName || 'Test User');
 
     // Create the CometChat user using Promises
     const createdUser = await CometChat.createUser(
