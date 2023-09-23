@@ -19,7 +19,6 @@ import {CometChat} from '@cometchat-pro/react-native-chat';
 import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
 import {signUp} from '../../store/reducers/auth/authAction';
 
-
 const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -83,7 +82,6 @@ const SignUpScreen = ({navigation}) => {
     //   setLoading(false);
     // }
     dispatch(signUp(email, password));
-
   }, [dispatch, email, password]);
 
   const handleGoogleSignIn = async () => {
@@ -107,6 +105,8 @@ const SignUpScreen = ({navigation}) => {
           createdUser => {
             // The CometChat user has been successfully created
             console.log('CometChat User Created:', createdUser);
+            navigation.replace('CometChatUI');
+
             // Handle the user information as needed
           },
           error => {
