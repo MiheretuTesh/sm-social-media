@@ -2,7 +2,13 @@ import {AppRegistry} from 'react-native';
 import App from './App';
 import {CometChat} from '@cometchat-pro/react-native-chat';
 import {name as appName} from './app.json';
-import {COMETCHAT_APPID, COMETCHAT_REGION} from '@env';
+import {COMETCHAT_APPID, COMETCHAT_REGION, FIREBASE_WEB_CLIENTID} from '@env';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure({
+//   // Put your webClientId here (Android and iOS)
+//   webClientId: FIREBASE_WEB_CLIENTID,
+// });
 
 let appSetting = new CometChat.AppSettingsBuilder()
   .subscribePresenceForAllUsers()

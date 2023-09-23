@@ -10,17 +10,113 @@ import {
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {CometChat} from '@cometchat-pro/react-native-chat';
+import {COMETCHAT_AUTHID} from '@env';
+import auth from '@react-native-firebase/auth';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 const windowWidth = Dimensions.get('window').width;
 
 const LoginScreen = React.memo(({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const handleGoogleLogin = () => {
-    // Implement your Google login logic here
+
+  const handleGoogleLogin = async () => {
+    try {
+      // Sign in with Google
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      // Get user details from Google
+      const {idToken, user} = userInfo;
+      const {email, givenName, familyName} = user;
+
+      // Sign in to Firebase with Google credentials
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
+
+      // Now, log in the user to CometChat
+      const firebaseUID = auth().currentUser.uid;
+      const cometChatUser = new CometChat.User(firebaseUID);
+      cometChatUser.setName(`${givenName} ${familyName}`); // Set the name as needed
+
+      // Log in the user to CometChat
+      CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
+        loggedInUser => {
+          console.log('Logged in to CometChat:', loggedInUser);
+
+          // You can navigate to the next screen or perform any other actions upon successful login.
+        },
+        error => {
+          console.error('Error logging in to CometChat:', error);
+
+          // Handle CometChat login errors appropriately
+        },
+      );
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // Handle the case where the user cancels the Google Sign-In process.
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // Handle the case where Google Sign-In is already in progress.
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // Handle the case where Play Services are not available on the device.
+      } else {
+        console.error('Google Sign-In error:', error);
+
+        // Handle other Google Sign-In errors appropriately
+      }
+    }
+  };
+
+  const handleEmailLogin = () => {
+    if (email && password) {
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          // Signed in
+          const user = userCredential.user;
+          console.log('User signed in:', user.email);
+
+          // Now, log in the user to CometChat
+          const firebaseUID = user.uid;
+          const cometChatUser = new CometChat.User(firebaseUID);
+          cometChatUser.setName(user.displayName || ''); // Set the name as needed
+
+          // Log in the user to CometChat
+          CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
+            loggedInUser => {
+              console.log('Logged in to CometChat:', loggedInUser);
+
+              // You can navigate to the next screen or perform any other actions upon successful login.
+              // For example:
+              // navigation.navigate('NextScreen');
+            },
+            error => {
+              console.error('Error logging in to CometChat:', error);
+
+              // Handle CometChat login errors appropriately
+            },
+          );
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('Email login error:', errorMessage);
+
+          // Handle Firebase email login errors appropriately
+        });
+    } else {
+      // Handle the case where email or password is missing.
+      // You can display an error message to the user.
+    }
   };
 
   return (
@@ -82,6 +178,8 @@ const LoginScreen = React.memo(({navigation}) => {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#969BA1"
+          onChangeText={text => setEmail(text)}
+          value={email}
         />
         <View style={styles.passwordContainer}>
           <TextInput
@@ -92,31 +190,30 @@ const LoginScreen = React.memo(({navigation}) => {
             placeholder="Password"
             placeholderTextColor="#969BA1"
             secureTextEntry={!showPassword}
+            onChangeText={text => setPassword(text)}
+            value={password}
           />
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={styles.toggleButton}
             onPress={togglePasswordVisibility}>
             <Icon
-              name={showPassword ? 'eye-slash' : 'eye'}
+              name={showPassword ? 'visibility' : 'visibility-off'}
               size={20}
               color="black"
             />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.forgotPasswordLink}>
           <Text style={styles.linkText}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        activeOpacity={0.7}
+        onPress={handleEmailLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
-
-      {/* <View style={styles.orContainer}>
-        <View style={styles.horizontalLine} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.horizontalLine} />
-      </View> */}
 
       <TouchableOpacity
         style={styles.googleLoginButton}
@@ -144,7 +241,6 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
     paddingVertical: 50,
@@ -156,12 +252,6 @@ const styles = StyleSheet.create({
   image: {
     width: 130,
     height: 70,
-  },
-  titleText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: 'black',
   },
   inputContainer: {
     width: '90%',
@@ -221,12 +311,6 @@ const styles = StyleSheet.create({
     color: '#E51D43',
     fontSize: 12,
   },
-  // buttonText: {
-  //   color: '#333',
-  //   fontSize: 18,
-  //   fontWeight: '800',
-  // },
-
   orContainer: {
     flexDirection: 'row',
     alignItems: 'center',
