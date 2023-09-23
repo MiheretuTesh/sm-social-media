@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {CometChat} from '@cometchat-pro/react-native-chat';
 import {COMETCHAT_AUTHID} from '@env';
@@ -17,6 +17,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {FIREBASE_WEB_CLIENTID} from '@env';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -24,6 +25,13 @@ const LoginScreen = React.memo(({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: FIREBASE_WEB_CLIENTID,
+      prompt: 'select_account',
+    });
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -37,30 +45,35 @@ const LoginScreen = React.memo(({navigation}) => {
 
       // Get user details from Google
       const {idToken, user} = userInfo;
-      const {email, givenName, familyName} = user;
+      const {email, givenName, familyName, id} = user;
 
       // Sign in to Firebase with Google credentials
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(googleCredential);
 
       // Now, log in the user to CometChat
-      const firebaseUID = auth().currentUser.uid;
-      const cometChatUser = new CometChat.User(firebaseUID);
-      cometChatUser.setName(`${givenName} ${familyName}`); // Set the name as needed
+      const firebaseUser = auth().currentUser;
 
-      // Log in the user to CometChat
-      CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
-        loggedInUser => {
-          console.log('Logged in to CometChat:', loggedInUser);
+      if (firebaseUser) {
+        const firebaseUID = firebaseUser.uid;
+        console.log(firebaseUID);
 
-          // You can navigate to the next screen or perform any other actions upon successful login.
-        },
-        error => {
-          console.error('Error logging in to CometChat:', error);
+        CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
+          loggedInUser => {
+            console.log('Logged in to CometChat:', loggedInUser);
 
-          // Handle CometChat login errors appropriately
-        },
-      );
+            // You can navigate to the next screen or perform any other actions upon successful login.
+          },
+          error => {
+            console.error('Error logging in to CometChat:', error);
+
+            // Handle CometChat login errors appropriately
+          },
+        );
+      } else {
+        console.error('Firebase user is null');
+        // Handle the case where the Firebase user is null.
+      }
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // Handle the case where the user cancels the Google Sign-In process.
