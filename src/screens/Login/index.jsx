@@ -1,3 +1,4 @@
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,13 +7,16 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
+import auth from '@react-native-firebase/auth';
 import {CometChat} from '@cometchat-pro/react-native-chat';
 import {COMETCHAT_AUTHID} from '@env';
-import auth from '@react-native-firebase/auth';
+import {loginUser} from '../../store/reducers/auth/authAction';
 import {
   GoogleSignin,
   statusCodes,
@@ -21,10 +25,13 @@ import {FIREBASE_WEB_CLIENTID} from '@env';
 
 const windowWidth = Dimensions.get('window').width;
 
-const LoginScreen = React.memo(({navigation}) => {
+const SignUpScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -36,6 +43,14 @@ const LoginScreen = React.memo(({navigation}) => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
+
+  useEffect(() => {
+    console.log(user, 'user');
+    console.log(error, 'error');
+  }, [user, error]);
+
 
   const handleGoogleLogin = async () => {
     try {
@@ -131,6 +146,32 @@ const LoginScreen = React.memo(({navigation}) => {
     }
   };
 
+  const handleLogin = useCallback(async () => {
+    // setError(null);
+    // setLoading(true);
+    // try {
+    //   const userCredential = await auth().signInWithEmailAndPassword(
+    //     email,
+    //     password,
+    //   );
+    //   const firebaseUser = userCredential.user;
+    //   const firebaseUID = firebaseUser.uid;
+    //   console.log(firebaseUser, firebaseUID, 'Firebase Hello');
+    // } catch (error) {
+    //   console.log(error);
+    //   if (error.message) setError('Email or Password is incorrect');
+    // } finally {
+    //   setLoading(false);
+    // }
+    dispatch(loginUser(email, password));
+  }, [dispatch, email, password]);
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      navigation.replace('CometChatUI');
+    }
+  }, [isLoggedIn]);
+
   return (
     <View style={styles.container}>
       <View
@@ -205,6 +246,7 @@ const LoginScreen = React.memo(({navigation}) => {
             onChangeText={text => setPassword(text)}
             value={password}
           />
+
           <TouchableOpacity
             style={styles.toggleButton}
             onPress={togglePasswordVisibility}>
@@ -220,12 +262,18 @@ const LoginScreen = React.memo(({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        style={styles.loginButton}
-        activeOpacity={0.7}
-        onPress={handleEmailLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="large" color="#E51D43" />
+      ) : (
+        <TouchableOpacity
+          style={styles.loginButton}
+          activeOpacity={0.7}
+          onPress={handleLogin}
+          disabled={!email || !password}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      )}
+
 
       <TouchableOpacity
         style={styles.googleLoginButton}
@@ -237,6 +285,8 @@ const LoginScreen = React.memo(({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
         <Text style={{fontSize: 12, color: '#969BA1'}}>Not a member?</Text>
@@ -246,9 +296,9 @@ const LoginScreen = React.memo(({navigation}) => {
       </View>
     </View>
   );
-});
+};
 
-export default LoginScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -289,14 +339,20 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'white',
   },
+  forgotPasswordLink: {
+    alignSelf: 'flex-end',
+    marginTop: 10,
+    color: '#E51D43',
+  },
   borderActive: {
     borderColor: 'blue',
   },
   borderInactive: {
     borderColor: 'black',
   },
-  toggleButton: {
-    padding: 10,
+  errorText: {
+    paddingVertical: 20,
+    color: '#E51D43',
   },
   loginButton: {
     backgroundColor: '#E51D43',
@@ -310,6 +366,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+
   forgotPasswordLink: {
     alignSelf: 'flex-end',
     marginTop: 10,
@@ -355,5 +412,13 @@ const styles = StyleSheet.create({
   googleButtonText: {
     color: 'white',
     fontWeight: '500',
+  },
+  signUpLink: {
+    marginTop: 20,
+    flexDirection: 'row',
+  },
+  linkText: {
+    color: '#E51D43',
+    fontSize: 12,
   },
 });

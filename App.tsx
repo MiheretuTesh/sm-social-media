@@ -4,7 +4,8 @@ import {View} from 'react-native';
 import Navigation from './src/navigation';
 import {Provider} from 'react-redux/es/exports';
 import store from './src/store/store';
-function App(): JSX.Element {
+
+function App(){
   //login method
 
   // create user method
