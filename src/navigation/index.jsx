@@ -70,6 +70,7 @@ const Navigation = () => {
   //   );
   // }, []);
 
+
   if (isLoading) {
     // Render a loading indicator or placeholder while user check is in progress
     return (
