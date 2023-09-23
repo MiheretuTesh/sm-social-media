@@ -46,12 +46,6 @@ const SignUpScreen = ({navigation}) => {
 
   const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
 
-  useEffect(() => {
-    console.log(user, 'user');
-    console.log(error, 'error');
-  }, [user, error]);
-
-
   const handleGoogleLogin = async () => {
     try {
       // Sign in with Google
@@ -75,6 +69,7 @@ const SignUpScreen = ({navigation}) => {
         CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
           loggedInUser => {
             console.log('Logged in to CometChat:', loggedInUser);
+            navigation.replace('CometChatUI');
 
             // You can navigate to the next screen or perform any other actions upon successful login.
           },
@@ -116,15 +111,12 @@ const SignUpScreen = ({navigation}) => {
           const firebaseUID = user.uid;
           const cometChatUser = new CometChat.User(firebaseUID);
           cometChatUser.setName(user.displayName || ''); // Set the name as needed
+          navigation.replace('CometChatUI');
 
           // Log in the user to CometChat
           CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
             loggedInUser => {
               console.log('Logged in to CometChat:', loggedInUser);
-
-              // You can navigate to the next screen or perform any other actions upon successful login.
-              // For example:
-              // navigation.navigate('NextScreen');
             },
             error => {
               console.error('Error logging in to CometChat:', error);
@@ -268,12 +260,11 @@ const SignUpScreen = ({navigation}) => {
         <TouchableOpacity
           style={styles.loginButton}
           activeOpacity={0.7}
-          onPress={handleLogin}
-          disabled={!email || !password}>
+          disabled={!email || !password}
+          onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       )}
-
 
       <TouchableOpacity
         style={styles.googleLoginButton}
@@ -285,8 +276,11 @@ const SignUpScreen = ({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
-
+      {error && (
+        <Text style={styles.errorText}>
+          {error === 'No user found' ? '' : 'User Exists'}
+        </Text>
+      )}
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
         <Text style={{fontSize: 12, color: '#969BA1'}}>Not a member?</Text>
