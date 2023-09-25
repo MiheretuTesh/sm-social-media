@@ -70,7 +70,7 @@ export const signUp = (email, password) => async dispatch => {
 
     // Create a CometChat user
     const cometChatUser = new CometChat.User(firebaseUID);
-    cometChatUser.setName(firebaseUser.displayName || 'Test User');
+    cometChatUser.setName(firebaseUser.displayName || 'User One');
 
     // Create the CometChat user using Promises
     const createdUser = await CometChat.createUser(
