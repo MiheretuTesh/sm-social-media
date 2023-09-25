@@ -30,6 +30,8 @@ const SignUpScreen = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
 
@@ -48,6 +50,7 @@ const SignUpScreen = ({navigation}) => {
 
   const handleGoogleLogin = async () => {
     try {
+      setLoadingGoogle(true);
       // Sign in with Google
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
@@ -70,10 +73,13 @@ const SignUpScreen = ({navigation}) => {
           loggedInUser => {
             console.log('Logged in to CometChat:', loggedInUser);
             navigation.replace('CometChatUI');
+            setLoadingGoogle(false);
 
             // You can navigate to the next screen or perform any other actions upon successful login.
           },
           error => {
+            setLoadingGoogle(false);
+
             console.error('Error logging in to CometChat:', error);
 
             // Handle CometChat login errors appropriately
@@ -84,6 +90,8 @@ const SignUpScreen = ({navigation}) => {
         // Handle the case where the Firebase user is null.
       }
     } catch (error) {
+      setLoadingGoogle(false);
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // Handle the case where the user cancels the Google Sign-In process.
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -91,6 +99,8 @@ const SignUpScreen = ({navigation}) => {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // Handle the case where Play Services are not available on the device.
       } else {
+        setLoadingGoogle(false);
+
         console.error('Google Sign-In error:', error);
 
         // Handle other Google Sign-In errors appropriately
@@ -266,9 +276,16 @@ const SignUpScreen = ({navigation}) => {
         </TouchableOpacity>
       )}
 
+      {loadingGoogle ? (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#E51D43" />
+        </View>
+      ) : null}
+
       <TouchableOpacity
         style={styles.googleLoginButton}
-        onPress={handleGoogleLogin}>
+        onPress={handleGoogleLogin}
+        disabled={loadingGoogle}>
         <Image
           source={require('../../assets/icons/Google_Icons.webp')}
           style={{width: 30, height: 30}}
@@ -312,6 +329,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '90%',
     marginBottom: 20,
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
     borderWidth: 1,

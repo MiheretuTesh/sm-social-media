@@ -24,6 +24,7 @@ const SignUpScreen = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
 
@@ -85,6 +86,7 @@ const SignUpScreen = ({navigation}) => {
 
   const handleGoogleSignIn = async () => {
     try {
+      setLoadingGoogle(true);
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 
@@ -105,18 +107,21 @@ const SignUpScreen = ({navigation}) => {
             // login user
             CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(
               user => {
+                setLoadingGoogle(false);
                 // Navigate to the CometChat UI
                 navigation.replace('CometChatUI');
               },
             );
           },
           error => {
+            setLoadingGoogle(false);
             console.error('Error creating CometChat user:', error);
             // Handle the error appropriately
           },
         );
       }
     } catch (error) {
+      setLoadingGoogle(false);
       console.error('Google Sign-In Error:', error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // User canceled the sign-in process
@@ -125,6 +130,7 @@ const SignUpScreen = ({navigation}) => {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // Play Services not available or outdated on the device
       } else {
+        setLoadingGoogle(false);
         // Other error occurred
       }
     }
@@ -217,6 +223,12 @@ const SignUpScreen = ({navigation}) => {
         </TouchableOpacity>
       )}
 
+      {loadingGoogle ? (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#E51D43" />
+        </View>
+      ) : null}
+
       {/* {error && (
         <Text style={styles.errorText}>
           {error === 'No user found' ? '' : 'User Exists'}
@@ -225,6 +237,7 @@ const SignUpScreen = ({navigation}) => {
 
       <TouchableOpacity
         style={styles.googleLoginButton}
+        disabled={loadingGoogle}
         onPress={handleGoogleSignIn}>
         <Image
           source={require('../../assets/icons/Google_Icons.webp')}
@@ -260,6 +273,16 @@ const styles = StyleSheet.create({
   errorText: {
     paddingVertical: 20,
     color: '#E51D43',
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: 130,
