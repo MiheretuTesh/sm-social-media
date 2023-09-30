@@ -1,16 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-// import {
-//   CometChatUserProfile,
-//   CometChatUI,
-//   CometChatMessages,
-//   CometChatUserListWithMessages,
-//   CometChatUserList,
-//   CometChatGroupListWithMessages,
-//   CometChatGroupList,
-//   CometChatConversationListWithMessages,
-//   CometChatConversationList,
-// } from '../../cometchat-pro-react-native-ui-kit/CometChatWorkspace/src';
 import {
   CometChatMessages,
   CometChatUserListWithMessages,
@@ -25,6 +14,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './home';
 import UsersScreen from '../screens/Users';
 import ChatsScreen from '../screens/Chats';
+import ChatDetailScreen from '../screens/ChatDetail';
 import {CometChat} from '@cometchat-pro/react-native-chat';
 import {COMETCHAT_AUTHID} from '@env';
 import LoginPage from '../screens/Login';
@@ -37,7 +27,6 @@ const Stack = createStackNavigator();
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   let UID = 'SUPERHERO1';
 
@@ -114,6 +103,7 @@ const Navigation = () => {
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="Users" component={UsersScreen} />
           <Stack.Screen name="Chats" component={ChatsScreen} />
+          <Stack.Screen name="ChatDetail" component={ChatDetailScreen} />
 
           {/* <Stack.Screen
             name="Conversation"
