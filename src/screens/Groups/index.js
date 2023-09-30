@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {CometChatConversationsWithMessages} from '@cometchat/chat-uikit-react-native';
+import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
 
-function ChatsScreen({navigation}) {
+function GroupScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <CometChatConversationsWithMessages />
+      <CometChatGroupsWithMessages />
     </View>
   );
 }
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatsScreen;
+export default GroupScreen;

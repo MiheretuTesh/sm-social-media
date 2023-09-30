@@ -8,37 +8,24 @@ import {
   CometChatGroup,
 } from '@cometchat/chat-uikit-react-native';
 import UsersScreen from '../../screens/Users';
+import GroupScreen from '../../screens/Groups';
 import ChatsScreen from '../../screens/Chats';
 
 const Tab = createBottomTabNavigator();
 
 function HomeScreen() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{headerShown: false}}
+      tabBarOptions={{
+        keyboardHidesTabBar: true,
+      }}>
       {/* <Tab.Screen
         name="Messages"
         component={CometChatMessages}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="envelope" color={color} size={size} />
-          ),
-        }}
-      /> */}
-      <Tab.Screen
-        name="Users"
-        component={UsersScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="user" color={color} size={size} />
-          ),
-        }}
-      />
-      {/* <Tab.Screen
-        name="GroupList"
-        component={CometChatGroup}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="group" color={color} size={size} />
           ),
         }}
       /> */}
@@ -51,6 +38,33 @@ function HomeScreen() {
           ),
         }}
       />
+      <Tab.Screen
+        name="Users"
+        component={UsersScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Groups"
+        component={GroupScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="group" color={color} size={size} />
+          ),
+        }}
+      />
+      {/* <Tab.Screen
+        name="GroupList"
+        component={CometChatGroup}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="group" color={color} size={size} />
+          ),
+        }}
+      /> */}
     </Tab.Navigator>
   );
 }
