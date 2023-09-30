@@ -1158,15 +1158,24 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cometchat-pro/react-native-calls@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/@cometchat-pro/react-native-calls/-/react-native-calls-2.3.0.tgz"
-  integrity sha512-apsYPLhL2k5v4ybhlRpZqWi7Vt1T9xjAbvu+PVoTmgG4lWrjdEItoVHKhZMRik5+gvpBdr1ddyl7FKVRYDInyw==
+"@cometchat/calls-sdk-react-native@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/@cometchat/calls-sdk-react-native/-/calls-sdk-react-native-4.0.0.tgz"
+  integrity sha512-aKNfKOjJPmDmlNPArNkY7n/VQZYAU+XU9DfsiTdxLRDuSk+Nt3lj+iICmeYwjYUWWIm5CbdBpgXBKcLPE+VcGw==
 
-"@cometchat-pro/react-native-chat@^3.0.13":
-  version "3.0.13"
-  resolved "https://registry.npmjs.org/@cometchat-pro/react-native-chat/-/react-native-chat-3.0.13.tgz"
-  integrity sha512-S3r6LiZsaSSVcz/kcAy07nCjdlZktVDsiSu0fRxoKwwG+yrwC5BAV6QnKJQZhe31L2mc5EFxKZy/BKVCmzlW0w==
+"@cometchat/chat-sdk-react-native@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/@cometchat/chat-sdk-react-native/-/chat-sdk-react-native-4.0.1.tgz"
+  integrity sha512-nsRo3b3jypyF6twjm7E7NOELwP1+MEg83XF/19M+UrXx5yCFJDU3qSHkssZ6JArzyC1/0S3i8ePDFqwHSAHNPw==
+
+"@cometchat/chat-uikit-react-native@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/@cometchat/chat-uikit-react-native/-/chat-uikit-react-native-4.0.0.tgz"
+  integrity sha512-diswMsCgJYEMBASOZ/0FWuGmdagSVhYf5BlLZdK61fgDWHbWq+GPjJY+YZVPCh/MWCbf/V46UX03PeVF1/DSxA==
+  dependencies:
+    "@cometchat/chat-sdk-react-native" "^4.0.1"
+    "@react-native-async-storage/async-storage" "^1.17.10"
+    "@react-native-community/clipboard" "^1.5.1"
 
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
@@ -1543,7 +1552,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@react-native-async-storage/async-storage@*", "@react-native-async-storage/async-storage@^1.19.3":
+"@react-native-async-storage/async-storage@*", "@react-native-async-storage/async-storage@^1.17.10", "@react-native-async-storage/async-storage@^1.19.3":
   version "1.19.3"
   resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.19.3.tgz"
   integrity sha512-CwGfoHCWdPOTPS+2fW6YRE1fFBpT9++ahLEroX5hkgwyoQ+TkmjOaUxixdEIoVua9Pz5EF2pGOIJzqOTMWfBlA==
@@ -1714,10 +1723,15 @@
     prompts "^2.4.0"
     semver "^7.5.2"
 
-"@react-native-community/netinfo@*", "@react-native-community/netinfo@7.1.7":
-  version "7.1.7"
-  resolved "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-7.1.7.tgz"
-  integrity sha512-QCEuvbTAD7vyCsSsgbWedhTfXlClp4TVHVWYYMjnN7nz6xgZbSp+MI3oo7X5C4JlDHpRm/Q+63hsCgAqKt3WVA==
+"@react-native-community/clipboard@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/@react-native-community/clipboard/-/clipboard-1.5.1.tgz"
+  integrity sha512-AHAmrkLEH5UtPaDiRqoULERHh3oNv7Dgs0bTC0hO5Z2GdNokAMPT5w8ci8aMcRemcwbtdHjxChgtjbeA38GBdA==
+
+"@react-native-community/netinfo@*", "@react-native-community/netinfo@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-6.1.0.tgz"
+  integrity sha512-SrO+EJYR1FhGqCoKSkvddIKB0waySXapW4inW2IQgpjBYCdCTJyKFLlvZHTVg/3N0vodR4WBGdKraECl9aVS5Q==
 
 "@react-native-firebase/app@^18.4.0", "@react-native-firebase/app@18.4.0":
   version "18.4.0"
@@ -6218,12 +6232,12 @@ react-native-autolink@^4.1.0:
   dependencies:
     autolinker "^3.16.2"
 
-react-native-background-timer@*, react-native-background-timer@2.4.1:
+react-native-background-timer@*, react-native-background-timer@^2.4.1:
   version "2.4.1"
   resolved "https://registry.npmjs.org/react-native-background-timer/-/react-native-background-timer-2.4.1.tgz"
   integrity sha512-TE4Kiy7jUyv+hugxDxitzu38sW1NqjCk4uE5IgU2WevLv7sZacaBc6PZKOShNRPGirLl1NWkaG3LDEkdb9Um5g==
 
-react-native-callstats@*, react-native-callstats@3.73.7:
+react-native-callstats@*, react-native-callstats@^3.73.7:
   version "3.73.7"
   resolved "https://registry.npmjs.org/react-native-callstats/-/react-native-callstats-3.73.7.tgz"
   integrity sha512-4/cgJ9YjoblCch9bH5D3ShI4DNxsKLzqkS9GmpY8ObrWKVJ0moozgVsU2/4lKKUcsv8bwMU8xPLFG5ZsctDNVQ==
@@ -6320,11 +6334,6 @@ react-native-size-matters@^0.3.1:
   resolved "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
   integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
 
-react-native-sound@^0.11.2:
-  version "0.11.2"
-  resolved "https://registry.npmjs.org/react-native-sound/-/react-native-sound-0.11.2.tgz"
-  integrity sha512-LmGc8lgOK3qecYMVQpyHvww/C+wgT6sWeMpVbOe4NCRGC2yKd4fo4U0KBUo9PO7AqKESO3I/2GZg1/C0+bwiiA==
-
 react-native-swipe-list-view@^3.2.9:
   version "3.2.9"
   resolved "https://registry.npmjs.org/react-native-swipe-list-view/-/react-native-swipe-list-view-3.2.9.tgz"
@@ -6355,7 +6364,7 @@ react-native-video@^5.2.1, react-native-video@>=2.0.0:
     prop-types "^15.7.2"
     shaka-player "^2.5.9"
 
-react-native-webrtc@*, react-native-webrtc@1.100.0:
+react-native-webrtc@*, react-native-webrtc@^1.100.0:
   version "1.100.0"
   resolved "https://registry.npmjs.org/react-native-webrtc/-/react-native-webrtc-1.100.0.tgz"
   integrity sha512-sBLl8Ihj3xfYn0NZJdDxelB/dZ422FWg/kcLdSw6Wk4eM3MeNW3iFwVsqg2dLzeDnuoQ06i7hOdtP7pGAiKsug==
@@ -6372,7 +6381,7 @@ react-native-webview@^13.6.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@>=0.23.1, react-native@>=0.25.0, react-native@>=0.46.0, react-native@>=0.47.0, react-native@>=0.57, react-native@>=0.59, react-native@>=0.60.0, react-native@>=0.8.0, react-native@0.72.4:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@>=0.23.1, react-native@>=0.25.0, react-native@>=0.46.0, react-native@>=0.47.0, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59, react-native@>=0.60.0, react-native@0.72.4:
   version "0.72.4"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.4.tgz"
   integrity sha512-+vrObi0wZR+NeqL09KihAAdVlQ9IdplwznJWtYrjnQ4UbCW6rkzZJebRsugwUneSOKNFaHFEo1uKU89HsgtYBg==
@@ -6448,7 +6457,7 @@ react-test-renderer@18.2.0:
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
 
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", "react@^17 || ^18", react@^18.2.0, react@>=0.14.8, react@>=16, react@>=16.8, react@>=17.0.0, react@>16.8.0, react@18.2.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18", "react@^17 || ^18", react@^18.2.0, react@>=0.14.8, react@>=16, react@>=16.0, react@>=16.8, react@>=17.0.0, react@>16.8.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

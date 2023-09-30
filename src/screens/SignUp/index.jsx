@@ -15,7 +15,7 @@ import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-import {CometChat} from '@cometchat-pro/react-native-chat';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
 import {signUp} from '../../store/reducers/auth/authAction';
 

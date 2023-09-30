@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
-import {CometChat} from '@cometchat-pro/react-native-chat';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID} from '@env';
 import {loginUser} from '../../store/reducers/auth/authAction';
 import {

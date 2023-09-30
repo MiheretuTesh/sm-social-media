@@ -1,7 +1,13 @@
 import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-
 
 const HeroScreen = React.memo(({navigation}) => {
   const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
@@ -9,7 +15,7 @@ const HeroScreen = React.memo(({navigation}) => {
   useEffect(() => {
     if (isLoggedIn === true) {
       console.log(isLoggedIn, "I'm True");
-      navigation.replace('CometChatUI');
+      navigation.replace('HomeScreen');
     }
   }, [isLoggedIn]);
 

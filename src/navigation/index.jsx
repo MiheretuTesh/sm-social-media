@@ -1,8 +1,17 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
+// import {
+//   CometChatUserProfile,
+//   CometChatUI,
+//   CometChatMessages,
+//   CometChatUserListWithMessages,
+//   CometChatUserList,
+//   CometChatGroupListWithMessages,
+//   CometChatGroupList,
+//   CometChatConversationListWithMessages,
+//   CometChatConversationList,
+// } from '../../cometchat-pro-react-native-ui-kit/CometChatWorkspace/src';
 import {
-  CometChatUserProfile,
-  CometChatUI,
   CometChatMessages,
   CometChatUserListWithMessages,
   CometChatUserList,
@@ -10,11 +19,12 @@ import {
   CometChatGroupList,
   CometChatConversationListWithMessages,
   CometChatConversationList,
-} from '../../cometchat-pro-react-native-ui-kit/CometChatWorkspace/src';
-
+} from '@cometchat/chat-uikit-react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import HomeScreen from './home';
+import UsersScreen from '../screens/Users';
+import ChatsScreen from '../screens/Chats';
 import {CometChat} from '@cometchat-pro/react-native-chat';
 import {COMETCHAT_AUTHID} from '@env';
 import LoginPage from '../screens/Login';
@@ -70,7 +80,6 @@ const Navigation = () => {
   //   );
   // }, []);
 
-
   if (isLoading) {
     // Render a loading indicator or placeholder while user check is in progress
     return (
@@ -85,7 +94,7 @@ const Navigation = () => {
       {
         <Stack.Navigator
           headerMode="none"
-          initialRouteName={isLoggedIn ? 'CometChatUI' : 'HeroScreen'}>
+          initialRouteName={isLoggedIn ? 'HomeScreen' : 'HeroScreen'}>
           <Stack.Screen
             name="HeroScreen"
             component={HeroScreen}
@@ -102,18 +111,22 @@ const Navigation = () => {
             options={{headerShown: false}}
           />
 
-          <Stack.Screen name="CometChatUI" component={CometChatUI} />
-          <Stack.Screen
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="Users" component={UsersScreen} />
+          <Stack.Screen name="Chats" component={ChatsScreen} />
+
+          {/* <Stack.Screen
             name="Conversation"
             component={CometChatConversationListWithMessages}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="ConversationComponent"
             component={CometChatConversationList}
           />
           <Stack.Screen
             name="Group"
             component={CometChatGroupListWithMessages}
+            // options={{headerShown: false}}
           />
           <Stack.Screen name="GroupComponent" component={CometChatGroupList} />
           <Stack.Screen
@@ -124,7 +137,7 @@ const Navigation = () => {
           <Stack.Screen
             name="CometChatMessages"
             component={CometChatMessages}
-          />
+          /> */}
         </Stack.Navigator>
       }
     </NavigationContainer>

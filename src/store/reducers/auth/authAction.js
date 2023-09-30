@@ -6,8 +6,9 @@ import {
   logoutSuccess,
 } from './authSlice';
 import auth from '@react-native-firebase/auth';
-import {CometChat} from '@cometchat-pro/react-native-chat';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID} from '@env';
+import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 
 export const authCheckState = () => {
   return async dispatch => {
@@ -38,7 +39,10 @@ export const loginUser = (email, password) => async dispatch => {
     // const firebaseUID = firebaseUser.uid;
 
     // Loggin a CometChat user
-    const cometChatUser = CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
+    const cometChatUser = CometChatUIKit.login(
+      firebaseUID,
+      COMETCHAT_AUTHID,
+    ).then(
       user => {
         console.log('Login Successful:', {user});
       },
@@ -47,7 +51,7 @@ export const loginUser = (email, password) => async dispatch => {
       },
     );
 
-    console.log(firebaseUser, 'firebaseUser firebaseUser firebaseUser');
+    //console.log(firebaseUser, 'firebaseUser firebaseUser firebaseUser');
 
     dispatch(authSuccess(firebaseUser));
   } catch (error) {
