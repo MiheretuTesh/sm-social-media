@@ -12,14 +12,13 @@ import React, {useEffect, useState} from 'react';
 //   CometChatConversationList,
 // } from '../../cometchat-pro-react-native-ui-kit/CometChatWorkspace/src';
 import {
+  CometChatConversationsWithMessages,
+  CometChatConversations,
+  CometChatUsersWithMessages,
+  CometChatUsers,
   CometChatMessages,
-  CometChatUserListWithMessages,
-  CometChatUserList,
-  CometChatGroupListWithMessages,
-  CometChatGroupList,
-  CometChatConversationListWithMessages,
-  CometChatConversationList,
 } from '@cometchat/chat-uikit-react-native';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './home';
@@ -114,7 +113,23 @@ const Navigation = () => {
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="Users" component={UsersScreen} />
           <Stack.Screen name="Chats" component={ChatsScreen} />
-
+          <Stack.Screen
+            name="UsersWithMessages"
+            component={CometChatUsersWithMessages}
+          />
+          <Stack.Screen
+            name="ConversationsWithMessages"
+            component={CometChatConversationsWithMessages}
+          />
+          {/* <Stack.Screen name="Users" component={CometChatUsers} /> */}
+          <Stack.Screen
+            name="Conversations"
+            component={CometChatConversations}
+          />
+          <Stack.Screen
+            name="CometChatMessages"
+            component={CometChatMessages}
+          />
           {/* <Stack.Screen
             name="Conversation"
             component={CometChatConversationListWithMessages}

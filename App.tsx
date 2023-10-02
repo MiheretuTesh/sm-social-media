@@ -1,37 +1,88 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
-import {View} from 'react-native';
+import {View, StatusBar, SafeAreaView} from 'react-native';
 import Navigation from './src/navigation';
+import {
+  CometChatContextProvider,
+  CometChatConversationsWithMessages,
+} from '@cometchat/chat-uikit-react-native';
+import {CometChatTheme} from '@cometchat/chat-uikit-react-native';
+import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
+
 import {Provider} from 'react-redux/es/exports';
 import store from './src/store/store';
 
-function App(){
-  //login method
+import {CometChatIncomingCall} from '@cometchat/chat-uikit-react-native';
+import {CometChatUIEventHandler} from '@cometchat/chat-uikit-react-native';
+import {UserContextProvider} from './ContextProvider';
+var listnerID = 'UNIQUE_LISTENER_ID';
 
-  // create user method
-  // let uid = 'SUPERHERO1';
-  // let name = 'Kevin';
+function App() {
+  const [callRecevied, setCallReceived] = useState(false);
+  const incomingCall = useRef(null);
 
-  // let user = new CometChat.User(uid);
+  // useEffect(() => {
+  //   CometChat.addCallListener(
+  //     listnerID,
+  //     new CometChat.CallListener({
+  //       onIncomingCallReceived: call => {
+  //         incomingCall.current = call;
+  //         setCallReceived(true);
+  //       },
+  //       onOutgoingCallRejected: call => {
+  //         incomingCall.current = null;
+  //         setCallReceived(false);
+  //       },
+  //       onIncomingCallCancelled: call => {
+  //         incomingCall.current = null;
+  //         setCallReceived(false);
+  //       },
+  //     }),
+  //   );
 
-  // user.setName(name);
+  //   CometChatUIEventHandler.addCallListener(listnerID, {
+  //     ccCallEnded: () => {
+  //       incomingCall.current = null;
+  //       setCallReceived(false);
+  //     },
+  //   });
 
-  // CometChat.createUser(user, COMETCHAT_AUTHID).then(
-  //   user => {
-  //     console.log('user created', user);+6+0
-  //   },
-  //   error => {
-  //     console.log('error', error);
-  //   },
-  // );
+  //   return () => {
+  //     CometChatUIEventHandler.removeCallListener(listnerID);
+  //     CometChat.removeCallListener(listnerID);
+  //   };
+  // }, []);
 
   return (
-    <Provider store={store}>
-      <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}>
+      <Provider store={store}>
+        {/* <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+        {callRecevied && (
+          <CometChatIncomingCall
+            call={incomingCall.current}
+            onDecline={call => {
+              setCallReceived(false);
+            }}
+            incomingCallStyle={{
+              backgroundColor: 'white',
+              titleColor: 'black',
+              subtitleColor: 'gray',
+              titleFont: {
+                fontSize: 20,
+                fontWeight: 'bold',
+              },
+            }}
+          />
+        )} */}
+        {/* <UserContextProvider>
+          <CometChatContextProvider theme={new CometChatTheme({})}> */}
         <Navigation />
-      </View>
-    </Provider>
+        {/* </CometChatContextProvider>
+        </UserContextProvider> */}
+      </Provider>
+    </SafeAreaView>
   );
 }
-
+ht03xl;
 export default App;
