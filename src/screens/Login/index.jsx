@@ -72,7 +72,7 @@ const SignUpScreen = ({navigation}) => {
         CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
           loggedInUser => {
             console.log('Logged in to CometChat:', loggedInUser);
-            navigation.replace('CometChatUI');
+            navigation.replace('HomeScreen');
             setLoadingGoogle(false);
 
             // You can navigate to the next screen or perform any other actions upon successful login.
@@ -121,7 +121,7 @@ const SignUpScreen = ({navigation}) => {
           const firebaseUID = user.uid;
           const cometChatUser = new CometChat.User(firebaseUID);
           cometChatUser.setName(user.displayName || ''); // Set the name as needed
-          navigation.replace('CometChatUI');
+          navigation.replace('HomeScreen');
 
           // Log in the user to CometChat
           CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
@@ -170,7 +170,7 @@ const SignUpScreen = ({navigation}) => {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      navigation.replace('CometChatUI');
+      navigation.replace('HomeScreen');
     }
   }, [isLoggedIn]);
 
@@ -295,7 +295,7 @@ const SignUpScreen = ({navigation}) => {
 
       {error && (
         <Text style={styles.errorText}>
-          {error === 'No user found' ? '' : 'User Exists'}
+          {error === 'No user found' ? '' : 'Email or Password not correct'}
         </Text>
       )}
       <View style={{flex: 1}} />

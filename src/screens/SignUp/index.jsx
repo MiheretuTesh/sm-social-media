@@ -109,7 +109,7 @@ const SignUpScreen = ({navigation}) => {
               user => {
                 setLoadingGoogle(false);
                 // Navigate to the CometChat UI
-                navigation.replace('CometChatUI');
+                navigation.replace('HomeScreen');
               },
             );
           },
