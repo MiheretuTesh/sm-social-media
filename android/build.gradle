@@ -26,5 +26,6 @@ allprojects {
     maven {
 			url "https://dl.cloudsmith.io/public/cometchat/cometchat-pro-android/maven/"
 		}
+        mavenCentral()
   }
 }

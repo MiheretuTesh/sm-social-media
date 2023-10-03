@@ -109,7 +109,7 @@ const SignUpScreen = ({navigation}) => {
               user => {
                 setLoadingGoogle(false);
                 // Navigate to the CometChat UI
-                navigation.replace('HomeScreen');
+                navigation.replace('Home');
               },
             );
           },
@@ -249,7 +249,7 @@ const SignUpScreen = ({navigation}) => {
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
         <Text style={{fontSize: 12, color: '#969BA1'}}>Already a member?</Text>
-        <TouchableOpacity onPress={() => navigation.push('LoginScreen')}>
+        <TouchableOpacity onPress={() => navigation.push('Login')}>
           <Text style={styles.linkText}> Login Now</Text>
         </TouchableOpacity>
       </View>
