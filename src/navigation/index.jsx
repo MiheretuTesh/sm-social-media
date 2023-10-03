@@ -8,6 +8,7 @@ import {
   CometChatGroupList,
   CometChatConversationListWithMessages,
   CometChatConversationList,
+  CometChatConversationsWithMessages,
 } from '@cometchat/chat-uikit-react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -25,7 +26,7 @@ import {authCheckState} from '../store/reducers/auth/authAction';
 
 const Stack = createStackNavigator();
 
-const Navigation = () => {
+const Navigation = props => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   let UID = 'SUPERHERO1';
@@ -101,6 +102,11 @@ const Navigation = () => {
           />
 
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen
+            name="MessageScreen"
+            component={CometChatConversationsWithMessages}
+          />
+
           <Stack.Screen name="Users" component={UsersScreen} />
           <Stack.Screen name="Chats" component={ChatsScreen} />
           <Stack.Screen name="ChatDetail" component={ChatDetailScreen} />

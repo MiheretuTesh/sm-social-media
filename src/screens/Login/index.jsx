@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -22,10 +22,17 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {FIREBASE_WEB_CLIENTID} from '@env';
+import {
+  CometChatContext,
+  CometChatUIKit,
+} from '@cometchat/chat-uikit-react-native';
+import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
 
 const windowWidth = Dimensions.get('window').width;
 
-const SignUpScreen = ({navigation}) => {
+const SingInScreen = ({navigation}) => {
+  const {theme} = useContext(CometChatContext);
+
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -47,6 +54,14 @@ const SignUpScreen = ({navigation}) => {
   };
 
   const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
+
+  useEffect(() => {
+    CometChatUIKit.getLoggedInUser()
+      .then(user => {
+        if (user != null) navigation.navigate('Home');
+      })
+      .catch(e => console.log('Unable to get loggedInUser', e));
+  }, []);
 
   const handleGoogleLogin = async () => {
     try {
@@ -72,7 +87,7 @@ const SignUpScreen = ({navigation}) => {
         CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
           loggedInUser => {
             console.log('Logged in to CometChat:', loggedInUser);
-            navigation.replace('HomeScreen');
+            navigation.replace('Home');
             setLoadingGoogle(false);
 
             // You can navigate to the next screen or perform any other actions upon successful login.
@@ -85,6 +100,11 @@ const SignUpScreen = ({navigation}) => {
             // Handle CometChat login errors appropriately
           },
         );
+        CometChatUIKit.getLoggedInUser()
+          .then(user => {
+            if (user != null) navigation.navigate('Home');
+          })
+          .catch(e => console.log('Unable to get loggedInUser', e));
       } else {
         console.error('Firebase user is null');
         // Handle the case where the Firebase user is null.
@@ -121,7 +141,7 @@ const SignUpScreen = ({navigation}) => {
           const firebaseUID = user.uid;
           const cometChatUser = new CometChat.User(firebaseUID);
           cometChatUser.setName(user.displayName || ''); // Set the name as needed
-          navigation.replace('HomeScreen');
+          navigation.replace('Home');
 
           // Log in the user to CometChat
           CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
@@ -170,7 +190,13 @@ const SignUpScreen = ({navigation}) => {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      navigation.replace('HomeScreen');
+      navigation.replace('Home');
+
+      CometChatUIKit.getLoggedInUser()
+        .then(user => {
+          if (user != null) navigation.navigate('Home');
+        })
+        .catch(e => console.log('Unable to get loggedInUser', e));
     }
   }, [isLoggedIn]);
 
@@ -293,6 +319,21 @@ const SignUpScreen = ({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
+      <LoginButton
+        onLoginFinished={(error, result) => {
+          if (error) {
+            console.log('login has error: ' + result.error);
+          } else if (result.isCancelled) {
+            console.log('login is cancelled.');
+          } else {
+            AccessToken.getCurrentAccessToken().then(data => {
+              console.log(data.accessToken.toString());
+            });
+          }
+        }}
+        onLogoutFinished={() => console.log('logout.')}
+      />
+
       {error && (
         <Text style={styles.errorText}>
           {error === 'No user found' ? '' : 'Email or Password not correct'}
@@ -301,7 +342,7 @@ const SignUpScreen = ({navigation}) => {
       <View style={{flex: 1}} />
       <View style={styles.signUpLink}>
         <Text style={{fontSize: 12, color: '#969BA1'}}>Not a member?</Text>
-        <TouchableOpacity onPress={() => navigation.push('SignUpScreen')}>
+        <TouchableOpacity onPress={() => navigation.push('SignUp')}>
           <Text style={styles.linkText}> Register Now</Text>
         </TouchableOpacity>
       </View>
@@ -309,7 +350,7 @@ const SignUpScreen = ({navigation}) => {
   );
 };
 
-export default SignUpScreen;
+export default SingInScreen;
 
 const styles = StyleSheet.create({
   container: {

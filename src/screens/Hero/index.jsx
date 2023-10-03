@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -8,16 +8,30 @@ import {
   Dimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {
+  CometChatContext,
+  CometChatUIKit,
+} from '@cometchat/chat-uikit-react-native';
 
 const HeroScreen = React.memo(({navigation}) => {
+  const {theme} = useContext(CometChatContext);
+
   const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
 
   useEffect(() => {
     if (isLoggedIn === true) {
       console.log(isLoggedIn, "I'm True");
-      navigation.replace('HomeScreen');
+      navigation.replace('Home');
     }
   }, [isLoggedIn]);
+
+  React.useEffect(() => {
+    CometChatUIKit.getLoggedInUser()
+      .then(user => {
+        if (user != null) navigation.navigate('Home');
+      })
+      .catch(e => console.log('Unable to get loggedInUser', e));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -31,12 +45,12 @@ const HeroScreen = React.memo(({navigation}) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.loginButton}
-          onPress={() => navigation.push('LoginScreen')}>
+          onPress={() => navigation.push('Login')}>
           <Text style={styles.loginButtonText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.signUpButton}
-          onPress={() => navigation.push('SignUpScreen')}>
+          onPress={() => navigation.push('SignUp')}>
           <Text style={styles.signUpButtonText}>SIGN UP</Text>
         </TouchableOpacity>
       </View>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SocialMuslims</string>
+    <string name="facebook_app_id">999981827988903</string>
+    <string name="facebook_client_token">71efcecb6e72cabc5fb7cd180bb9f2f7</string>
 </resources>

@@ -10,6 +10,7 @@ import {
 import UsersScreen from '../../screens/Users';
 import GroupScreen from '../../screens/Groups';
 import ChatsScreen from '../../screens/Chats';
+import ChatNavigation from './ChatStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ function HomeScreen() {
       /> */}
       <Tab.Screen
         name="Chats"
-        component={ChatsScreen}
+        component={ChatNavigation}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon name="comments" color={color} size={size} />

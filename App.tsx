@@ -1,14 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View} from 'react-native';
-import Navigation from './src/navigation';
-import {Provider} from 'react-redux/es/exports';
-import store from './src/store/store';
-import {UserContextProvider} from './UserContext';
-import {
-  CometChatContextProvider,
-  CometChatConversationsWithMessages,
-} from '@cometchat/chat-uikit-react-native';
-import {CometChatTheme} from '@cometchat/chat-uikit-react-native';
 import {
   PermissionsAndroid,
   Platform,
@@ -16,15 +6,22 @@ import {
   StatusBar,
   Text,
 } from 'react-native';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
+import {COMETCHAT_CONSTANTS} from './src/CONSTS';
+import {CometChatContextProvider} from '@cometchat/chat-uikit-react-native';
+import {CometChatTheme} from '@cometchat/chat-uikit-react-native';
 import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
+import StackNavigator from './src/StackNavigator';
+import {UserContextProvider} from './UserContext';
 import {CometChatIncomingCall} from '@cometchat/chat-uikit-react-native';
 import {CometChatUIEventHandler} from '@cometchat/chat-uikit-react-native';
-import {COMETCHAT_AUTHID, COMETCHAT_APPID, COMETCHAT_REGION} from '@env';
-import {CometChat} from '@cometchat/chat-sdk-react-native';
+import {Provider} from 'react-redux/es/exports';
+import store from './src/store/store';
+import {Settings} from 'react-native-fbsdk-next';
 
 var listnerID = 'UNIQUE_LISTENER_ID';
 
-function App() {
+const App = () => {
   const getPermissions = () => {
     if (Platform.OS == 'android') {
       PermissionsAndroid.requestMultiple([
@@ -35,6 +32,7 @@ function App() {
       ]);
     }
   };
+  Settings.initializeSDK();
 
   const [callRecevied, setCallReceived] = useState(false);
   const incomingCall = useRef(null);
@@ -42,9 +40,9 @@ function App() {
   useEffect(() => {
     getPermissions();
     CometChatUIKit.init({
-      appId: COMETCHAT_APPID,
-      authKey: COMETCHAT_AUTHID,
-      region: COMETCHAT_REGION,
+      appId: COMETCHAT_CONSTANTS.APP_ID,
+      authKey: COMETCHAT_CONSTANTS.AUTH_KEY,
+      region: COMETCHAT_CONSTANTS.REGION,
     })
       .then(() => {
         if (CometChat.setSource) {
@@ -58,15 +56,15 @@ function App() {
     CometChat.addCallListener(
       listnerID,
       new CometChat.CallListener({
-        onIncomingCallReceived: (call: any) => {
+        onIncomingCallReceived: call => {
           incomingCall.current = call;
           setCallReceived(true);
         },
-        onOutgoingCallRejected: (call: any) => {
+        onOutgoingCallRejected: call => {
           incomingCall.current = null;
           setCallReceived(false);
         },
-        onIncomingCallCancelled: (call: any) => {
+        onIncomingCallCancelled: call => {
           incomingCall.current = null;
           setCallReceived(false);
         },
@@ -109,12 +107,12 @@ function App() {
       <Provider store={store}>
         <UserContextProvider>
           <CometChatContextProvider theme={new CometChatTheme({})}>
-            <Navigation />
+            <StackNavigator />
           </CometChatContextProvider>
         </UserContextProvider>
       </Provider>
     </SafeAreaView>
   );
-}
+};
 
 export default App;
