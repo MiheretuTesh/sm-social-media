@@ -1,3 +1,4 @@
+/* eslint-disable no-catch-shadow */
 import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
@@ -18,6 +19,8 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
 import {signUp} from '../../store/reducers/auth/authAction';
+import style from '@cometchat/chat-uikit-react-native/src/shared/views/CometChatReceipt/style';
+import {Styles} from '@cometchat/chat-uikit-react-native/src/extensions/CollaborativeBubble/styles';
 
 const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -41,46 +44,6 @@ const SignUpScreen = ({navigation}) => {
   };
 
   const handleSignUp = useCallback(async () => {
-    // setError(null);
-    // setLoading(true);
-    // try {
-    // const userCredential = await auth().createUserWithEmailAndPassword(
-    //   email,
-    //   password,
-    // );
-    // // .then(user => {
-    // //   console.log('User account created & signed in!');
-    // // })
-    // // .catch(error => {
-    // //   if (error.code === 'auth/email-already-in-use') {
-    // //     console.log('That email address is already in use!');
-    // //   }
-    // //   if (error.code === 'auth/invalid-email') {
-    // //     console.log('That email address is invalid!');
-    // //   }
-    // //   console.error(error);
-    // // });
-    // const firebaseUser = userCredential.user;
-    // const firebaseUID = firebaseUser.uid;
-    // // Create a CometChat user
-    // const cometChatUser = new CometChat.User(firebaseUID);
-    // cometChatUser.setName(firebaseUser.displayName || 'Test User');
-    // // Create the CometChat user using Promises
-    // await CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
-    //   user => {
-    //     console.log('user created', user);
-    //   },
-    //   error => {
-    //     console.log('error', error);
-    //   },
-    // );
-    // // Dispatch success action or navigate to another screen
-    // dispatch(authSuccess(firebaseUser));
-    // } catch (error) {
-    //   setError(error.message);
-    // } finally {
-    //   setLoading(false);
-    // }
     dispatch(signUp(email, password));
   }, [dispatch, email, password]);
 
@@ -138,23 +101,9 @@ const SignUpScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          width: '100%',
-          paddingHorizontal: 30,
-        }}>
+      <View style={styles.headerContainer}>
         <TouchableOpacity
-          style={{
-            backgroundColor: '#333',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 35,
-            height: 35,
-            borderRadius: 50,
-          }}
+          style={styles.backArrow}
           onPress={() => navigation.replace('HeroScreen')}>
           <Icon
             name="arrow-back-ios"
@@ -172,19 +121,9 @@ const SignUpScreen = ({navigation}) => {
         />
       </View>
 
-      <View
-        style={{
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingBottom: 20,
-        }}>
-        <Text style={{fontSize: 22, fontWeight: 'bold', color: 'white'}}>
-          Hello!
-        </Text>
-        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
-          Welcome
-        </Text>
+      <View style={styles.welcomeContainer}>
+        <Text style={styles.Text}>Hello!</Text>
+        <Text style={styles.welcomeText}>Welcome</Text>
         {/* <Text style={{fontSize: 16, fontWeight: '500'}}>been missed!</Text> */}
       </View>
 
@@ -265,6 +204,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'black',
     paddingVertical: 50,
+  },
+  headerContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '100%',
+    paddingHorizontal: 30,
+  },
+  welcomeContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 20,
+  },
+  text: {fontSize: 22, fontWeight: 'bold', color: 'white'},
+  welcomeText: {fontSize: 16, fontWeight: '500', color: '#969BA1'},
+  backArrow: {
+    backgroundColor: '#333',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 35,
+    height: 35,
+    borderRadius: 50,
   },
   titleContainer: {
     alignItems: 'center',
