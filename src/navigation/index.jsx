@@ -79,10 +79,21 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      {
-        <Stack.Navigator
-          headerMode="none"
-          initialRouteName={isLoggedIn ? 'HomeScreen' : 'HeroScreen'}>
+      {isLoggedIn ? (
+        <Stack.Navigator headerMode="none" initialRouteName={'Home'}>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          {/* <Stack.Screen
+            name="ChatDetail"
+            component={ChatDetailScreen}
+            options={{headerShown: false}}
+          /> */}
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator headerMode="none" initialRouteName={'HeroScreen'}>
           <Stack.Screen
             name="HeroScreen"
             component={HeroScreen}
@@ -99,36 +110,36 @@ const Navigation = () => {
             options={{headerShown: false}}
           />
 
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-          <Stack.Screen name="Users" component={UsersScreen} />
-          <Stack.Screen name="Chats" component={ChatsScreen} />
-          <Stack.Screen name="ChatDetail" component={ChatDetailScreen} />
+          {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
+          {/* <Stack.Screen name="Users" component={UsersScreen} /> */}
+          {/* <Stack.Screen name="Chats" component={ChatsScreen} />
+ <Stack.Screen name="ChatDetail" component={ChatDetailScreen} /> */}
 
           {/* <Stack.Screen
-            name="Conversation"
-            component={CometChatConversationListWithMessages}
-          /> */}
+   name="Conversation"
+   component={CometChatConversationListWithMessages}
+ /> */}
           {/* <Stack.Screen
-            name="ConversationComponent"
-            component={CometChatConversationList}
-          />
-          <Stack.Screen
-            name="Group"
-            component={CometChatGroupListWithMessages}
-            // options={{headerShown: false}}
-          />
-          <Stack.Screen name="GroupComponent" component={CometChatGroupList} />
-          <Stack.Screen
-            name="Users"
-            component={CometChatUserListWithMessages}
-          />
-          <Stack.Screen name="UsersComponent" component={CometChatUserList} />
-          <Stack.Screen
-            name="CometChatMessages"
-            component={CometChatMessages}
-          /> */}
+   name="ConversationComponent"
+   component={CometChatConversationList}
+ />
+ <Stack.Screen
+   name="Group"
+   component={CometChatGroupListWithMessages}
+   // options={{headerShown: false}}
+ />
+ <Stack.Screen name="GroupComponent" component={CometChatGroupList} />
+ <Stack.Screen
+   name="Users"
+   component={CometChatUserListWithMessages}
+ />
+ <Stack.Screen name="UsersComponent" component={CometChatUserList} />
+ <Stack.Screen
+   name="CometChatMessages"
+   component={CometChatMessages}
+ /> */}
         </Stack.Navigator>
-      }
+      )}
     </NavigationContainer>
   );
 };

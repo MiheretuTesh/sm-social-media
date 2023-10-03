@@ -107,11 +107,11 @@ function App() {
         />
       )}
       <Provider store={store}>
-        <UserContextProvider>
-          <CometChatContextProvider theme={new CometChatTheme({})}>
-            <Navigation />
-          </CometChatContextProvider>
-        </UserContextProvider>
+        {/* <UserContextProvider> */}
+        <CometChatContextProvider theme={new CometChatTheme({})}>
+          <Navigation />
+        </CometChatContextProvider>
+        {/* </UserContextProvider> */}
       </Provider>
     </SafeAreaView>
   );
