@@ -7,9 +7,20 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from '@react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-element-dropdown';
-
+import {
+  countriesList,
+  CityList,
+  religionBackgroundList,
+  prayerFrequencyList,
+  lookingForList,
+  dietryPreferancesList,
+  languagesList,
+  universityList,
+  degreesList,
+  fieldOFstudyList,
+} from './Constants';
 function Section({sectionHeaderText, children}) {
   return (
     <View style={styles.section}>
@@ -19,14 +30,24 @@ function Section({sectionHeaderText, children}) {
   );
 }
 
-function DropDown({data, name, selectedValue, onValueChange}) {
+function DropDown({data, name, selectedValue, onValueChange, title}) {
   return (
-    <Dropdown
-      label={name}
-      data={data}
-      value={selectedValue}
-      onChangeText={value => onValueChange(value)}
-    />
+    <View style={styles.dropdownContainer}>
+      <Text style={styles.dropdownTitle}>{name}</Text>
+      <Dropdown
+        style={styles.dropdown}
+        inputSearchStyle={styles.inputSearchStyle}
+        label={name}
+        data={data}
+        value={selectedValue}
+        search
+        searchPlaceholder="search .."
+        // placeholder={placeholder}
+        labelField="label"
+        valueField="value"
+        onChange={value => onValueChange(value)}
+      />
+    </View>
   );
 }
 
@@ -84,20 +105,13 @@ const AdditionalInformationScreen = ({route, navigation}) => {
       <Section sectionHeaderText="Location">
         <DropDown
           name="City"
-          data={[
-            'New York',
-            'London',
-            'Dubai',
-            'Istanbul',
-            'Kuala Lumpur',
-            'More cities...',
-          ]}
+          data={CityList}
           selectedValue={city}
           onValueChange={value => setCity(value)}
         />
         <DropDown
           name="Country"
-          data={['USA', 'UK', 'UAE', 'Turkey', 'Malaysia', 'More countries...']}
+          data={countriesList}
           selectedValue={country}
           onValueChange={value => setCountry(value)}
         />
@@ -105,32 +119,19 @@ const AdditionalInformationScreen = ({route, navigation}) => {
       <Section sectionHeaderText="Education">
         <DropDown
           name="University"
-          data={[
-            'Harvard University',
-            'Oxford University',
-            'University of Toronto',
-            'Cairo University',
-            'More universities...',
-          ]}
+          data={universityList}
           selectedValue={university}
           onValueChange={value => setUniversity(value)}
         />
         <DropDown
           name="Degree"
-          data={["Bachelor's", "Master's", 'PhD', 'Diploma', "Associate's"]}
+          data={degreesList}
           selectedValue={degree}
           onValueChange={value => setDegree(value)}
         />
         <DropDown
           name="Field of Study"
-          data={[
-            'Computer Science',
-            'Business Administration',
-            'Medicine',
-            'Islamic Studies',
-            'Engineering',
-            'More fields...',
-          ]}
+          data={fieldOFstudyList}
           selectedValue={fieldOfStudy}
           onValueChange={value => setFieldOfStudy(value)}
         />
@@ -216,19 +217,19 @@ const AdditionalInformationScreen = ({route, navigation}) => {
       <Section sectionHeaderText="Religious Background">
         <DropDown
           name="Religion Background"
-          data={['Sunni', 'Shia', 'Sufi', 'Other']}
+          data={religionBackgroundList}
           selectedValue={religionBackground}
           onValueChange={value => setReligionBackground(value)}
         />
         <DropDown
           name="Prayer Frequency"
-          data={['Regularly', 'Occasionally', 'Rarely']}
+          data={prayerFrequencyList}
           selectedValue={prayerFrequency}
           onValueChange={value => setPrayerFrequency(value)}
         />
         <DropDown
           name="Dietary Preferences"
-          data={['Halal', 'Vegetarian', 'Vegan', 'Other']}
+          data={dietryPreferancesList}
           selectedValue={dietaryPreferences}
           onValueChange={value => setDietaryPreferences(value)}
         />
@@ -237,14 +238,7 @@ const AdditionalInformationScreen = ({route, navigation}) => {
       <Section sectionHeaderText="Languages Spoken">
         <DropDown
           name="Languages"
-          data={[
-            'English',
-            'Arabic',
-            'Urdu',
-            'French',
-            'Spanish',
-            'More languages...',
-          ]}
+          data={languagesList}
           selectedValue={languages}
           onValueChange={value => setLanguages(value)}
         />
@@ -253,7 +247,7 @@ const AdditionalInformationScreen = ({route, navigation}) => {
       <Section>
         <DropDown
           name="Looking To"
-          data={['Make Friends', 'Network', 'Find A Partner']}
+          data={lookingForList}
           selectedValue={lookingTO}
           onValueChange={value => setLookingTo(value)}
         />
@@ -290,12 +284,38 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
   },
+  dropdownContainer: {
+    marginTop: 16,
+  },
+  dropdown: {
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  dropdownTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   input: {
     borderWidth: 1,
     borderColor: '#969BA1',
     padding: 10,
     marginBottom: 10,
     borderRadius: 12,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
 

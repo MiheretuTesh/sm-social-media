@@ -17,7 +17,7 @@ import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
-
+import AdditionalInformationScreen from '../../screens/SignUp/AdditionalInformationScreen';
 export const Home = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,9 @@ export const Home = ({navigation}: any) => {
   React.useEffect(() => {
     CometChatUIKit.getLoggedInUser()
       .then(user => {
-        if (user != null) navigation.navigate('Home');
+        if (user != null) {
+          navigation.navigate('Home');
+        }
       })
       .catch(e => console.log('Unable to get loggedInUser', e));
   }, []);
@@ -53,8 +55,10 @@ export const Home = ({navigation}: any) => {
     userRequest
       .fetchNext()
       .then(res => {
-        console.log('setting user', res[0]['uid']);
-        if (res.length > 0) setUser?.(res[0]);
+        console.log('setting user', res[0].uid);
+        if (res.length > 0) {
+          setUser?.(res[0]);
+        }
       })
       .catch(rej => {
         console.log('no user found');
@@ -62,8 +66,10 @@ export const Home = ({navigation}: any) => {
     groupRequest
       .fetchNext()
       .then(res => {
-        console.log('setting group', res[0]['guid']);
-        if (res.length > 0) setGroup?.(res[0]);
+        console.log('setting group', res[0].guid);
+        if (res.length > 0) {
+          setGroup?.(res[0]);
+        }
       })
       .catch(rej => {
         console.log('no group found');
@@ -143,7 +149,7 @@ export const Home = ({navigation}: any) => {
         />
         <Tab.Screen
           name="Profile"
-          component={CometChatGroupsWithMessages}
+          component={AdditionalInformationScreen}
           options={{
             tabBarIcon: ({color, size}) => (
               <Feather name="more-horizontal" color={color} size={40} />
