@@ -14,7 +14,6 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {CometChat} from '@cometchat-pro/react-native-chat';
-re;
 import {COMETCHAT_AUTHID} from '@env';
 import {useDispatch, useSelector} from 'react-redux';
 import ChatsScreen from '../../../screens/Chats';

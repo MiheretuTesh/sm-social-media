@@ -4,11 +4,11 @@ import {
   CometChatUsersWithMessages,
   localize,
 } from '@cometchat/chat-uikit-react-native';
-
+import AdditionalInformationScreen from '../SignUp/AdditionalInformationScreen';
 function UsersScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <CometChatUsersWithMessages />
+      <AdditionalInformationScreen />
     </View>
   );
 }
