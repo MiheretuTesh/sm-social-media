@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Login, SignIn, SignUp} from './components/login';
 import {Home} from './components/home/Home';
 import {ConversationComponentList} from './components/conversation';
 import {
@@ -61,6 +60,8 @@ import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
+import AdditionalInformationScreen from './screens/SignUp/AdditionalInformationScreen';
+import ProfileCompletionScreen from './screens/SignUp/ProfileCompletionScreen';
 
 function StackNavigator(props: any) {
   const Stack = createStackNavigator();

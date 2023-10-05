@@ -7,7 +7,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from ' @react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-element-dropdown';
 
 function Section({sectionHeaderText, children}) {

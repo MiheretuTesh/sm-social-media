@@ -11,14 +11,16 @@ import Feather from 'react-native-vector-icons/Feather'; // Import the icons you
 import {
   CometChatConversationsWithMessages,
   CometChatUsersWithMessages,
+  CometChatDetails,
 } from '@cometchat/chat-uikit-react-native';
 import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
 import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
+import {Details} from '../users/Details';
 
-export const Home = ({navigation}: any) => {
+export const Home = ({route, navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
   const {setGroup, setUser, setCall} = useContext(UserContext);
@@ -143,7 +145,7 @@ export const Home = ({navigation}: any) => {
         />
         <Tab.Screen
           name="Profile"
-          component={CometChatGroupsWithMessages}
+          component={Details}
           options={{
             tabBarIcon: ({color, size}) => (
               <Feather name="more-horizontal" color={color} size={40} />

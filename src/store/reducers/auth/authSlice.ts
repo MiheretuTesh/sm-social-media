@@ -7,6 +7,8 @@ const authSlice = createSlice({
     isLoggedIn: false,
     error: null,
     loading: false,
+    socialMediaLoading: false,
+
   },
   reducers: {
     setLoading: (state, action) => {
@@ -16,18 +18,25 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    authStartSocailLink: state => {
+      state.socialMediaLoading = true;
+      state.error = null;
+    },
     authFail: (state, action) => {
       state.loading = false;
+      state.socialMediaLoading = false;
       state.error = action.payload;
     },
     authSuccess: (state, action) => {
       state.loading = false;
+      state.socialMediaLoading = false;
       state.isLoggedIn = true;
       state.user = action.payload;
       state.error = null;
     },
     logoutSuccess: state => {
       state.loading = false;
+      state.socialMediaLoading = false;
       state.isLoggedIn = false;
       state.user = {};
       state.error = null;
@@ -35,7 +44,7 @@ const authSlice = createSlice({
   },
 });
 
-export const {setLoading, authStart, authFail, authSuccess, logoutSuccess} =
+export const {setLoading, authStart, authStartSocailLink, authFail, authSuccess, logoutSuccess} =
   authSlice.actions;
 
 export default authSlice.reducer;
