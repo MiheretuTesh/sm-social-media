@@ -4,31 +4,23 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Dimensions,
   Image,
   ActivityIndicator,
 } from 'react-native';
 import 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
-import auth from '@react-native-firebase/auth';
-import {CometChat} from '@cometchat/chat-sdk-react-native';
-import {COMETCHAT_AUTHID} from '@env';
-import {loginUser} from '../../store/reducers/auth/authAction';
+
 import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-import {FIREBASE_WEB_CLIENTID} from '@env';
+  loginUser,
+  loginUsingGoogle,
+  loginUsingFacebook,
+} from '../../store/reducers/auth/authAction';
 import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
-import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
-
-const windowWidth = Dimensions.get('window').width;
+import {styles} from './style.jsx';
 
 const SingInScreen = ({navigation}) => {
   const {theme} = useContext(CometChatContext);
@@ -37,154 +29,28 @@ const SingInScreen = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loadingGoogle, setLoadingGoogle] = useState(false);
-
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId: FIREBASE_WEB_CLIENTID,
-      prompt: 'select_account',
-    });
-  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
+  const {user, isLoggedIn, error, loading, socialMediaLoading} = useSelector(
+    state => state.auth,
+  );
 
   useEffect(() => {
     CometChatUIKit.getLoggedInUser()
       .then(user => {
-        if (user != null) navigation.navigate('Home');
+        if (user != null) navigation.replace('Home');
       })
       .catch(e => console.log('Unable to get loggedInUser', e));
   }, []);
 
   const handleGoogleLogin = async () => {
-    try {
-      setLoadingGoogle(true);
-      // Sign in with Google
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-
-      // Get user details from Google
-      const {idToken} = userInfo;
-
-      // Sign in to Firebase with Google credentials
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth().signInWithCredential(googleCredential);
-
-      // Now, log in the user to CometChat
-      const firebaseUser = auth().currentUser;
-
-      if (firebaseUser) {
-        const firebaseUID = firebaseUser.uid;
-        console.log(firebaseUID);
-
-        CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
-          loggedInUser => {
-            console.log('Logged in to CometChat:', loggedInUser);
-            navigation.replace('Home');
-            setLoadingGoogle(false);
-
-            // You can navigate to the next screen or perform any other actions upon successful login.
-          },
-          error => {
-            setLoadingGoogle(false);
-
-            console.error('Error logging in to CometChat:', error);
-
-            // Handle CometChat login errors appropriately
-          },
-        );
-        CometChatUIKit.getLoggedInUser()
-          .then(user => {
-            if (user != null) navigation.navigate('Home');
-          })
-          .catch(e => console.log('Unable to get loggedInUser', e));
-      } else {
-        console.error('Firebase user is null');
-        // Handle the case where the Firebase user is null.
-      }
-    } catch (error) {
-      setLoadingGoogle(false);
-
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // Handle the case where the user cancels the Google Sign-In process.
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // Handle the case where Google Sign-In is already in progress.
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // Handle the case where Play Services are not available on the device.
-      } else {
-        setLoadingGoogle(false);
-
-        console.error('Google Sign-In error:', error);
-
-        // Handle other Google Sign-In errors appropriately
-      }
-    }
-  };
-
-  const handleEmailLogin = () => {
-    if (email && password) {
-      auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          // Signed in
-          const user = userCredential.user;
-          console.log('User signed in:', user.email);
-
-          // Now, log in the user to CometChat
-          const firebaseUID = user.uid;
-          const cometChatUser = new CometChat.User(firebaseUID);
-          cometChatUser.setName(user.displayName || ''); // Set the name as needed
-          navigation.replace('Home');
-
-          // Log in the user to CometChat
-          CometChat.login(cometChatUser, COMETCHAT_AUTHID).then(
-            loggedInUser => {
-              console.log('Logged in to CometChat:', loggedInUser);
-            },
-            error => {
-              console.error('Error logging in to CometChat:', error);
-
-              // Handle CometChat login errors appropriately
-            },
-          );
-        })
-        .catch(error => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error('Email login error:', errorMessage);
-
-          // Handle Firebase email login errors appropriately
-        });
-    } else {
-      // Handle the case where email or password is missing.
-      // You can display an error message to the user.
-    }
+    dispatch(loginUsingGoogle());
   };
 
   const handleLogin = useCallback(async () => {
-    // setError(null);
-    // setLoading(true);
-    // try {
-    //   const userCredential = await auth().signInWithEmailAndPassword(
-    //     email,
-    //     password,
-    //   );
-    //   const firebaseUser = userCredential.user;
-    //   const firebaseUID = firebaseUser.uid;
-    //   console.log(firebaseUser, firebaseUID, 'Firebase Hello');
-    // } catch (error) {
-    //   console.log(error);
-    //   if (error.message) setError('Email or Password is incorrect');
-    // } finally {
-    //   setLoading(false);
-    // }
     dispatch(loginUser(email, password));
   }, [dispatch, email, password]);
 
@@ -194,11 +60,15 @@ const SingInScreen = ({navigation}) => {
 
       CometChatUIKit.getLoggedInUser()
         .then(user => {
-          if (user != null) navigation.navigate('Home');
+          if (user != null) navigation.replace('Home');
         })
         .catch(e => console.log('Unable to get loggedInUser', e));
     }
   }, [isLoggedIn]);
+
+  const handleFacebookLogin = () => {
+    dispatch(loginUsingFacebook());
+  };
 
   return (
     <View style={styles.container}>
@@ -302,7 +172,7 @@ const SingInScreen = ({navigation}) => {
         </TouchableOpacity>
       )}
 
-      {loadingGoogle ? (
+      {socialMediaLoading ? (
         <View style={styles.loadingOverlay}>
           <ActivityIndicator size="large" color="#E51D43" />
         </View>
@@ -311,7 +181,7 @@ const SingInScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.googleLoginButton}
         onPress={handleGoogleLogin}
-        disabled={loadingGoogle}>
+        disabled={socialMediaLoading}>
         <Image
           source={require('../../assets/icons/Google_Icons.webp')}
           style={{width: 30, height: 30}}
@@ -319,20 +189,16 @@ const SingInScreen = ({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
-      <LoginButton
-        onLoginFinished={(error, result) => {
-          if (error) {
-            console.log('login has error: ' + result.error);
-          } else if (result.isCancelled) {
-            console.log('login is cancelled.');
-          } else {
-            AccessToken.getCurrentAccessToken().then(data => {
-              console.log(data.accessToken.toString());
-            });
-          }
-        }}
-        onLogoutFinished={() => console.log('logout.')}
-      />
+      <TouchableOpacity
+        style={styles.googleLoginButton}
+        onPress={handleFacebookLogin}
+        disabled={socialMediaLoading}>
+        <Image
+          source={require('../../assets/icons/facebook-icon.png')}
+          style={{width: 30, height: 30}}
+        />
+        <Text style={styles.googleButtonText}>Continue with Facebook</Text>
+      </TouchableOpacity>
 
       {error && (
         <Text style={styles.errorText}>
@@ -352,135 +218,62 @@ const SingInScreen = ({navigation}) => {
 
 export default SingInScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'black',
-    paddingVertical: 50,
-  },
-  titleContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  image: {
-    width: 130,
-    height: 70,
-  },
-  inputContainer: {
-    width: '90%',
-    marginBottom: 20,
-  },
-  loadingOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#969BA1',
-    padding: 10,
-    marginBottom: 10,
-    color: 'white',
-    borderRadius: 12,
-  },
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#969BA1',
-    borderRadius: 12,
-  },
-  passwordInput: {
-    flex: 1,
-    padding: 10,
-    color: 'white',
-  },
-  forgotPasswordLink: {
-    alignSelf: 'flex-end',
-    marginTop: 10,
-    color: '#E51D43',
-  },
-  borderActive: {
-    borderColor: 'blue',
-  },
-  borderInactive: {
-    borderColor: 'black',
-  },
-  errorText: {
-    paddingVertical: 20,
-    color: '#E51D43',
-  },
-  loginButton: {
-    backgroundColor: '#E51D43',
-    padding: 10,
-    borderRadius: 5,
-    width: '90%',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+const dataFromEmail = {
+  displayName: null,
+  email: 'miheretutd@gmail.com',
+  emailVerified: false,
+  isAnonymous: false,
+  metadata: {creationTime: 1696281416406, lastSignInTime: 1696481398269},
+  multiFactor: {enrolledFactors: [Array]},
+  phoneNumber: null,
+  photoURL: null,
+  providerData: [[Object]],
+  providerId: 'firebase',
+  tenantId: null,
+  uid: 'OBtBUINubcbI5YLJah4LIosLrpM2',
+};
 
-  forgotPasswordLink: {
-    alignSelf: 'flex-end',
-    marginTop: 10,
-    color: '#E51D43',
+const dataFromGmail = {
+  displayName: 'Miheretu Degebassa',
+  email: 'se.miheretu.degebassa@gmail.com',
+  emailVerified: true,
+  isAnonymous: false,
+  metadata: {creationTime: 1695647914939, lastSignInTime: 1696453207305},
+  multiFactor: {enrolledFactors: [Array]},
+  phoneNumber: null,
+  photoURL:
+    'https://lh3.googleusercontent.com/a/ACg8ocJN7RIL1QAAfknH71EpX07lIbBreQ2WebPuq3x2cuTf=s96-c',
+  providerData: [[Object]],
+  providerId: 'firebase',
+  tenantId: null,
+  uid: 'vsBfWJn4otU7BG7iCNDf6XiSRGa2',
+};
+
+const facebookData = {
+  additionalUserInfo: {
+    isNewUser: false,
+    profile: {
+      email: 'mihiretutd@gmail.com',
+      first_name: 'Mihiretu',
+      id: '2890730231069010',
+      last_name: 'Teshale',
+      name: 'Mihiretu Teshale',
+      picture: [Object],
+    },
+    providerId: 'facebook.com',
   },
-  signUpLink: {
-    marginTop: 20,
-    flexDirection: 'row',
+  user: {
+    displayName: 'Mihiretu Teshale',
+    email: 'mihiretutd@gmail.com',
+    emailVerified: false,
+    isAnonymous: false,
+    metadata: [Object],
+    multiFactor: [Object],
+    phoneNumber: null,
+    photoURL: 'https://graph.facebook.com/2890730231069010/picture',
+    providerData: [Array],
+    providerId: 'firebase',
+    tenantId: null,
+    uid: 'AzQ8hLFGdugiq6PjIDr0nZXqpGu2',
   },
-  linkText: {
-    color: '#E51D43',
-    fontSize: 12,
-  },
-  orContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 20,
-    width: '80%',
-  },
-  horizontalLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: 'white',
-  },
-  orText: {
-    paddingHorizontal: 10,
-    color: 'white',
-  },
-  googleLoginButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#333',
-    padding: 10,
-    borderRadius: 12,
-    width: '90%',
-    marginTop: 10,
-  },
-  googleIcon: {
-    marginRight: 10,
-  },
-  googleButtonText: {
-    color: 'white',
-    fontWeight: '500',
-  },
-  signUpLink: {
-    marginTop: 20,
-    flexDirection: 'row',
-  },
-  linkText: {
-    color: '#E51D43',
-    fontSize: 12,
-  },
-});
+};
