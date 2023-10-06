@@ -1,14 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {
-  CometChatUsersWithMessages,
-  localize,
-} from '@cometchat/chat-uikit-react-native';
-import AdditionalInformationScreen from '../SignUp/AdditionalInformationScreen';
+import {View, Text, Button, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {CometChatUsers} from '@cometchat/chat-uikit-react-native';
+import {logout} from '../../store/reducers/auth/authAction';
 function UsersScreen({navigation}) {
+  const dispatch = useDispatch();
   return (
-    <View style={styles.container}>
-      <AdditionalInformationScreen />
+    <View>
+      <Button onPress={() => dispatch(logout())} />
     </View>
   );
 }

@@ -175,9 +175,13 @@ function AdditionalInformationScreen({route, navigation}) {
       // Add or update the user profile document in Firestore
       await userProfilesCollection
         .doc(userId)
-        .set(userProfileData, {merge: true});
-
-      console.log('User profile data saved in Firestore');
+        .set(userProfileData, {merge: true})
+        .then(() => {
+          console.log('User profile data saved in Firestore');
+        })
+        .catch(error => {
+          console.error('Error saving user profile data:', error);
+        });
 
       // Navigate to the next screen or perform any other action
       setLoading(false);
@@ -197,13 +201,13 @@ function AdditionalInformationScreen({route, navigation}) {
           name="City"
           data={CityList}
           selectedValue={city}
-          onValueChange={value => setCity(value)}
+          onValueChange={event => setCity(event.value)}
         />
         <DropDown
           name="Country"
           data={countriesList}
           selectedValue={country}
-          onValueChange={value => setCountry(value)}
+          onValueChange={event => setCountry(event.value)}
         />
       </Section>
       <Section sectionHeaderText="Education">
@@ -223,7 +227,7 @@ function AdditionalInformationScreen({route, navigation}) {
           name="Field of Study"
           data={fieldOFstudyList}
           selectedValue={fieldOfStudy}
-          onValueChange={value => setFieldOfStudy(value)}
+          onValueChange={event => setFieldOfStudy(event.value)}
         />
       </Section>
 
@@ -344,19 +348,19 @@ function AdditionalInformationScreen({route, navigation}) {
           name="Religion Background"
           data={religionBackgroundList}
           selectedValue={religionBackground}
-          onValueChange={value => setReligionBackground(value)}
+          onValueChange={event => setReligionBackground(event.value)}
         />
         <DropDown
           name="Prayer Frequency"
           data={prayerFrequencyList}
           selectedValue={prayerFrequency}
-          onValueChange={value => setPrayerFrequency(value)}
+          onValueChange={event => setPrayerFrequency(event.value)}
         />
         <DropDown
           name="Dietary Preferences"
           data={dietryPreferancesList}
           selectedValue={dietaryPreferences}
-          onValueChange={value => setDietaryPreferences(value)}
+          onValueChange={event => setDietaryPreferences(event.value)}
         />
       </Section>
 
@@ -365,7 +369,7 @@ function AdditionalInformationScreen({route, navigation}) {
           name="Languages"
           data={languagesList}
           selectedValue={languages}
-          onValueChange={value => setLanguages(value)}
+          onValueChange={event => setLanguages(event.value)}
         />
       </Section>
 
@@ -374,7 +378,7 @@ function AdditionalInformationScreen({route, navigation}) {
           name="Looking To"
           data={lookingForList}
           selectedValue={lookingTO}
-          onValueChange={value => setLookingTo(value)}
+          onValueChange={event => setLookingTo(event.value)}
         />
       </Section>
       <View style={styles.buttonsContainer}>
