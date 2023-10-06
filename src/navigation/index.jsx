@@ -23,6 +23,8 @@ import SignUpScreen from '../screens/SignUp';
 import HeroScreen from '../screens/Hero';
 import {useDispatch, useSelector} from 'react-redux';
 import {authCheckState} from '../store/reducers/auth/authAction';
+import AdditionalInformationScreen from '../screens/SignUp/AdditionalInformationScreen';
+import ProfileCompletionScreen from '../screens/SignUp/ProfileCompletionScreen';
 
 const Stack = createStackNavigator();
 
@@ -110,7 +112,16 @@ const Navigation = props => {
           <Stack.Screen name="Users" component={UsersScreen} />
           <Stack.Screen name="Chats" component={ChatsScreen} />
           <Stack.Screen name="ChatDetail" component={ChatDetailScreen} />
-
+          <Stack.Screen
+            name="profileCompletionScreen"
+            component={ProfileCompletionScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AdditionalInformationScreen"
+            component={AdditionalInformationScreen}
+            options={{headerShown: false}}
+          />
           {/* <Stack.Screen
             name="Conversation"
             component={CometChatConversationListWithMessages}

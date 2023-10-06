@@ -8,7 +8,6 @@ const authSlice = createSlice({
     error: null,
     loading: false,
     socialMediaLoading: false,
-
   },
   reducers: {
     setLoading: (state, action) => {
@@ -44,7 +43,13 @@ const authSlice = createSlice({
   },
 });
 
-export const {setLoading, authStart, authStartSocailLink, authFail, authSuccess, logoutSuccess} =
-  authSlice.actions;
+export const {
+  setLoading,
+  authStart,
+  authStartSocailLink,
+  authFail,
+  authSuccess,
+  logoutSuccess,
+} = authSlice.actions;
 
 export default authSlice.reducer;

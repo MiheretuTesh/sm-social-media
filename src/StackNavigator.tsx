@@ -75,6 +75,16 @@ function StackNavigator(props: any) {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
+          name="ProfileCompletionScreen"
+          component={ProfileCompletionScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AdditionalInformationScreen"
+          component={AdditionalInformationScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="ConversationsModule"
           component={ConversationComponentList}
         />

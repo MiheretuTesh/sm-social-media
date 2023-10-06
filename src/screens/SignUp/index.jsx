@@ -13,10 +13,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
+import {authStartSocailLink} from '../../store/reducers/auth/authSlice';
 import {signUp, signUpUsingGoogle} from '../../store/reducers/auth/authAction';
 import {styles} from './style';
 import {
@@ -35,11 +39,13 @@ const SignUpScreen = ({navigation}) => {
   );
 
   useEffect(() => {
-    CometChatUIKit.getLoggedInUser()
-      .then(user => {
-        if (user != null) navigation.replace('Home');
-      })
-      .catch(e => console.log('Unable to get loggedInUser', e));
+    // CometChatUIKit.getLoggedInUser()
+    //   .then(user => {
+    //     if (user != null) {
+    //       navigation.replace('Home');
+    //     }
+    //   })
+    //   .catch(e => console.log('Unable to get loggedInUser', e));
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -51,7 +57,87 @@ const SignUpScreen = ({navigation}) => {
   }, [dispatch, email, password]);
 
   const handleGoogleSignIn = async () => {
-    dispatch(signUpUsingGoogle());
+    // dispatch(signUpUsingGoogle());
+    try {
+      dispatch(authStartSocailLink());
+
+      GoogleSignin.configure({
+        webClientId: FIREBASE_WEB_CLIENTID,
+        prompt: 'select_account',
+        scopes: [
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'https://www.googleapis.com/auth/user.birthday.read',
+        ],
+        //iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+      });
+
+      await GoogleSignin.hasPlayServices();
+
+      const userInfo = await GoogleSignin.signIn();
+      const {idToken} = userInfo;
+
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      await auth().signInWithCredential(googleCredential);
+
+      const firebaseUser = auth().currentUser;
+
+      if (firebaseUser) {
+        const cometChatUser = new CometChat.User(firebaseUser.uid);
+        cometChatUser.setName(userInfo.user.name);
+
+        await CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
+          async createdUser => {
+            CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(
+              user => {
+                // Navigate to the CometChat UI
+              },
+            );
+            // await CometChatUIKit.login(firebaseUser.uid, COMETCHAT_AUTHID).then(
+            //   user => {
+            //     console.log('Login Successful:', {user});
+            //   },
+            //   error => {
+            //     console.log('Login failed with exception:', {error});
+            //   },
+            // );
+          },
+          error => {
+            // setLoadingGoogle(false);
+            dispatch(authFail());
+            console.error('Error creating CometChat user:', error);
+          },
+        );
+      } else {
+        dispatch(authFail());
+        console.error('Firebase user is null');
+      }
+      console.log(firebaseUser);
+      const responseData = {
+        name: firebaseUser.displayName,
+        email: firebaseUser.email,
+        profile: firebaseUser.photoURL,
+        //  birthdate: firebaseUser.user.birthday,
+        uid: firebaseUser.uid,
+      };
+      //  await createUserInFirestore(firebaseUser.uid, responseData);
+
+      navigation.navigate('ProfileCompletionScreen', {
+        name: firebaseUser.displayName,
+        email: firebaseUser.email,
+        profile: firebaseUser.photoURL,
+        //  birthdate: firebaseUser.user.birthday,
+        uid: firebaseUser.uid,
+      });
+      //dispatch(authSuccess(responseData));
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      } else {
+        console.error('Google Sign-In error:', error);
+      }
+      dispatch(authFail('Error signing up with Firebase'));
+    }
   };
 
   useEffect(() => {
@@ -60,7 +146,9 @@ const SignUpScreen = ({navigation}) => {
 
       CometChatUIKit.getLoggedInUser()
         .then(user => {
-          if (user != null) navigation.replace('Home');
+          if (user != null) {
+            navigation.replace('Home');
+          }
         })
         .catch(e => console.log('Unable to get loggedInUser', e));
     }

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, {useState} from 'react';
 import {
   View,
@@ -6,10 +7,15 @@ import {
   Button,
   Text,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
-
-import DatePicker from '@react-native-community/datetimepicker';
+import {useDispatch} from 'react-redux';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-element-dropdown';
+import {logout} from '../../store/reducers/auth/authAction';
+import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
+import firestore from '@react-native-firebase/firestore';
 import {
   countriesList,
   CityList,
@@ -22,6 +28,7 @@ import {
   degreesList,
   fieldOFstudyList,
 } from './Constants';
+import {setLoading} from '../../store/reducers/auth/authSlice';
 function Section({sectionHeaderText, children}) {
   return (
     <View style={styles.section}>
@@ -52,10 +59,15 @@ function DropDown({data, name, selectedValue, onValueChange, title}) {
   );
 }
 
-const AdditionalInformationScreen = ({route, navigation}) => {
+function AdditionalInformationScreen({route, navigation}) {
   // Extract user information from props
-  // const {fullName, email, birthDate, password, profilePicture} = route.params;
+  const {uid} = route.params;
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
+  // const {fullName, email, birthDate, password, profilePicture} = route.params;
+  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   // additional info
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
@@ -66,8 +78,8 @@ const AdditionalInformationScreen = ({route, navigation}) => {
   // work exprience
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
-  const [jobStartDate, setJobStartDate] = useState('');
-  const [jobEndDate, setJobEndDate] = useState('');
+  const [jobStartDate, setJobStartDate] = useState(new Date());
+  const [jobEndDate, setJobEndDate] = useState(new Date());
 
   // Skills and Endorsments
   const [skills, setSkills] = useState('');
@@ -95,13 +107,90 @@ const AdditionalInformationScreen = ({route, navigation}) => {
   //  Looking to?
   const [lookingTO, setLookingTo] = useState('');
 
-  const handleSubmit = () => {
-    // Handle form submission with updated data
-    // You can send this data to your backend or save it locally
+  const handleStartDateChange = (event, selectedDate) => {
+    if (Platform.OS === 'android') {
+      setShowStartDatePicker(false);
+    }
+    if (event.type === 'dismissed') {
+      // Handle dismissal if needed
+      return;
+    }
+
+    if (event.type === 'neutralButtonPressed') {
+      setJobStartDate(new Date(0));
+    } else {
+      setJobStartDate(selectedDate);
+    }
+  };
+
+  const handleEndDateChange = (event, selectedDate) => {
+    if (Platform.OS === 'android') {
+      setShowEndDatePicker(false);
+    }
+    if (event.type === 'dismissed') {
+      // Handle dismissal if needed
+      return;
+    }
+
+    if (event.type === 'neutralButtonPressed') {
+      setJobEndDate(new Date(0));
+    } else {
+      setJobEndDate(selectedDate);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    try {
+      //const user = await CometChatUIKit.getLoggedInUser(); // Replace with the actual user's UID (You should get this from Firebase Authentication)
+      const userId = uid;
+      console.log('userid', userId);
+      const userProfileData = {
+        city,
+        country,
+        university,
+        degree,
+        fieldOfStudy,
+        jobTitle,
+        companyName,
+        jobStartDate,
+        jobEndDate,
+        skills,
+        addEndorsement,
+        languages,
+        aboutMe,
+        phoneNumber,
+        additionalEmail,
+        organizations,
+        religionBackground,
+        prayerFrequency,
+        dietaryPreferences,
+        lookingTO,
+      };
+      console.log(userProfileData);
+
+      // Reference to the Firestore collection for user profiles
+      const userProfilesCollection = firestore().collection('user-profiles');
+
+      // Add or update the user profile document in Firestore
+      await userProfilesCollection
+        .doc(userId)
+        .set(userProfileData, {merge: true});
+
+      console.log('User profile data saved in Firestore');
+
+      // Navigate to the next screen or perform any other action
+      setLoading(false);
+      navigation.navigate('Home');
+    } catch (error) {
+      setLoading(false);
+      console.error('Error saving user profile data:', error);
+    }
   };
 
   return (
     <ScrollView style={styles.container}>
+      {isLoading && <ActivityIndicator size={'large'} color="#E51D43" />}
       <Text style={styles.headerText}>Complete Your Profile</Text>
       <Section sectionHeaderText="Location">
         <DropDown
@@ -122,13 +211,13 @@ const AdditionalInformationScreen = ({route, navigation}) => {
           name="University"
           data={universityList}
           selectedValue={university}
-          onValueChange={value => setUniversity(value)}
+          onValueChange={event => setUniversity(event.value)}
         />
         <DropDown
           name="Degree"
           data={degreesList}
           selectedValue={degree}
-          onValueChange={value => setDegree(value)}
+          onValueChange={event => setDegree(event.value)}
         />
         <DropDown
           name="Field of Study"
@@ -151,20 +240,55 @@ const AdditionalInformationScreen = ({route, navigation}) => {
           onChangeText={text => setCompanyName(text)}
           style={styles.input}
         />
-        <Text>Start Date:</Text>
-        <DatePicker
-          date={jobStartDate}
-          mode="date"
-          format="YYYY-MM-DD"
-          onDateChange={date => setJobStartDate(date)}
-        />
-        <Text>End Date:</Text>
-        <DatePicker
-          date={jobEndDate}
-          mode="date"
-          format="YYYY-MM-DD"
-          onDateChange={date => setJobEndDate(date)}
-        />
+        <View style={styles.datePickerContainer}>
+          <View>
+            <Text>Start Date: </Text>
+            <TouchableOpacity
+              style={styles.date}
+              onPress={() => setShowStartDatePicker(true)}>
+              <Text>
+                {' '}
+                {jobStartDate.toLocaleDateString('en-US', {
+                  year: '2-digit',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}
+              </Text>
+            </TouchableOpacity>
+            {showStartDatePicker && (
+              <DateTimePicker
+                testID="startDatePicker"
+                value={jobStartDate}
+                mode="date"
+                display="spinner"
+                onChange={handleStartDateChange}
+              />
+            )}
+          </View>
+          <View>
+            <Text>End Date: </Text>
+            <TouchableOpacity
+              style={styles.date}
+              onPress={() => setShowEndDatePicker(true)}>
+              <Text>
+                {jobEndDate.toLocaleDateString('en-US', {
+                  year: '2-digit',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}
+              </Text>
+            </TouchableOpacity>
+            {showEndDatePicker && (
+              <DateTimePicker
+                testID="endDatePicker"
+                value={jobEndDate}
+                mode="date"
+                display="spinner"
+                onChange={handleEndDateChange}
+              />
+            )}
+          </View>
+        </View>
       </Section>
 
       <Section sectionHeaderText="Skills and Endorsements">
@@ -253,17 +377,20 @@ const AdditionalInformationScreen = ({route, navigation}) => {
           onValueChange={value => setLookingTo(value)}
         />
       </Section>
-
-      <Button title="Submit" onPress={handleSubmit} />
-      <Button
-        title="Skip"
-        onPress={() => {
-          // Handle skip action
-        }}
-      />
+      <View style={styles.buttonsContainer}>
+        <Button style={styles.button} title="Submit" onPress={handleSubmit} />
+        <Button
+          style={styles.button}
+          title="Skip"
+          onPress={() => {
+            dispatch(logout());
+            // navigation.navigate('Home');
+          }}
+        />
+      </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -317,6 +444,29 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+  },
+  datePickerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  date: {
+    borderWidth: 1,
+    borderColor: '#969BA1',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 12,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    marginBottom: 10,
+  },
+  button: {
+    width: 30,
+    borderRadius: 10,
+    padding: 8,
   },
 });
 
