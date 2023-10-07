@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  StyleSheet,
   Image,
   ActivityIndicator,
 } from 'react-native';
@@ -13,39 +14,29 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {authSuccess, authFail} from '../../store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
-import {authStartSocailLink} from '../../store/reducers/auth/authSlice';
-import {signUp, signUpUsingGoogle} from '../../store/reducers/auth/authAction';
-import {styles} from './style';
-import {
-  CometChatContext,
-  CometChatUIKit,
-} from '@cometchat/chat-uikit-react-native';
+import {signUp} from '../../store/reducers/auth/authAction';
+import style from '@cometchat/chat-uikit-react-native/src/shared/views/CometChatReceipt/style';
+import {Styles} from '@cometchat/chat-uikit-react-native/src/extensions/CollaborativeBubble/styles';
 
 const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
-  const {user, isLoggedIn, error, loading, socialMediaLoading} = useSelector(
-    state => state.auth,
-  );
+  const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
 
   useEffect(() => {
-    // CometChatUIKit.getLoggedInUser()
-    //   .then(user => {
-    //     if (user != null) {
-    //       navigation.replace('Home');
-    //     }
-    //   })
-    //   .catch(e => console.log('Unable to get loggedInUser', e));
+    GoogleSignin.configure({
+      webClientId: FIREBASE_WEB_CLIENTID,
+    });
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -57,102 +48,56 @@ const SignUpScreen = ({navigation}) => {
   }, [dispatch, email, password]);
 
   const handleGoogleSignIn = async () => {
-    // dispatch(signUpUsingGoogle());
     try {
-      dispatch(authStartSocailLink());
-
-      GoogleSignin.configure({
-        webClientId: FIREBASE_WEB_CLIENTID,
-        prompt: 'select_account',
-        scopes: [
-          'https://www.googleapis.com/auth/userinfo.profile',
-          'https://www.googleapis.com/auth/user.birthday.read',
-        ],
-        //iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-      });
-
+      setLoadingGoogle(true);
       await GoogleSignin.hasPlayServices();
-
       const userInfo = await GoogleSignin.signIn();
-      const {idToken} = userInfo;
 
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      // Sign in to Firebase with Google credentials
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        userInfo.idToken,
+      );
       await auth().signInWithCredential(googleCredential);
 
+      // Register the Firebase user with CometChat using their UID
       const firebaseUser = auth().currentUser;
-
       if (firebaseUser) {
         const cometChatUser = new CometChat.User(firebaseUser.uid);
         cometChatUser.setName(userInfo.user.name);
 
-        await CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
-          async createdUser => {
+        CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
+          createdUser => {
+            // login user
             CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(
               user => {
+                setLoadingGoogle(false);
                 // Navigate to the CometChat UI
+                navigation.replace('Home');
               },
             );
-            // await CometChatUIKit.login(firebaseUser.uid, COMETCHAT_AUTHID).then(
-            //   user => {
-            //     console.log('Login Successful:', {user});
-            //   },
-            //   error => {
-            //     console.log('Login failed with exception:', {error});
-            //   },
-            // );
           },
           error => {
-            // setLoadingGoogle(false);
-            dispatch(authFail());
+            setLoadingGoogle(false);
             console.error('Error creating CometChat user:', error);
+            // Handle the error appropriately
           },
         );
-      } else {
-        dispatch(authFail());
-        console.error('Firebase user is null');
       }
-      console.log(firebaseUser);
-      const responseData = {
-        name: firebaseUser.displayName,
-        email: firebaseUser.email,
-        profile: firebaseUser.photoURL,
-        //  birthdate: firebaseUser.user.birthday,
-        uid: firebaseUser.uid,
-      };
-      //  await createUserInFirestore(firebaseUser.uid, responseData);
-
-      navigation.navigate('ProfileCompletionScreen', {
-        name: firebaseUser.displayName,
-        email: firebaseUser.email,
-        profile: firebaseUser.photoURL,
-        //  birthdate: firebaseUser.user.birthday,
-        uid: firebaseUser.uid,
-      });
-      //dispatch(authSuccess(responseData));
     } catch (error) {
+      setLoadingGoogle(false);
+      console.error('Google Sign-In Error:', error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // User canceled the sign-in process
       } else if (error.code === statusCodes.IN_PROGRESS) {
+        // Sign-in is in progress
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // Play Services not available or outdated on the device
       } else {
-        console.error('Google Sign-In error:', error);
+        setLoadingGoogle(false);
+        // Other error occurred
       }
-      dispatch(authFail('Error signing up with Firebase'));
     }
   };
-
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      navigation.replace('Home');
-
-      CometChatUIKit.getLoggedInUser()
-        .then(user => {
-          if (user != null) {
-            navigation.replace('Home');
-          }
-        })
-        .catch(e => console.log('Unable to get loggedInUser', e));
-    }
-  }, [isLoggedIn]);
 
   return (
     <View style={styles.container}>
@@ -217,7 +162,7 @@ const SignUpScreen = ({navigation}) => {
         </TouchableOpacity>
       )}
 
-      {socialMediaLoading ? (
+      {loadingGoogle ? (
         <View style={styles.loadingOverlay}>
           <ActivityIndicator size="large" color="#E51D43" />
         </View>
@@ -231,7 +176,7 @@ const SignUpScreen = ({navigation}) => {
 
       <TouchableOpacity
         style={styles.googleLoginButton}
-        disabled={socialMediaLoading}
+        disabled={loadingGoogle}
         onPress={handleGoogleSignIn}>
         <Image
           source={require('../../assets/icons/Google_Icons.webp')}
@@ -252,3 +197,159 @@ const SignUpScreen = ({navigation}) => {
 };
 
 export default SignUpScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'black',
+    paddingVertical: 50,
+  },
+  headerContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '100%',
+    paddingHorizontal: 30,
+  },
+  welcomeContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 20,
+  },
+  text: {fontSize: 22, fontWeight: 'bold', color: 'white'},
+  welcomeText: {fontSize: 16, fontWeight: '500', color: '#969BA1'},
+  backArrow: {
+    backgroundColor: '#333',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 35,
+    height: 35,
+    borderRadius: 50,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  errorText: {
+    paddingVertical: 20,
+    color: '#E51D43',
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: 130,
+    height: 70,
+  },
+  inputContainer: {
+    width: '90%',
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#969BA1',
+    padding: 10,
+    marginBottom: 10,
+    color: 'white',
+    borderRadius: 12,
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#969BA1',
+    borderRadius: 12,
+  },
+  passwordInput: {
+    flex: 1,
+    padding: 10,
+    color: 'white',
+  },
+  borderActive: {
+    borderColor: 'blue',
+  },
+  borderInactive: {
+    borderColor: 'black',
+  },
+  loginButton: {
+    backgroundColor: '#E51D43',
+    padding: 10,
+    borderRadius: 5,
+    width: '90%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  forgotPasswordLink: {
+    alignSelf: 'flex-end',
+    marginTop: 10,
+    color: '#E51D43',
+  },
+  // signUpLink: {
+  //   marginTop: 20,
+  //   flexDirection: 'row',
+  // },
+  // linkText: {
+  //   color: '#E51D43',
+  //   fontSize: 12,
+  // },
+  // buttonText: {
+  //   color: '#333',
+  //   fontSize: 18,
+  //   fontWeight: '800',
+  // },
+
+  orContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
+    width: '80%',
+  },
+  horizontalLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'white',
+  },
+  orText: {
+    paddingHorizontal: 10,
+    color: 'white',
+  },
+  googleLoginButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 12,
+    width: '90%',
+    marginTop: 10,
+  },
+  googleIcon: {
+    marginRight: 10,
+  },
+  googleButtonText: {
+    color: 'white',
+    fontWeight: '500',
+  },
+  signUpLink: {
+    marginTop: 20,
+    flexDirection: 'row',
+  },
+  linkText: {
+    color: '#E51D43',
+    fontSize: 12,
+  },
+});

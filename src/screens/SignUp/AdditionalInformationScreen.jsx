@@ -29,6 +29,7 @@ import {
   fieldOFstudyList,
 } from './Constants';
 import {setLoading} from '../../store/reducers/auth/authSlice';
+
 function Section({sectionHeaderText, children}) {
   return (
     <View style={styles.section}>
@@ -142,7 +143,6 @@ function AdditionalInformationScreen({route, navigation}) {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      //const user = await CometChatUIKit.getLoggedInUser(); // Replace with the actual user's UID (You should get this from Firebase Authentication)
       const userId = uid;
       console.log('userid', userId);
       const userProfileData = {
@@ -202,6 +202,11 @@ function AdditionalInformationScreen({route, navigation}) {
           data={CityList}
           selectedValue={city}
           onValueChange={event => setCity(event.value)}
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
         />
         <DropDown
           name="Country"
@@ -237,16 +242,18 @@ function AdditionalInformationScreen({route, navigation}) {
           value={jobTitle}
           onChangeText={text => setJobTitle(text)}
           style={styles.input}
+          placeholderTextColor="#333"
         />
         <TextInput
           placeholder="Company Name"
           value={companyName}
           onChangeText={text => setCompanyName(text)}
           style={styles.input}
+          placeholderTextColor="#333"
         />
         <View style={styles.datePickerContainer}>
           <View>
-            <Text>Start Date: </Text>
+            <Text style={{color: '#333'}}>Start Date: </Text>
             <TouchableOpacity
               style={styles.date}
               onPress={() => setShowStartDatePicker(true)}>
@@ -270,7 +277,7 @@ function AdditionalInformationScreen({route, navigation}) {
             )}
           </View>
           <View>
-            <Text>End Date: </Text>
+            <Text style={{color: '#333'}}>End Date: </Text>
             <TouchableOpacity
               style={styles.date}
               onPress={() => setShowEndDatePicker(true)}>
@@ -301,11 +308,13 @@ function AdditionalInformationScreen({route, navigation}) {
           value={skills}
           onChangeText={text => setSkills(text)}
           style={styles.input}
+          placeholderTextColor="#333"
         />
         <TextInput
           placeholder="Add Endorsement"
           value={addEndorsement}
           onChangeText={text => setAddEndorsement(text)}
+          placeholderTextColor="#333"
         />
       </Section>
 
@@ -316,6 +325,7 @@ function AdditionalInformationScreen({route, navigation}) {
           onChangeText={text => setAboutMe(text)}
           multiline={true}
           style={styles.input}
+          placeholderTextColor="#333"
         />
       </Section>
 
@@ -325,12 +335,14 @@ function AdditionalInformationScreen({route, navigation}) {
           value={phoneNumber}
           onChangeText={text => setPhoneNumber(text)}
           style={styles.input}
+          placeholderTextColor="#333"
         />
         <TextInput
           placeholder="Additional Email"
           value={additionalEmail}
           onChangeText={text => setAdditionalEmail(text)}
           style={styles.input}
+          placeholderTextColor="#333"
         />
       </Section>
 
@@ -340,6 +352,7 @@ function AdditionalInformationScreen({route, navigation}) {
           value={organizations}
           onChangeText={text => setOrganizations(text)}
           style={styles.input}
+          placeholderTextColor="#333"
         />
       </Section>
 
@@ -382,10 +395,16 @@ function AdditionalInformationScreen({route, navigation}) {
         />
       </Section>
       <View style={styles.buttonsContainer}>
-        <Button style={styles.button} title="Submit" onPress={handleSubmit} />
+        <Button
+          // style={styles.button}
+          title="Submit"
+          onPress={handleSubmit}
+          color="#E51D43"
+        />
         <Button
           style={styles.button}
           title="Skip"
+          color="#E51D43"
           onPress={() => {
             dispatch(logout());
             // navigation.navigate('Home');
@@ -404,6 +423,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginTop: 20,
+    color: '#333',
+    fontWeight: 'bold',
   },
   section: {
     backgroundColor: 'white',
@@ -444,6 +465,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 12,
+    color: '#333',
   },
   inputSearchStyle: {
     height: 40,
@@ -471,6 +493,32 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 10,
     padding: 8,
+    backgroundColor: '#E51D43',
+    color: 'black',
+  },
+
+  dropdown: {
+    margin: 16,
+    height: 50,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
 

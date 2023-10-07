@@ -11,16 +11,13 @@ import Feather from 'react-native-vector-icons/Feather'; // Import the icons you
 import {
   CometChatConversationsWithMessages,
   CometChatUsersWithMessages,
-  CometChatDetails,
 } from '@cometchat/chat-uikit-react-native';
 import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
 import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
-import {Details} from '../users/Details';
 
-import AdditionalInformationScreen from '../../screens/SignUp/AdditionalInformationScreen';
 export const Home = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
@@ -150,7 +147,7 @@ export const Home = ({navigation}: any) => {
             ),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Profile"
           //component={Details}
           component={AdditionalInformationScreen}
@@ -159,7 +156,7 @@ export const Home = ({navigation}: any) => {
               <Feather name="more-horizontal" color={color} size={40} />
             ),
           }}
-        />
+        /> */}
         {/* <Tab.Screen
         name="GroupList"
         component={CometChatGroup}

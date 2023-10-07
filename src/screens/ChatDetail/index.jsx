@@ -9,9 +9,9 @@ import {
 import Ionicons from 'react-native-vector-icons';
 
 const ChatDetailScreen = ({navigation, route}) => {
-  const {uid, name} = route.params;
-  console.log(uid, name, 'Come On Bro');
-  let user = new CometChat.User(uid, name);
+  // const {uid, name} = route.params;
+  // console.log(uid, name, 'Works');
+  // let user = new CometChat.User(uid, name);
 
   let messageHeaderConfiguration = {
     hideBackIcon: false,
@@ -31,10 +31,10 @@ const ChatDetailScreen = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1}}>
-      <CometChatMessages
+      {/* <CometChatMessages
         user={user}
         messageHeaderConfiguration={messageHeaderConfiguration}
-      />
+      /> */}
     </View>
   );
 };
