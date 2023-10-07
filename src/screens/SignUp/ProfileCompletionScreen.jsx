@@ -144,7 +144,13 @@ const ProfileCompletionScreen = ({route, navigation}) => {
               />
             )}
           </View>
-          <View>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <Button
               title="Change Profile Picture"
               type="outline"
@@ -155,7 +161,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
             />
           </View>
         </View>
-        <Text>Name</Text>
+        <Text style={{color: '#333'}}>Name</Text>
         <TextInput
           style={styles.input}
           placeholder={updatedFullName}
@@ -163,7 +169,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
           onChangeText={text => setUpdatedFullName(text)}
         />
 
-        <Text>Email</Text>
+        <Text style={{color: '#333'}}>Email</Text>
         <TextInput
           style={styles.input}
           placeholder={updatedEmail}
@@ -173,7 +179,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
         />
         <View style={styles.datePickerContainer}>
           <View>
-            <Text>Birth Date</Text>
+            <Text style={{color: '#333'}}>Birth Date</Text>
             <TouchableOpacity
               style={styles.date}
               onPress={() => setShowDatePicker(true)}>
@@ -188,6 +194,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
             </TouchableOpacity>
             {showDatePicker && (
               <DateTimePicker
+                textColor="#000000"
                 testID="startDatePicker"
                 value={updatedBirthDate}
                 mode="date"
@@ -202,7 +209,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
         <Button
           buttonStyle={styles.submitButton}
           containerStyle={styles.buttonContainer}
-          title="Submit"
+          title="Next"
           onPress={handleSubmit}
           width={30}
         />
@@ -216,6 +223,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginTop: 20,
+    color: '#333',
   },
   container: {
     padding: 16,
@@ -226,12 +234,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 12,
+    color: '#333',
   },
-  // buttonContainer: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   padding: 16,
-  // },
   skipText: {
     color: 'blue',
     textDecorationLine: 'underline',
@@ -247,35 +251,46 @@ const styles = StyleSheet.create({
     height: 100,
   },
   section: {
+    width: '100%',
     flexDirection: 'row',
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 16,
     marginTop: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   date: {
-    width: '50%',
+    width: '100%',
     borderWidth: 1,
     borderColor: '#969BA1',
     padding: 10,
     marginBottom: 10,
     borderRadius: 12,
+    color: 'white',
+    backgroundColor: '#b6b8ba',
+    fontWeight: 'bold',
   },
   uploadButton: {
     fontSize: 10,
     borderRadius: 8,
     marginBottom: 10,
+    borderColor: '#E51D43',
   },
   uploadButtonTitle: {
     fontSize: 12,
+    color: '#E51D43',
+    borderColor: '#E51D43',
   },
   bottomContainer: {
     marginBottom: 10,
   },
   submitButton: {
-    width: 200,
+    width: 175,
     borderRadius: 8,
     marginBottom: 10,
+    backgroundColor: '#E51D43',
+    color: '#333',
   },
   uploadButtonContainer: {
     width: 150,
@@ -283,8 +298,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   buttonContainer: {
-    width: 200,
-    marginHorizontal: 50,
+    width: 175,
+    marginHorizontal: 18,
     marginVertical: 10,
   },
 });

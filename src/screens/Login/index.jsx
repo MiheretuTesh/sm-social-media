@@ -20,6 +20,7 @@ import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {styles} from './style.jsx';
 
 const SingInScreen = ({navigation}) => {
@@ -39,11 +40,11 @@ const SingInScreen = ({navigation}) => {
   );
 
   useEffect(() => {
-    CometChatUIKit.getLoggedInUser()
-      .then(user => {
-        if (user != null) navigation.replace('Home');
-      })
-      .catch(e => console.log('Unable to get loggedInUser', e));
+    // CometChatUIKit.getLoggedInUser()
+    //   .then(user => {
+    //     if (user != null) navigation.replace('Hero');
+    //   })
+    //   .catch(e => console.log('Unable to get loggedInUser', e));
   }, []);
 
   const handleGoogleLogin = async () => {
@@ -56,15 +57,14 @@ const SingInScreen = ({navigation}) => {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      navigation.replace('Home');
-
+      console.log('Hellooooooooo');
       CometChatUIKit.getLoggedInUser()
         .then(user => {
           if (user != null) navigation.replace('Home');
         })
         .catch(e => console.log('Unable to get loggedInUser', e));
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user, loading, socialMediaLoading]);
 
   const handleFacebookLogin = () => {
     dispatch(loginUsingFacebook());
@@ -189,7 +189,7 @@ const SingInScreen = ({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.googleLoginButton}
         onPress={handleFacebookLogin}
         disabled={socialMediaLoading}>
@@ -198,7 +198,7 @@ const SingInScreen = ({navigation}) => {
           style={{width: 30, height: 30}}
         />
         <Text style={styles.googleButtonText}>Continue with Facebook</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {error && (
         <Text style={styles.errorText}>
