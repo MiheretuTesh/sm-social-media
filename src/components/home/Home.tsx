@@ -6,8 +6,8 @@ import {CardView} from '../../components/common/CardView';
 import {Logout} from '../../resources';
 import {UserContext} from '../../../UserContext';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icons you want to use
-import Feather from 'react-native-vector-icons/Feather'; // Import the icons you want to use
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 import {
   CometChatConversationsWithMessages,
   CometChatUsersWithMessages,
