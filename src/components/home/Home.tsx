@@ -21,6 +21,7 @@ import {
 import {Details} from '../users/Details';
 
 import AdditionalInformationScreen from '../../screens/SignUp/AdditionalInformationScreen';
+import UserProfileScreen from '../../screens/UserProfile';
 export const Home = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
@@ -153,7 +154,7 @@ export const Home = ({navigation}: any) => {
         <Tab.Screen
           name="Profile"
           //component={Details}
-          component={AdditionalInformationScreen}
+          component={UserProfileScreen}
           options={{
             tabBarIcon: ({color, size}) => (
               <Feather name="more-horizontal" color={color} size={40} />

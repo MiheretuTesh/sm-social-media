@@ -24,7 +24,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
   const [updatedBirthDate, setBirthDate] = useState(birthDate || new Date());
   const [updatedProfilePicture, setProfilePicture] = useState(profile);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
+  const [nameError, setNameError] = useState(null);
   // Add a state to store the selected profile image
   const [selectedProfileImage, setSelectedProfileImage] = useState(null);
 
@@ -125,6 +125,15 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     await createUserInFirestore(user, userProfileData);
     navigation.navigate('AdditionalInformationScreen', {uid: user});
   };
+  // validate name and submit form
+  const validateForm = () => {
+    if (!fullName) {
+      setNameError('Name field is required !');
+    } else {
+      setNameError('');
+      handleSubmit;
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -162,6 +171,9 @@ const ProfileCompletionScreen = ({route, navigation}) => {
           value={updatedFullName}
           onChangeText={text => setUpdatedFullName(text)}
         />
+        {nameError && (
+          <Text style={{color: 'red'}}>{this.state.nameError}</Text>
+        )}
 
         <Text>Email</Text>
         <TextInput
@@ -203,7 +215,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
           buttonStyle={styles.submitButton}
           containerStyle={styles.buttonContainer}
           title="Submit"
-          onPress={handleSubmit}
+          onPress={validateForm}
           width={30}
         />
       </View>

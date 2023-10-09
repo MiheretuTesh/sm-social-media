@@ -62,6 +62,7 @@ import {
 } from '@cometchat/chat-uikit-react-native';
 import AdditionalInformationScreen from './screens/SignUp/AdditionalInformationScreen';
 import ProfileCompletionScreen from './screens/SignUp/ProfileCompletionScreen';
+import UsersScreen from './screens/Users';
 
 function StackNavigator(props: any) {
   const Stack = createStackNavigator();
@@ -84,6 +85,7 @@ function StackNavigator(props: any) {
           component={AdditionalInformationScreen}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="user-profile-screen" component={UsersScreen} />
         <Stack.Screen
           name="ConversationsModule"
           component={ConversationComponentList}

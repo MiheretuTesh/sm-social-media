@@ -25,7 +25,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {authCheckState} from '../store/reducers/auth/authAction';
 import AdditionalInformationScreen from '../screens/SignUp/AdditionalInformationScreen';
 import ProfileCompletionScreen from '../screens/SignUp/ProfileCompletionScreen';
-
+import UserProfileScreen from '../screens/UserProfile';
 const Stack = createStackNavigator();
 
 const Navigation = props => {

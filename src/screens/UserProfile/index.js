@@ -8,7 +8,7 @@ function UserProfileScreen({navigation}) {
   const dispatch = useDispatch();
   return (
     <View>
-      <Button onPress={() => dispatch(logout())} />
+      <Button title="Logout" onPress={() => dispatch(logout())} />
     </View>
   );
 }
