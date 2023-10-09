@@ -41,6 +41,11 @@ export const Login = ({navigation}) => {
     CometChatUIKit.login({uid})
       .then(user => {
         setLoginInProgress(false);
+        CometChatUIKit.getLoggedInUser()
+          .then(user => {
+            console.log(user, 'comet chat UI Logged In');
+          })
+          .catch(e => console.log('Unable to get loggedInUser', e));
         navigation.navigate('Home');
       })
       .catch(err => {

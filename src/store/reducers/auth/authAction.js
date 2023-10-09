@@ -108,13 +108,13 @@ export const signUp = (email, password) => async dispatch => {
           responseData.status = user.status;
         });
 
-        CometChatUIKit.getLoggedInUser()
-          .then(user => {
-            if (user != null) {
-              // navigation.navigate('Home');
-            }
-          })
-          .catch(e => console.log('Unable to get loggedInUser', e));
+        // CometChatUIKit.getLoggedInUser()
+        //   .then(user => {
+        //     if (user != null) {
+        //       // navigation.navigate('Home');
+        //     }
+        //   })
+        //   .catch(e => console.log('Unable to get loggedInUser', e));
       },
       error => {
         console.log('User Creating Failed Failed', error);
@@ -236,27 +236,29 @@ export const loginUsingGoogle = () => async dispatch => {
 
     const firebaseUser = auth().currentUser;
 
-    console.log(firebaseUser, 'firebaseUser firebaseUser firebaseUser');
-
     if (firebaseUser) {
       const firebaseUID = firebaseUser.uid;
-      console.log(firebaseUID);
 
       CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
         loggedInUser => {
-          console.log('Logged in to CometChat:', loggedInUser);
+          CometChatUIKit.login(loggedInUser.authToken)
+            .then(user => {
+              console.log(user, 'UI Kit setuped');
+              CometChatUIKit.getLoggedInUser()
+                .then(user => {
+                  console.log(user, 'comet chat UI Logged In');
+                })
+                .catch(e => console.log('Unable to get loggedInUser', e));
+              navigation.navigate('Home');
+            })
+            .catch(err => {
+              console.log('Error while login:', err);
+            });
         },
         error => {
           console.error('Error logging in to CometChat:', error);
         },
       );
-      CometChatUIKit.getLoggedInUser()
-        .then(user => {
-          if (user != null) {
-            // navigation.navigate('Home');
-          }
-        })
-        .catch(e => console.log('Unable to get loggedInUser', e));
     } else {
       console.error('Firebase user is null');
     }
@@ -339,13 +341,13 @@ export const loginUsingFacebook = () => async dispatch => {
           },
         );
 
-        CometChatUIKit.getLoggedInUser()
-          .then(user => {
-            if (user != null) {
-              //navigation.navigate('Home');
-            }
-          })
-          .catch(e => console.log('Unable to get loggedInUser', e));
+        // CometChatUIKit.getLoggedInUser()
+        //   .then(user => {
+        //     if (user != null) {
+        //       //navigation.navigate('Home');
+        //     }
+        //   })
+        //   .catch(e => console.log('Unable to get loggedInUser', e));
 
         dispatch(authSuccess(value));
       } else {
