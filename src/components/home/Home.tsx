@@ -11,6 +11,7 @@ import Feather from 'react-native-vector-icons/Feather'; // Import the icons you
 import {
   CometChatConversationsWithMessages,
   CometChatUsersWithMessages,
+  CometChatListItem,
 } from '@cometchat/chat-uikit-react-native';
 import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
 import {

@@ -108,13 +108,13 @@ export const signUp = (email, password) => async dispatch => {
           responseData.status = user.status;
         });
 
-        // CometChatUIKit.getLoggedInUser()
-        //   .then(user => {
-        //     if (user != null) {
-        //       // navigation.navigate('Home');
-        //     }
-        //   })
-        //   .catch(e => console.log('Unable to get loggedInUser', e));
+        CometChatUIKit.getLoggedInUser()
+          .then(user => {
+            if (user != null) {
+              // navigation.navigate('Home');
+            }
+          })
+          .catch(e => console.log('Unable to get loggedInUser', e));
       },
       error => {
         console.log('User Creating Failed Failed', error);
@@ -341,13 +341,13 @@ export const loginUsingFacebook = () => async dispatch => {
           },
         );
 
-        // CometChatUIKit.getLoggedInUser()
-        //   .then(user => {
-        //     if (user != null) {
-        //       //navigation.navigate('Home');
-        //     }
-        //   })
-        //   .catch(e => console.log('Unable to get loggedInUser', e));
+        CometChatUIKit.getLoggedInUser()
+          .then(user => {
+            if (user != null) {
+              //navigation.navigate('Home');
+            }
+          })
+          .catch(e => console.log('Unable to get loggedInUser', e));
 
         dispatch(authSuccess(value));
       } else {
