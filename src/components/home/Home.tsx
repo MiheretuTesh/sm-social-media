@@ -80,48 +80,11 @@ export const Home = ({navigation}: any) => {
 
   return (
     <View style={AppStyle.container}>
-      {/* <View
-        style={[
-          AppStyle.row,
-          AppStyle.center,
-          { justifyContent: "space-between", margin: 8 },
-        ]}
-      >
-        <Text style={AppStyle.heading}>UI Components</Text>
-        <TouchableOpacity
-          onPress={() => {
-            CometChat.logout().then(() => {
-              navigation.navigate("Login");
-            });
-          }}
-        >
-          <Image source={Logout} style={{ height: 24, width: 24 }} />
-        </TouchableOpacity>
-      </View>
-      <ScrollView>
-        {UiKitModules.map((module) => (
-          <CardView
-            key={module.name}
-            name={module.name}
-            info={module.info}
-            onPress={() => Navigate(module.name)}
-          />
-        ))}
-      </ScrollView> */}
       <Tab.Navigator
         screenOptions={{headerShown: false}}
         tabBarOptions={{
           keyboardHidesTabBar: true,
         }}>
-        {/* <Tab.Screen
-        name="Messages"
-        component={CometChatMessages}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="envelope" color={color} size={size} />
-          ),
-        }}
-      /> */}
         <Tab.Screen
           name="Chats"
           component={CometChatConversationsWithMessages}
@@ -149,25 +112,15 @@ export const Home = ({navigation}: any) => {
             ),
           }}
         />
-        {/* <Tab.Screen
+        <Tab.Screen
           name="Profile"
-          //component={Details}
           component={UserProfileScreen}
           options={{
             tabBarIcon: ({color, size}) => (
               <Feather name="more-horizontal" color={color} size={40} />
             ),
           }}
-        /> */}
-        {/* <Tab.Screen
-        name="GroupList"
-        component={CometChatGroup}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="group" color={color} size={size} />
-          ),
-        }}
-      /> */}
+        />
       </Tab.Navigator>
     </View>
   );

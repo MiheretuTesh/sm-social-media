@@ -1,7 +1,4 @@
-import { CardView } from "./common/CardView";
-import { RoudedButton } from "./common/RoundedButton";
+import {CardView} from './common/CardView';
+import {RoudedButton} from './common/RoundedButton';
 
-export {
-    CardView,
-    RoudedButton
-}
+export {CardView, RoudedButton};

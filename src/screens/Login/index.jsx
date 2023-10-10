@@ -57,10 +57,11 @@ const SingInScreen = ({navigation}) => {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      console.log('Hellooooooooo');
       CometChatUIKit.getLoggedInUser()
         .then(user => {
-          if (user != null) navigation.replace('Home');
+          if (user != null) {
+            navigation.replace('Home');
+          }
         })
         .catch(e => console.log('Unable to get loggedInUser', e));
     }

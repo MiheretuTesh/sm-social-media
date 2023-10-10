@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, {useState} from 'react';
 import {
   View,
@@ -13,8 +12,6 @@ import {useDispatch} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-element-dropdown';
-import {logout} from '../../store/reducers/auth/authAction';
-import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 import firestore from '@react-native-firebase/firestore';
 import {
   countriesList,
@@ -406,8 +403,7 @@ function AdditionalInformationScreen({route, navigation}) {
           title="Skip"
           color="#E51D43"
           onPress={() => {
-            dispatch(logout());
-            // navigation.navigate('Home');
+            navigation.navigate('Home');
           }}
         />
       </View>

@@ -318,8 +318,6 @@ export const loginUsingFacebook = () => async dispatch => {
         const cometChatUser = new CometChat.User(firebaseUid);
         cometChatUser.setName(userName);
 
-        console.log(value, 'facebook');
-
         CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
           createdUser => {
             CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(

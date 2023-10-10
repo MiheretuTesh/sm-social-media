@@ -36,6 +36,7 @@ const SignUpScreen = ({navigation}) => {
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: FIREBASE_WEB_CLIENTID,
+      accountName: '',
     });
   }, []);
 

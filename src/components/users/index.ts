@@ -1,2 +1,2 @@
-import { UserModuleList } from "./UserModuleList";
-import { Details } from "./Details";
+import {UserModuleList} from './UserModuleList';
+import {Details} from './Details';
