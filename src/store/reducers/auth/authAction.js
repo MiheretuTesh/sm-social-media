@@ -6,7 +6,6 @@ import {
   logoutSuccess,
   authStartSocailLink,
 } from './authSlice';
-import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
   statusCodes,
@@ -15,6 +14,7 @@ import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
 import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 export const authCheckState = () => {
@@ -249,7 +249,7 @@ export const loginUsingGoogle = () => async dispatch => {
                   console.log(user, 'comet chat UI Logged In');
                 })
                 .catch(e => console.log('Unable to get loggedInUser', e));
-              navigation.navigate('Home');
+              // navigation.navigate('Home');
             })
             .catch(err => {
               console.log('Error while login:', err);
@@ -397,4 +397,50 @@ export const logout = () => {
       dispatch(logoutSuccess());
     });
   };
+};
+
+export const deleteAccount = () => async (dispatch, userId) => {
+  try {
+    const uid = userId;
+
+    // Reference to the Firestore collections
+    const usersCollection = firestore().collection('users');
+    const userProfilesCollection = firestore().collection('user-profiles');
+    const deletedAccountsCollection = firestore().collection(
+      'deleted-user-profiles',
+    );
+
+    // Fetch the user data from the "users" and "user-profiles" collections
+    const userData = await usersCollection.doc(uid).get();
+    const userProfileData = await userProfilesCollection.doc(uid).get();
+
+    if (userData.exists && userProfileData.exists) {
+      // Get the user data
+      const userDoc = userData.data();
+      const userProfileDoc = userProfileData.data();
+
+      // Delete the user from "users" and "user-profiles" collections
+      await usersCollection.doc(uid).delete();
+      await userProfilesCollection.doc(uid).delete();
+
+      // Create a new document in "deleted-account-profiles" with user data
+      await deletedAccountsCollection.doc(uid).set({
+        deletedAt: new Date(),
+        userData: userDoc,
+        userProfileData: userProfileDoc,
+      });
+
+      // Logout the user from CometChat
+      await CometChat.logout();
+
+      // Dispatch the logout success action
+      dispatch(logoutSuccess());
+    } else {
+      console.error('User data not found.');
+    }
+  } catch (error) {
+    console.error('Error deleting account:', error);
+    // Dispatch an error action if needed
+    // dispatch(authFail('Error deleting account'));
+  }
 };

@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CometChatAvatar,
   CometChatStatusIndicator,
 } from '@cometchat/chat-uikit-react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icons
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {logout, deleteAccount} from '../../store/reducers/auth/authAction';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 
 function UserProfileScreen({navigation}) {
+  const [user, setUser] = useState(null);
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    CometChat.getLoggedinUser().then(userInfo => {
+      setUser(userInfo);
+    });
+  }, []);
+
+  const deleteAccountHandler = () => {
+    if (user) {
+      dispatch(deleteAccount(user.uid));
+    }
+  };
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigation.navigate('Home');
+  };
 
   return (
     <View style={styles.container}>
@@ -21,9 +40,11 @@ function UserProfileScreen({navigation}) {
           style={styles.avatar}
         />
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>John Doe</Text>
+          <Text style={styles.name}>{user ? user.name : ''}</Text>
           <View style={styles.statusContainer}>
-            <Text style={styles.statusText}>Online</Text>
+            <Text style={styles.statusText}>
+              {user ? user.status : 'offline'}
+            </Text>
           </View>
         </View>
       </View>
@@ -41,11 +62,13 @@ function UserProfileScreen({navigation}) {
           <Icon name="user" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Edit Personal Info</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.preferenceItem}>
+        <TouchableOpacity
+          style={styles.preferenceItem}
+          onPress={deleteAccountHandler}>
           <Icon name="trash" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Delete Account</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.preferenceItem}>
+        <TouchableOpacity style={styles.preferenceItem} onPress={logoutHandler}>
           <Icon name="sign-out" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Logout</Text>
         </TouchableOpacity>
