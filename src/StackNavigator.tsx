@@ -63,6 +63,7 @@ import {
 import AdditionalInformationScreen from './screens/SignUp/AdditionalInformationScreen';
 import ProfileCompletionScreen from './screens/SignUp/ProfileCompletionScreen';
 import UsersScreen from './screens/Users';
+import EditProfileScreen from './screens/EditProfileScreen';
 
 function StackNavigator(props: any) {
   const Stack = createStackNavigator();
@@ -83,6 +84,11 @@ function StackNavigator(props: any) {
         <Stack.Screen
           name="AdditionalInformationScreen"
           component={AdditionalInformationScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="EditProfileScreen"
+          component={EditProfileScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen name="user-profile-screen" component={UsersScreen} />
