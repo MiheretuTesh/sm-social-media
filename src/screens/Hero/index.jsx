@@ -12,6 +12,7 @@ import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
+import {styles} from './style.jsx';
 
 const HeroScreen = React.memo(({navigation}) => {
   const {theme} = useContext(CometChatContext);
@@ -20,7 +21,7 @@ const HeroScreen = React.memo(({navigation}) => {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      console.log(isLoggedIn, "I'm True");
+      console.log(isLoggedIn, 'Logged In');
       navigation.replace('Home');
     }
   }, [isLoggedIn]);
@@ -57,71 +58,4 @@ const HeroScreen = React.memo(({navigation}) => {
     </View>
   );
 });
-
-const windowWidth = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  imageContainer: {
-    flex: 1,
-    width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    width: windowWidth * 0.8,
-    height: undefined,
-    aspectRatio: 1,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  loginButton: {
-    backgroundColor: '#333',
-    paddingHorizontal: 0.08 * windowWidth,
-    paddingVertical: 10,
-    borderRadius: 5,
-    marginHorizontal: 0.02 * windowWidth,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  signUpButton: {
-    backgroundColor: '#E51D43',
-    paddingHorizontal: 0.06 * windowWidth,
-    paddingVertical: 10,
-    borderRadius: 5,
-    marginHorizontal: 0.02 * windowWidth,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-  },
-  loginButtonText: {
-    color: '#E51D43',
-    fontSize: 18,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-  },
-  signUpButtonText: {
-    color: '#333',
-    fontSize: 18,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-  },
-});
-
 export default HeroScreen;

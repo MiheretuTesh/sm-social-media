@@ -5,13 +5,13 @@ import {
   TextInput,
   Button,
   Text,
-  StyleSheet,
   ActivityIndicator,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-element-dropdown';
+
 import firestore from '@react-native-firebase/firestore';
 import {
   countriesList,
@@ -24,8 +24,9 @@ import {
   universityList,
   degreesList,
   fieldOFstudyList,
-} from './Constants';
+} from '../../constants/Constants';
 import {setLoading} from '../../store/reducers/auth/authSlice';
+import {styles} from './style';
 
 function Section({sectionHeaderText, children}) {
   return (
@@ -36,22 +37,24 @@ function Section({sectionHeaderText, children}) {
   );
 }
 
-function DropDown({data, name, selectedValue, onValueChange, title}) {
+function RNDropDown({data, name, selectedValue, onValueChange, title}) {
   return (
     <View style={styles.dropdownContainer}>
       <Text style={styles.dropdownTitle}>{name}</Text>
       <Dropdown
         style={styles.dropdown}
-        inputSearchStyle={styles.inputSearchStyle}
         label={name}
         data={data}
         value={selectedValue}
         search
-        searchPlaceholder="search .."
-        // placeholder={placeholder}
+        searchPlaceholder="search ..."
         labelField="label"
         valueField="value"
         onChange={value => onValueChange(value)}
+        containerStyle={{backgroundColor: '#ECE9E9', color: 'black'}}
+        placeholderStyle={{color: 'black'}}
+        selectedTextStyle={{color: 'black'}}
+        inputSearchStyle={{color: 'red', backgroundColor: 'white'}}
       />
     </View>
   );
@@ -59,7 +62,7 @@ function DropDown({data, name, selectedValue, onValueChange, title}) {
 
 function AdditionalInformationScreen({route, navigation}) {
   // Extract user information from props
-  const {uid} = route.params;
+  const {uid} = route.params | '2323';
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -194,7 +197,7 @@ function AdditionalInformationScreen({route, navigation}) {
       {isLoading && <ActivityIndicator size={'large'} color="#E51D43" />}
       <Text style={styles.headerText}>Complete Your Profile</Text>
       <Section sectionHeaderText="Location">
-        <DropDown
+        <RNDropDown
           name="City"
           data={CityList}
           selectedValue={city}
@@ -205,7 +208,7 @@ function AdditionalInformationScreen({route, navigation}) {
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
         />
-        <DropDown
+        <RNDropDown
           name="Country"
           data={countriesList}
           selectedValue={country}
@@ -213,19 +216,19 @@ function AdditionalInformationScreen({route, navigation}) {
         />
       </Section>
       <Section sectionHeaderText="Education">
-        <DropDown
+        <RNDropDown
           name="University"
           data={universityList}
           selectedValue={university}
           onValueChange={event => setUniversity(event.value)}
         />
-        <DropDown
+        <RNDropDown
           name="Degree"
           data={degreesList}
           selectedValue={degree}
           onValueChange={event => setDegree(event.value)}
         />
-        <DropDown
+        <RNDropDown
           name="Field of Study"
           data={fieldOFstudyList}
           selectedValue={fieldOfStudy}
@@ -354,19 +357,19 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Religious Background">
-        <DropDown
+        <RNDropDown
           name="Religion Background"
           data={religionBackgroundList}
           selectedValue={religionBackground}
           onValueChange={event => setReligionBackground(event.value)}
         />
-        <DropDown
+        <RNDropDown
           name="Prayer Frequency"
           data={prayerFrequencyList}
           selectedValue={prayerFrequency}
           onValueChange={event => setPrayerFrequency(event.value)}
         />
-        <DropDown
+        <RNDropDown
           name="Dietary Preferences"
           data={dietryPreferancesList}
           selectedValue={dietaryPreferences}
@@ -375,7 +378,7 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Languages Spoken">
-        <DropDown
+        <RNDropDown
           name="Languages"
           data={languagesList}
           selectedValue={languages}
@@ -384,7 +387,7 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section>
-        <DropDown
+        <RNDropDown
           name="Looking To"
           data={lookingForList}
           selectedValue={lookingTO}
@@ -410,112 +413,5 @@ function AdditionalInformationScreen({route, navigation}) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 18,
-    marginTop: 20,
-    color: '#333',
-    fontWeight: 'bold',
-  },
-  section: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 16,
-  },
-  sectionHeaderText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  dropdownContainer: {
-    marginTop: 16,
-  },
-  dropdown: {
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
-  },
-  dropdownTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#969BA1',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 12,
-    color: '#333',
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-  datePickerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-  },
-  date: {
-    borderWidth: 1,
-    borderColor: '#969BA1',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 12,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-    marginBottom: 10,
-  },
-  button: {
-    width: 30,
-    borderRadius: 10,
-    padding: 8,
-    backgroundColor: '#E51D43',
-    color: 'black',
-  },
-
-  dropdown: {
-    margin: 16,
-    height: 50,
-    borderBottomColor: 'gray',
-    borderBottomWidth: 0.5,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-});
 
 export default AdditionalInformationScreen;

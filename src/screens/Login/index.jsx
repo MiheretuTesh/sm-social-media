@@ -20,7 +20,7 @@ import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
-import {CometChat} from '@cometchat/chat-sdk-react-native';
+// import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {styles} from './style.jsx';
 
 const SingInScreen = ({navigation}) => {
@@ -67,39 +67,20 @@ const SingInScreen = ({navigation}) => {
     }
   }, [isLoggedIn, user, loading, socialMediaLoading]);
 
-  const handleFacebookLogin = () => {
-    dispatch(loginUsingFacebook());
-  };
+  // const handleFacebookLogin = () => {
+  //   dispatch(loginUsingFacebook());
+  // };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          width: '100%',
-          paddingHorizontal: 30,
-        }}>
+    <View style={styles.loginContainer}>
+      <View style={styles.topContainer}>
         <TouchableOpacity
-          style={{
-            backgroundColor: '#333',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 35,
-            height: 35,
-            borderRadius: 50,
-          }}
+          style={styles.backBtn}
           onPress={() => navigation.replace('HeroScreen')}>
-          <Icon
-            name="arrow-back-ios"
-            size={20}
-            color="#E51D43"
-            style={{paddingLeft: 8}}
-          />
+          <Icon name="arrow-back-ios" size={20} style={styles.backIcon} />
         </TouchableOpacity>
       </View>
-      <View style={styles.titleContainer}>
+      <View style={styles.logoContainer}>
         <Image
           source={require('../../assets/icons/SM-logo-bg-removed.png')}
           style={styles.image}
@@ -107,22 +88,10 @@ const SingInScreen = ({navigation}) => {
         />
       </View>
 
-      <View
-        style={{
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingBottom: 20,
-        }}>
-        <Text style={{fontSize: 22, fontWeight: 'bold', color: 'white'}}>
-          Hello Again!
-        </Text>
-        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
-          Welcome back you've
-        </Text>
-        <Text style={{fontSize: 16, fontWeight: '500', color: '#969BA1'}}>
-          been missed!
-        </Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.firstText}>Hello Again!</Text>
+        <Text style={styles.secondText}>Welcome back you've</Text>
+        <Text style={styles.thirdText}>been missed!</Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -162,7 +131,7 @@ const SingInScreen = ({navigation}) => {
       </View>
 
       {loading ? (
-        <ActivityIndicator size="large" color="#E51D43" />
+        <ActivityIndicator size="large" style={styles.loading} />
       ) : (
         <TouchableOpacity
           style={styles.loginButton}
@@ -175,7 +144,7 @@ const SingInScreen = ({navigation}) => {
 
       {socialMediaLoading ? (
         <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color="#E51D43" />
+          <ActivityIndicator size="large" style={styles.loading} />
         </View>
       ) : null}
 
@@ -206,9 +175,9 @@ const SingInScreen = ({navigation}) => {
           {error === 'No user found' ? '' : 'Email or Password not correct'}
         </Text>
       )}
-      <View style={{flex: 1}} />
+      <View style={styles.bottomSeparator} />
       <View style={styles.signUpLink}>
-        <Text style={{fontSize: 12, color: '#969BA1'}}>Not a member?</Text>
+        <Text style={styles.notMemberTxt}>Not a member?</Text>
         <TouchableOpacity onPress={() => navigation.push('SignUp')}>
           <Text style={styles.linkText}> Register Now</Text>
         </TouchableOpacity>

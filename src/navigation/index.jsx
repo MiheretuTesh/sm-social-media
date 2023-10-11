@@ -23,9 +23,9 @@ import SignUpScreen from '../screens/SignUp';
 import HeroScreen from '../screens/Hero';
 import {useDispatch, useSelector} from 'react-redux';
 import {authCheckState} from '../store/reducers/auth/authAction';
-import AdditionalInformationScreen from '../screens/SignUp/AdditionalInformationScreen';
-import ProfileCompletionScreen from '../screens/SignUp/ProfileCompletionScreen';
-import UserProfileScreen from '../screens/UserProfile';
+import AdditionalInformationScreen from '../screens/AdditionalInformation';
+import ProfileCompletionScreen from '../screens/UserProfile';
+import UserProfileScreen from '../screens/Setting';
 const Stack = createStackNavigator();
 
 const Navigation = props => {

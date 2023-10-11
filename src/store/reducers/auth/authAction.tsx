@@ -18,7 +18,12 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 export const authCheckState = () => {
-  return async dispatch => {
+  return async (
+    dispatch: (arg0: {
+      payload: any;
+      type: 'auth/authSuccess' | 'auth/authFail';
+    }) => void,
+  ) => {
     try {
       const loggedInUser = await CometChat.getLoggedinUser();
       if (loggedInUser) {
@@ -33,106 +38,127 @@ export const authCheckState = () => {
   };
 };
 
-export const loginUser = (email, password) => async dispatch => {
-  try {
-    dispatch(authStart());
+export const loginUser = (email: string, password: string) => {
+  return async (
+    dispatch: (arg0: {
+      payload: any;
+      type: 'auth/authSuccess' | 'auth/authFail' | 'auth/authStart';
+    }) => void,
+  ) => {
+    try {
+      dispatch(authStart());
 
-    const userCredential = await auth().signInWithEmailAndPassword(
-      email,
-      password,
-    );
+      const userCredential = await auth().signInWithEmailAndPassword(
+        email,
+        password,
+      );
 
-    const firebaseUser = userCredential.user;
-    const firebaseUID = firebaseUser.uid;
+      const firebaseUser = userCredential?.user; // Use optional chaining here
 
-    CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
-      loggedInUser => {
-        console.log('Logged in to CometChat:', loggedInUser);
-      },
-      error => {
-        console.error('Error logging in to CometChat:', error);
-      },
-    );
+      if (firebaseUser) {
+        const firebaseUID = firebaseUser.uid;
 
-    // Loggin a CometChat user
-    await CometChatUIKit.login(firebaseUID, COMETCHAT_AUTHID).then(
-      user => {
-        console.log('Login Successful:', {user});
-      },
-      error => {
-        console.log('Login failed with exception:', {error});
-      },
-    );
+        CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
+          loggedInUser => {
+            console.log('Logged in to CometChat:', loggedInUser);
+          },
+          error => {
+            console.error('Error logging in to CometChat:', error);
+          },
+        );
 
-    dispatch(authSuccess(firebaseUser));
-  } catch (error) {
-    console.error('Error signing up with Firebase:', error);
-    dispatch(authFail('Error signing up with Firebase'));
-  }
+        await CometChatUIKit.login(firebaseUID, COMETCHAT_AUTHID).then(
+          user => {
+            console.log('Login Successful:', {user});
+          },
+          error => {
+            console.log('Login failed with exception:', {error});
+          },
+        );
+
+        dispatch(authSuccess(firebaseUser));
+      } else {
+        dispatch(authFail('No user found'));
+      }
+    } catch (error) {
+      console.error('Error signing up with Firebase:', error);
+      dispatch(authFail('Error signing up with Firebase'));
+    }
+  };
 };
 
-export const signUp = (email, password) => async dispatch => {
-  try {
-    dispatch(authStart());
+export const signUp =
+  (email: string | any, password: string) =>
+  async (
+    dispatch: (arg0: {
+      payload: any;
+      type: 'auth/authSuccess' | 'auth/authFail' | 'auth/authStart';
+    }) => void,
+  ) => {
+    try {
+      dispatch(authStart());
 
-    //Create a Firebase user
-    const userCredential = await auth().createUserWithEmailAndPassword(
-      email,
-      password,
-    );
-    const firebaseUser = userCredential.user;
-    const firebaseUID = firebaseUser.uid;
+      //Create a Firebase user
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      const firebaseUser = userCredential.user;
+      const firebaseUID = firebaseUser.uid;
 
-    // Create a CometChat user
-    const cometChatUser = new CometChat.User(firebaseUID);
-    const nameLst = userCredential.user.email.split('@');
-    const name = nameLst[0];
-    cometChatUser.setName(name || 'User One');
+      // Create a CometChat user
+      const cometChatUser = new CometChat.User(firebaseUID);
+      const nameLst = userCredential?.user.email.split('@');
+      const name = nameLst[0];
+      cometChatUser.setName(name || 'User One');
 
-    const responseData = {
-      name: name,
-      email: userCredential.user.email,
-      uid: firebaseUID,
-    };
+      const responseData = {
+        name: name,
+        email: userCredential.user.email,
+        uid: firebaseUID,
+      };
 
-    const createdUser = await CometChat.createUser(
-      cometChatUser,
-      COMETCHAT_AUTHID,
-    ).then(
-      createdUser => {
-        CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
-          console.log('User Created Successfully', user);
-          responseData.name = user.name;
-          responseData.uid = user.uid;
-          responseData.authToken = user.authToken;
-          responseData.status = user.status;
-        });
+      const createdUser = await CometChat.createUser(
+        cometChatUser,
+        COMETCHAT_AUTHID,
+      ).then(
+        createdUser => {
+          CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
+            console.log('User Created Successfully', user);
+            responseData.name = user.name;
+            responseData.uid = user.uid;
+            responseData.authToken = user.authToken;
+            responseData.status = user.status;
+          });
 
-        // CometChatUIKit.getLoggedInUser()
-        //   .then(user => {
-        //     if (user != null) {
-        //       // navigation.navigate('Home');
-        //     }
-        //   })
-        //   .catch(e => console.log('Unable to get loggedInUser', e));
-      },
-      error => {
-        console.log('User Creating Failed Failed', error);
-      },
-    );
+          // CometChatUIKit.getLoggedInUser()
+          //   .then(user => {
+          //     if (user != null) {
+          //       // navigation.navigate('Home');
+          //     }
+          //   })
+          //   .catch(e => console.log('Unable to get loggedInUser', e));
+        },
+        error => {
+          console.log('User Creating Failed Failed', error);
+        },
+      );
 
-    // Dispatch success action
+      // Dispatch success action
 
-    console.log(responseData, 'responseData responseData responseData');
+      console.log(responseData, 'responseData responseData responseData');
 
-    dispatch(authSuccess(responseData));
-  } catch (error) {
-    console.error('Error signing up with Firebase:', error);
-    dispatch(authFail('Error signing up with Firebase'));
-  }
-};
+      dispatch(authSuccess(responseData));
+    } catch (error) {
+      console.error('Error signing up with Firebase:', error);
+      dispatch(authFail('Error signing up with Firebase'));
+    }
+  };
 
-const createUserInFirestore = async (userId, userData) => {
+const createUserInFirestore = async (
+  userId: string | undefined,
+  userData: {[x: string]: any},
+) => {
   try {
     // Reference to the Firestore collection for users
     const usersCollection = firestore().collection('users');
