@@ -40,11 +40,11 @@ const SingInScreen = ({navigation}) => {
   );
 
   useEffect(() => {
-    // CometChatUIKit.getLoggedInUser()
-    //   .then(user => {
-    //     if (user != null) navigation.replace('Hero');
-    //   })
-    //   .catch(e => console.log('Unable to get loggedInUser', e));
+    CometChatUIKit.getLoggedInUser()
+      .then(user => {
+        if (user != null) navigation.replace('Home');
+      })
+      .catch(e => console.log('Unable to get loggedInUser', e));
   }, []);
 
   const handleGoogleLogin = async () => {
@@ -190,7 +190,7 @@ const SingInScreen = ({navigation}) => {
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={styles.googleLoginButton}
         onPress={handleFacebookLogin}
         disabled={socialMediaLoading}>
@@ -199,7 +199,7 @@ const SingInScreen = ({navigation}) => {
           style={{width: 30, height: 30}}
         />
         <Text style={styles.googleButtonText}>Continue with Facebook</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       {error && (
         <Text style={styles.errorText}>
