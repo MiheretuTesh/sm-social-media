@@ -125,24 +125,17 @@ export const signUp =
         createdUser => {
           CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
             console.log('User Created Successfully', user);
-            responseData.name = user.name;
-            responseData.uid = user.uid;
-            responseData.authToken = user.authToken;
-            responseData.status = user.status;
           });
-
-          // CometChatUIKit.getLoggedInUser()
-          //   .then(user => {
-          //     if (user != null) {
-          //       // navigation.navigate('Home');
-          //     }
-          //   })
-          //   .catch(e => console.log('Unable to get loggedInUser', e));
         },
         error => {
           console.log('User Creating Failed Failed', error);
         },
       );
+      CometChatUIKit.getLoggedInUser().then(user => {
+        if (user != null) {
+          // navigation.navigate('Home');
+        }
+      });
 
       // Dispatch success action
 
@@ -365,13 +358,13 @@ export const loginUsingFacebook = () => async dispatch => {
           },
         );
 
-        // CometChatUIKit.getLoggedInUser()
-        //   .then(user => {
-        //     if (user != null) {
-        //       //navigation.navigate('Home');
-        //     }
-        //   })
-        //   .catch(e => console.log('Unable to get loggedInUser', e));
+        CometChatUIKit.getLoggedInUser()
+          .then(user => {
+            if (user != null) {
+              //navigation.navigate('Home');
+            }
+          })
+          .catch(e => console.log('Unable to get loggedInUser', e));
 
         dispatch(authSuccess(value));
       } else {

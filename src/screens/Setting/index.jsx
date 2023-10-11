@@ -52,7 +52,11 @@ function UserProfileScreen({navigation}) {
           <Icon name="lock" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Privacy and Security</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.preferenceItem}>
+        <TouchableOpacity
+          style={styles.preferenceItem}
+          onPress={() =>
+            navigation.navigate('EditProfileScreen', {uid: user.uid})
+          }>
           <Icon name="pencil" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Edit Profile</Text>
         </TouchableOpacity>
