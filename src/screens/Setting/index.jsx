@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  CometChatAvatar,
-  CometChatStatusIndicator,
-} from '@cometchat/chat-uikit-react-native';
+import {CometChatAvatar} from '@cometchat/chat-uikit-react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {logout, deleteAccount} from '../../store/reducers/auth/authAction';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
-import {styles} from './styles';
+import {styles} from './style.tsx';
 
 function UserProfileScreen({navigation}) {
   const [user, setUser] = useState(null);
@@ -28,7 +25,7 @@ function UserProfileScreen({navigation}) {
   };
   const logoutHandler = () => {
     dispatch(logout());
-    navigation.navigate('Home');
+    navigation.replace('Hero');
   };
 
   return (

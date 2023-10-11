@@ -60,8 +60,8 @@ import {
   CometChatContext,
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
-import AdditionalInformationScreen from './screens/SignUp/AdditionalInformationScreen';
-import ProfileCompletionScreen from './screens/SignUp/ProfileCompletionScreen';
+import AdditionalInformationScreen from './screens/AdditionalInformation';
+import ProfileCompletionScreen from './screens/UserProfile';
 import UsersScreen from './screens/Users';
 import EditProfileScreen from './screens/EditProfileScreen';
 
@@ -74,7 +74,7 @@ function StackNavigator(props: any) {
         <Stack.Screen name="HeroScreen" component={HeroScreen} />
         <Stack.Screen name="Login" component={SingInScreen} />
         <Stack.Screen name="SignIn" component={SingInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="SignUp" component={AdditionalInformationScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="ProfileCompletionScreen"

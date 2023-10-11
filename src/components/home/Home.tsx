@@ -19,8 +19,8 @@ import {
   CometChatUIKit,
 } from '@cometchat/chat-uikit-react-native';
 
-import AdditionalInformationScreen from '../../screens/SignUp/AdditionalInformationScreen';
-import UserProfileScreen from '../../screens/UserProfile';
+import AdditionalInformationScreen from '../../screens/AdditionalInformation';
+import UserProfileScreen from '../../screens/Setting';
 export const Home = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
