@@ -74,7 +74,7 @@ function StackNavigator(props: any) {
         <Stack.Screen name="HeroScreen" component={HeroScreen} />
         <Stack.Screen name="Login" component={SingInScreen} />
         <Stack.Screen name="SignIn" component={SingInScreen} />
-        <Stack.Screen name="SignUp" component={AdditionalInformationScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="ProfileCompletionScreen"
