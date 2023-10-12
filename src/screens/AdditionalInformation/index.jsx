@@ -62,7 +62,7 @@ function RNDropDown({data, name, selectedValue, onValueChange, title}) {
 
 function AdditionalInformationScreen({route, navigation}) {
   // Extract user information from props
-  const {uid} = route.params | '2323';
+  const {uid} = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
