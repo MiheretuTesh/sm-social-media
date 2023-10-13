@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     padding: Metrics.measure(10),
     marginBottom: Metrics.measure(10),
   },
@@ -105,5 +105,28 @@ export const styles = StyleSheet.create({
   inputSearchStyle: {
     height: Metrics.measure(40),
     fontSize: Metrics.measure(16),
+  },
+  buttonContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomContainer: {
+    marginVertical: 10,
+  },
+  submitButton: {
+    width: 175,
+    borderRadius: 8,
+    marginBottom: 10,
+    backgroundColor: '#E51D43',
+    color: '#333',
+  },
+  saveButton: {
+    width: 175,
+    borderRadius: 8,
+    marginBottom: 10,
+    backgroundColor: '#E51D43',
+    color: '#E51D43',
   },
 });

@@ -3,17 +3,17 @@ import {
   View,
   ScrollView,
   TextInput,
-  Button,
   Text,
   ActivityIndicator,
 } from 'react-native';
+import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import TextInputField from '../../components/TextInputField';
 import MultiSelectComponent from '../../components/MultiSelectorDropdown/MultiSelect';
 import {useDispatch} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import {Dropdown} from 'react-native-element-dropdown';
 import {
   countriesList,
   CityList,
@@ -27,7 +27,7 @@ import {
   fieldOFstudyList,
   skillsList,
 } from '../../constants/Constants';
-import {styles} from '../AdditionalInformation/style';
+import {styles} from './style';
 
 function RNDropDown({data, name, selectedValue, onValueChange, title}) {
   return (
@@ -447,20 +447,12 @@ function EditInformationScreen({route, navigation}) {
               onValueChange={event => setLookingTo(event.value)}
             />
           </Section>
-          <View style={styles.buttonsContainer}>
+          <View style={styles.bottomContainer}>
             <Button
-              // style={styles.button}
-              title="Submit"
+              buttonStyle={styles.submitButton}
+              containerStyle={styles.buttonContainer}
+              title="Save"
               onPress={handleUpdate}
-              color="#E51D43"
-            />
-            <Button
-              style={styles.button}
-              title="Skip"
-              color="#E51D43"
-              onPress={() => {
-                navigation.navigate('Home');
-              }}
             />
           </View>
         </>
