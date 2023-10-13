@@ -4,7 +4,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: {},
-    isLoggedIn: false,
+    isAuthenticated: false,
     error: null,
     loading: false,
     socialMediaLoading: false,
@@ -29,14 +29,14 @@ const authSlice = createSlice({
     authSuccess: (state, action) => {
       state.loading = false;
       state.socialMediaLoading = false;
-      state.isLoggedIn = true;
+      state.isAuthenticated = true;
       state.user = action.payload;
       state.error = null;
     },
     logoutSuccess: state => {
       state.loading = false;
       state.socialMediaLoading = false;
-      state.isLoggedIn = false;
+      state.isAuthenticated = false;
       state.user = {};
       state.error = null;
     },

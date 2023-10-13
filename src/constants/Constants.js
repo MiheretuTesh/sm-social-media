@@ -17,12 +17,9 @@ export const countriesList = [
   {label: 'Brazil', value: 'Brazil'},
 ];
 export const skillsList = [
-  'Apple',
-  'Banana',
-  'Cherry',
-  'Date',
-  'Fig',
-  'Grapes',
+  {label: 'Qatar', value: 'Qatar'},
+  {label: 'Niger', value: 'Niger'},
+  {label: 'Brazil', value: 'Brazil'},
 ];
 
 export const CityList = [

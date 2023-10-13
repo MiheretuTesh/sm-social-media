@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {logout, deleteAccount} from '../../store/reducers/auth/authAction';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {styles} from './style.tsx';
+
 function UserProfileScreen({navigation}) {
   const [user, setUser] = useState(null);
 
@@ -59,7 +60,11 @@ function UserProfileScreen({navigation}) {
           <Icon name="pencil" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.preferenceItem}>
+        <TouchableOpacity
+          style={styles.preferenceItem}
+          onPress={() =>
+            navigation.navigate('EditProfileInformationScreen', {uid: user.uid})
+          }>
           <Icon name="user" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Edit Personal Info</Text>
         </TouchableOpacity>

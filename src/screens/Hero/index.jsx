@@ -19,20 +19,22 @@ const HeroScreen = React.memo(({navigation}) => {
 
   const {user, isLoggedIn, error, loading} = useSelector(state => state.auth);
 
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      console.log(isLoggedIn, 'Logged In');
-      navigation.replace('Home');
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn === true) {
+  //     console.log(isLoggedIn, 'Logged In');
+  //     navigation.replace('Home');
+  //   }
+  // }, [isLoggedIn]);
 
-  React.useEffect(() => {
-    CometChatUIKit.getLoggedInUser()
-      .then(user => {
-        if (user != null) navigation.navigate('Home');
-      })
-      .catch(e => console.log('Unable to get loggedInUser', e));
-  }, []);
+  // React.useEffect(() => {
+  //   CometChatUIKit.getLoggedInUser()
+  //     .then(user => {
+  //       if (user != null) {
+  //         navigation.navigate('Home');
+  //       }
+  //     })
+  //     .catch(e => console.log('Unable to get loggedInUser', e));
+  // }, []);
 
   return (
     <View style={styles.container}>
