@@ -1,79 +1,68 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  profileSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 60,
-    height: 60,
-  },
-  nameContainer: {
-    marginLeft: 16,
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  statusContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  statusIndicator: {
-    marginRight: 8,
-  },
-  statusText: {
-    fontSize: 14,
-    color: 'green',
-  },
-  preferencesSection: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 16,
-  },
-  preferencesHeader: {
+  headerText: {
+    textAlign: 'center',
     fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    color: 'black',
+    marginTop: 20,
+    color: '#333',
   },
-  preferenceItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-    paddingVertical: 4,
-    borderTopWidth: 1,
-    // borderTopColor:
+  container: {
+    padding: 16,
   },
-  preferenceIcon: {
-    marginRight: 8,
-    fontSize: 24,
-    color: 'gray',
+  input: {
+    borderWidth: 1,
+    borderColor: '#969BA1',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 12,
+    color: '#333',
   },
-  preferenceText: {
-    fontSize: 16,
-    color: 'black',
+  skipText: {
+    color: 'blue',
+    textDecorationLine: 'underline',
   },
-  btnContainer: {
+  profilePictureContainer: {
+    flexDirection: 'column-reverse',
+  },
+  profilePicture: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 10,
+    width: 100,
+    height: 100,
+  },
+  section: {
     width: '100%',
     flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 16,
+    marginTop: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  label: {color: '#333'},
-  errorField: {color: 'red'},
+  date: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#969BA1',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 12,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  uploadButton: {
+    fontSize: 10,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderColor: '#E51D43',
+  },
+  uploadButtonTitle: {
+    fontSize: 12,
+    color: '#E51D43',
+    borderColor: '#E51D43',
+  },
   bottomContainer: {
     marginBottom: 10,
   },
@@ -89,9 +78,15 @@ export const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginVertical: 10,
   },
+  //   buttonContainer: {
+  //     width: 175,
+  //     marginHorizontal: 18,
+  //     marginVertical: 10,
+  //   },
   buttonContainer: {
-    width: 175,
-    marginHorizontal: 18,
-    marginVertical: 10,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

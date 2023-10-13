@@ -11,7 +11,7 @@ import {useDispatch} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Dropdown} from 'react-native-element-dropdown';
-
+import MultiSelectComponent from '../../components/MultiSelectorDropdown/MultiSelect';
 import firestore from '@react-native-firebase/firestore';
 import {
   countriesList,
@@ -24,7 +24,9 @@ import {
   universityList,
   degreesList,
   fieldOFstudyList,
+  skillsList,
 } from '../../constants/Constants';
+import TextInputField from '../../components/TextInputField';
 import {setLoading} from '../../store/reducers/auth/authSlice';
 import {styles} from './style';
 
@@ -62,7 +64,7 @@ function RNDropDown({data, name, selectedValue, onValueChange, title}) {
 
 function AdditionalInformationScreen({route, navigation}) {
   // Extract user information from props
-  const {uid} = route.params | '2323';
+  const {uid} = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -82,30 +84,22 @@ function AdditionalInformationScreen({route, navigation}) {
   const [jobStartDate, setJobStartDate] = useState(new Date());
   const [jobEndDate, setJobEndDate] = useState(new Date());
 
-  // Skills and Endorsments
-  const [skills, setSkills] = useState('');
-  const [addEndorsement, setAddEndorsement] = useState('');
-
-  // language
-  const [languages, setLanguages] = useState(['']);
+  const [skills, setSkills] = useState([]);
+  const [addEndorsement, setAddEndorsement] = useState([]);
+  const [languages, setLanguages] = useState([]);
 
   // about me
   const [aboutMe, setAboutMe] = useState('');
-
-  //contatct info (phone. alt eamil)
   const [phoneNumber, setPhoneNumber] = useState('');
   const [additionalEmail, setAdditionalEmail] = useState('');
 
   // Religious background
   const [religionBackground, setReligionBackground] = useState('');
-  //prayer frequency
   const [prayerFrequency, setPrayerFrequency] = useState('');
-  // Dietary Preferences
   const [dietaryPreferences, setDietaryPreferences] = useState('');
 
   // Groups & Organizations
   const [organizations, setOrganizations] = useState('');
-  //  Looking to?
   const [lookingTO, setLookingTo] = useState('');
 
   const handleStartDateChange = (event, selectedDate) => {
@@ -146,26 +140,26 @@ function AdditionalInformationScreen({route, navigation}) {
       const userId = uid;
       console.log('userid', userId);
       const userProfileData = {
-        city,
-        country,
-        university,
-        degree,
-        fieldOfStudy,
-        jobTitle,
-        companyName,
-        jobStartDate,
-        jobEndDate,
-        skills,
-        addEndorsement,
-        languages,
-        aboutMe,
-        phoneNumber,
-        additionalEmail,
-        organizations,
-        religionBackground,
-        prayerFrequency,
-        dietaryPreferences,
-        lookingTO,
+        isProfileCompleted: true,
+        personalInformaition: {
+          city,
+          country,
+          university,
+          degree,
+          fieldOfStudy,
+          workHistory: {jobTitle, companyName, jobStartDate, jobEndDate},
+          skills,
+          addEndorsement,
+          languages,
+          aboutMe,
+          phoneNumber,
+          additionalEmail,
+          organizations,
+          religionBackground,
+          prayerFrequency,
+          dietaryPreferences,
+          lookingTO,
+        },
       };
       console.log(userProfileData);
 
@@ -237,20 +231,32 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Work Experience">
-        <TextInput
+        <TextInputField
+          name="Job Title"
+          placeholder={jobTitle}
+          value={jobTitle}
+          onChangeText={text => setJobTitle(text)}
+        />
+        {/* <TextInput
           placeholder="Job Title"
           value={jobTitle}
           onChangeText={text => setJobTitle(text)}
           style={styles.input}
           placeholderTextColor="#333"
+        /> */}
+        <TextInputField
+          name="Company name"
+          placeholder="Company Name"
+          value={companyName}
+          onChangeText={text => setCompanyName(text)}
         />
-        <TextInput
+        {/* <TextInput
           placeholder="Company Name"
           value={companyName}
           onChangeText={text => setCompanyName(text)}
           style={styles.input}
           placeholderTextColor="#333"
-        />
+        /> */}
         <View style={styles.datePickerContainer}>
           <View>
             <Text style={{color: '#333'}}>Start Date: </Text>
@@ -258,7 +264,6 @@ function AdditionalInformationScreen({route, navigation}) {
               style={styles.date}
               onPress={() => setShowStartDatePicker(true)}>
               <Text>
-                {' '}
                 {jobStartDate.toLocaleDateString('en-US', {
                   year: '2-digit',
                   month: '2-digit',
@@ -303,13 +308,28 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Skills and Endorsements">
-        <TextInput
+        {
+          // replace with multi selectors
+        }
+        <MultiSelectComponent
+          data={skillsList}
+          onChange={item => setSkills(item.value)}
+          selected={skills}
+        />
+        {/* <MultiSelector
+          label="Skills"
+          data={skillsList}
+          max={5}
+          selectedItems={skills}
+          setSelectedItems={setSkills}
+        /> */}
+        {/* <TextInput
           placeholder="Skills"
           value={skills}
           onChangeText={text => setSkills(text)}
           style={styles.input}
           placeholderTextColor="#333"
-        />
+        /> */}
         <TextInput
           placeholder="Add Endorsement"
           value={addEndorsement}
@@ -318,24 +338,43 @@ function AdditionalInformationScreen({route, navigation}) {
         />
       </Section>
 
-      <Section sectionHeaderText="About Me">
-        <TextInput
+      <Section>
+        <TextInputField
+          name="Biography"
+          placeholder="I am .."
+          value={aboutMe}
+          onChangeText={text => setAboutMe(text)}
+          multiline={true}
+        />
+        {/* <TextInput
           placeholder="About Me"
           value={aboutMe}
           onChangeText={text => setAboutMe(text)}
           multiline={true}
           style={styles.input}
           placeholderTextColor="#333"
-        />
+        /> */}
       </Section>
 
       <Section sectionHeaderText="Contact Information">
-        <TextInput
+        <TextInputField
+          name={'Phone Number'}
+          placeholder="+1 234 ..."
+          value={phoneNumber}
+          onChangeText={text => setPhoneNumber(text)}
+        />
+        {/* <TextInput
           placeholder="Phone Number"
           value={phoneNumber}
           onChangeText={text => setPhoneNumber(text)}
           style={styles.input}
           placeholderTextColor="#333"
+        /> */}
+        <TextInputField
+          name="Email"
+          placeholder="Email"
+          value={additionalEmail}
+          onChangeText={text => setAdditionalEmail(text)}
         />
         <TextInput
           placeholder="Additional Email"
@@ -378,6 +417,9 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Languages Spoken">
+        {
+          //  change with multiselector
+        }
         <RNDropDown
           name="Languages"
           data={languagesList}

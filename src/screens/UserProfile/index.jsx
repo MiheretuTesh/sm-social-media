@@ -14,11 +14,12 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {firebase} from '@react-native-firebase/storage';
-import {styles} from './style.tsx';
+import {styles} from './style';
+import TextInputField from '../../components/TextInputField';
 
 const ProfileCompletionScreen = ({route, navigation}) => {
   // Extract user information from props
-  const {name, email, birthDate, password, profile, uid} = route.params | '';
+  const {name, email, birthDate, password, profile, uid} = route.params;
 
   const [updatedFullName, setUpdatedFullName] = useState(name || '');
   const [updatedEmail, setUpdatedEmail] = useState(email || '');
@@ -74,7 +75,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
   const createUserInFirestore = async (userId, userData) => {
     try {
       // Reference to the Firestore collection for users
-      const usersCollection = firestore().collection('users');
+      const usersCollection = firestore().collection('user-profiles');
 
       // Add a new document with a generated ID
       await usersCollection.doc(userId).set(userData);
@@ -104,7 +105,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
 
   const handleSubmit = async () => {
     const user = uid;
-
+    console.log(user);
     let profilePictureUrl = updatedProfilePicture || ' ';
 
     // If a new profile picture is selected, upload it to Firebase Storage
@@ -128,11 +129,11 @@ const ProfileCompletionScreen = ({route, navigation}) => {
   };
   // validate name and submit form
   const validateForm = () => {
-    if (!fullName) {
+    if (!updatedFullName) {
       setNameError('Name field is required !');
     } else {
       setNameError('');
-      handleSubmit;
+      handleSubmit();
     }
   };
 
@@ -165,13 +166,13 @@ const ProfileCompletionScreen = ({route, navigation}) => {
             />
           </View>
         </View>
-        <Text style={styles.label}>Name</Text>
-        <TextInput
-          style={styles.input}
+        <TextInputField
+          name={'Full Name'}
           placeholder={updatedFullName}
           value={updatedFullName}
           onChangeText={text => setUpdatedFullName(text)}
         />
+
         {nameError && (
           <Text style={styles.errorField}>{this.state.nameError}</Text>
         )}

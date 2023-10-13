@@ -8,10 +8,10 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {firebase} from '@react-native-firebase/storage';
 import {styles} from './styles';
 import {NameIsRequiredFilled} from '../../utils/ErrorMessages';
+import TextInputField from '../../components/TextInputField';
 import auth from '@react-native-firebase/auth';
+
 const EditProfileScreen = ({route, navigation}) => {
-  // const uid = user.uid;
-  //  console.log(uid);
   const [uid, setUid] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [updatedFullName, setUpdatedFullName] = useState('');
@@ -47,7 +47,10 @@ const EditProfileScreen = ({route, navigation}) => {
     setIsLoading(true);
     try {
       // Fetch user data from Firestore based on the UID
-      const userDoc = await firestore().collection('users').doc(userId).get();
+      const userDoc = await firestore()
+        .collection('user-profiles')
+        .doc(userId)
+        .get();
 
       if (userDoc.exists) {
         // Extract user data
@@ -124,7 +127,7 @@ const EditProfileScreen = ({route, navigation}) => {
   const updateUserInFirestore = async (userId, userData) => {
     try {
       // Reference to the Firestore collection for users
-      const usersCollection = firestore().collection('users');
+      const usersCollection = firestore().collection('user-profiles');
 
       await usersCollection.doc(userId).set(userData);
 
@@ -179,14 +182,13 @@ const EditProfileScreen = ({route, navigation}) => {
     setIsLoading(true);
     if (!updatedFullName) {
       setNameError(NameIsRequiredFilled);
+      setIsLoading(false);
     } else {
       setNameError(null);
       handleSubmit;
       setIsLoading(false);
     }
   };
-
-  console.log('bdate', updatedBirthDate);
 
   return (
     <ScrollView style={styles.container}>
@@ -222,49 +224,45 @@ const EditProfileScreen = ({route, navigation}) => {
                 />
               </View>
             </View>
-            <Text style={{color: '#333'}}>Name</Text>
-            <TextInput
-              style={styles.input}
+
+            <TextInputField
+              name={'Full Name'}
               placeholder={updatedFullName}
               value={updatedFullName}
-              onChangeText={text => setUpdatedFullName(text)}
+              onChangeText={event => setUpdatedFullName(event)}
             />
             {nameError && <Text style={{color: 'red'}}>{nameError}</Text>}
 
-            <Text style={{color: '#333'}}>Email</Text>
-            <TextInput
-              style={styles.input}
+            <TextInputField
+              name={'Email'}
               placeholder={updatedEmail}
               value={updatedEmail}
-              editable={false}
-              // onChangeText={text => setUpdatedEmail(text)}
             />
+
             <View>
-              <View>
-                <Text style={{color: '#333'}}>Birth Date</Text>
-                <TouchableOpacity
-                  style={styles.date}
-                  onPress={() => setShowDatePicker(true)}>
-                  <Text>
-                    {' '}
-                    {updatedBirthDate.toLocaleDateString('en-US', {
-                      year: '2-digit',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })}
-                  </Text>
-                </TouchableOpacity>
-                {showDatePicker && (
-                  <DateTimePicker
-                    textColor="#000000"
-                    testID="startDatePicker"
-                    value={updatedBirthDate}
-                    mode="date"
-                    display="spinner"
-                    onChange={handleBirthDateChange}
-                  />
-                )}
-              </View>
+              <Text style={{color: '#333'}}>Birth Date</Text>
+              <TouchableOpacity
+                style={styles.date}
+                onPress={() => setShowDatePicker(true)}>
+                <Text>
+                  {' '}
+                  {updatedBirthDate.toLocaleDateString('en-US', {
+                    year: '2-digit',
+                    month: '2-digit',
+                    day: '2-digit',
+                  })}
+                </Text>
+              </TouchableOpacity>
+              {showDatePicker && (
+                <DateTimePicker
+                  textColor="#000000"
+                  testID="startDatePicker"
+                  value={updatedBirthDate}
+                  mode="date"
+                  display="spinner"
+                  onChange={handleBirthDateChange}
+                />
+              )}
             </View>
             <View style={styles.bottomContainer}>
               <Button

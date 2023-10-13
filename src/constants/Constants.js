@@ -16,6 +16,14 @@ export const countriesList = [
   {label: 'Niger', value: 'Niger'},
   {label: 'Brazil', value: 'Brazil'},
 ];
+export const skillsList = [
+  'Apple',
+  'Banana',
+  'Cherry',
+  'Date',
+  'Fig',
+  'Grapes',
+];
 
 export const CityList = [
   {label: 'New York', value: 'New York'},
