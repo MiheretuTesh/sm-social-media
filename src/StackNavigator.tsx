@@ -93,7 +93,7 @@ function StackNavigator(props: any) {
 
   return (
     <NavigationContainer>
-      {isLogedIn ? (
+      {isAuthenticated ? (
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"

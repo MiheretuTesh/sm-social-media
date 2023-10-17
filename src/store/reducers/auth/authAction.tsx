@@ -52,8 +52,7 @@ export const loginUser = (email: string, password: string) => {
         email,
         password,
       );
-
-      const firebaseUser = userCredential?.user; // Use optional chaining here
+      const firebaseUser = userCredential?.user;
 
       if (firebaseUser) {
         const firebaseUID = firebaseUser.uid;
@@ -88,7 +87,7 @@ export const loginUser = (email: string, password: string) => {
 };
 
 export const signUp =
-  (email: string | any, password: string) =>
+  (email: string, password: string) =>
   async (
     dispatch: (arg0: {
       payload: any;
@@ -98,7 +97,7 @@ export const signUp =
     try {
       dispatch(authStart());
 
-      //Create a Firebase user
+      // Create a Firebase user
       const userCredential = await auth().createUserWithEmailAndPassword(
         email,
         password,
@@ -106,7 +105,6 @@ export const signUp =
       const firebaseUser = userCredential.user;
       const firebaseUID = firebaseUser.uid;
 
-      // Create a CometChat user
       const cometChatUser = new CometChat.User(firebaseUID);
       const nameLst = userCredential?.user.email.split('@');
       const name = nameLst[0];
@@ -118,30 +116,27 @@ export const signUp =
         uid: firebaseUID,
       };
 
-      const createdUser = await CometChat.createUser(
-        cometChatUser,
-        COMETCHAT_AUTHID,
-      ).then(
-        createdUser => {
-          CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
-            console.log('User Created Successfully', user);
+      try {
+        const createdUser = await CometChat.createUser(
+          cometChatUser,
+          COMETCHAT_AUTHID,
+        );
+        CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
+          console.log('User Created Successfully', user);
+
+          CometChatUIKit.getLoggedInUser().then(user => {
+            if (user != null) {
+              // navigation.navigate('Home');
+            }
           });
-        },
-        error => {
-          console.log('User Creating Failed Failed', error);
-        },
-      );
-      CometChatUIKit.getLoggedInUser().then(user => {
-        if (user != null) {
-          // navigation.navigate('Home');
-        }
-      });
 
-      // Dispatch success action
-
-      console.log(responseData, 'responseData responseData responseData');
-
-      dispatch(authSuccess(responseData));
+          // Dispatch success action
+          dispatch(authSuccess(responseData));
+        });
+      } catch (error) {
+        console.error('Error creating CometChat user:', error);
+        dispatch(authFail('Error creating CometChat user'));
+      }
     } catch (error) {
       console.error('Error signing up with Firebase:', error);
       dispatch(authFail('Error signing up with Firebase'));
@@ -165,15 +160,13 @@ const createUserInFirestore = async (
   }
 };
 
-//##TODO Social Media Sign-up and Login
-
 export const signUpUsingGoogle = () => async dispatch => {
   try {
     dispatch(authStartSocailLink());
 
     GoogleSignin.configure({
       webClientId: FIREBASE_WEB_CLIENTID,
-      prompt: 'select_account',
+      accountName: 'select_account',
     });
 
     await GoogleSignin.hasPlayServices();
@@ -196,7 +189,7 @@ export const signUpUsingGoogle = () => async dispatch => {
             // Navigate to the CometChat UI
           });
 
-          await CometChatUIKit.login(firebaseUser.uid, COMETCHAT_AUTHID).then(
+          await CometChatUIKit.login(firebaseUser.uid).then(
             user => {
               console.log('Login Successful:', {user});
             },
@@ -242,7 +235,6 @@ export const loginUsingGoogle = () => async dispatch => {
 
     GoogleSignin.configure({
       webClientId: FIREBASE_WEB_CLIENTID,
-      prompt: 'select_account',
     });
 
     await GoogleSignin.hasPlayServices();
@@ -259,21 +251,7 @@ export const loginUsingGoogle = () => async dispatch => {
       const firebaseUID = firebaseUser.uid;
 
       CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
-        loggedInUser => {
-          CometChatUIKit.login(loggedInUser.authToken)
-            .then(user => {
-              console.log(user, 'UI Kit setuped');
-              CometChatUIKit.getLoggedInUser()
-                .then(user => {
-                  console.log(user, 'comet chat UI Logged In');
-                })
-                .catch(e => console.log('Unable to get loggedInUser', e));
-              // navigation.navigate('Home');
-            })
-            .catch(err => {
-              console.log('Error while login:', err);
-            });
-        },
+        loggedInUser => {},
         error => {
           console.error('Error logging in to CometChat:', error);
         },
@@ -418,7 +396,7 @@ export const logout = () => {
   };
 };
 
-export const deleteAccount = () => async (dispatch, userId) => {
+export const deleteAccount = userId => async dispatch => {
   try {
     const uid = userId;
 
@@ -455,7 +433,7 @@ export const deleteAccount = () => async (dispatch, userId) => {
       // Dispatch the logout success action
       dispatch(logoutSuccess());
     } else {
-      console.error('User data not found.');
+      console.error('User data not found');
     }
   } catch (error) {
     console.error('Error deleting account:', error);
