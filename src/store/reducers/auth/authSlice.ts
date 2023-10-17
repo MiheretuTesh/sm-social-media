@@ -13,6 +13,9 @@ const authSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
     authStart: state => {
       state.loading = true;
       state.error = null;
@@ -49,6 +52,7 @@ export const {
   authStartSocailLink,
   authFail,
   authSuccess,
+  setUser,
   logoutSuccess,
 } = authSlice.actions;
 

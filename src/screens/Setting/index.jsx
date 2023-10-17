@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Alert} from 'react-native';
+import {View, Text, Alert, Pressable} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {CometChatAvatar} from '@cometchat/chat-uikit-react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Modal from 'react-native-modal'; // Import the Modal component
+import Modal from 'react-native-modal';
 import {logout, deleteAccount} from '../../store/reducers/auth/authAction';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {styles} from './style.tsx';
 
 function UserProfileScreen({navigation}) {
   const [user, setUser] = useState(null);
-  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false); // Control the visibility of the delete confirmation modal
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -53,13 +53,13 @@ function UserProfileScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.profileSection}>
-        <TouchableOpacity
+        <Pressable
           style={styles.editProfileIcon}
           onPress={() =>
             navigation.navigate('EditProfileScreen', {uid: user.uid})
           }>
-          <Icon name="pencil" size={24} color="#fff" />
-        </TouchableOpacity>
+          <Icon name="pencil" size={18} />
+        </Pressable>
         <CometChatAvatar
           cornerRadius={60}
           borderColor="white"
@@ -109,17 +109,20 @@ function UserProfileScreen({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <Modal isVisible={isDeleteModalVisible}>
+      <Modal
+        isVisible={isDeleteModalVisible}
+        animationOutTiming={700}
+        onBackdropPress={() => setDeleteModalVisible(false)}>
         <View style={styles.modalContent}>
           <Text style={styles.modalText}>
             Are you sure you want to delete your account?
           </Text>
-          <TouchableOpacity onPress={() => setDeleteModalVisible(false)}>
+          <Pressable onPress={() => setDeleteModalVisible(false)}>
             <Text style={styles.cancelButton}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={deleteAccountHandler}>
+          </Pressable>
+          <Pressable onPress={deleteAccountHandler}>
             <Text style={styles.deleteButton}>Delete</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </Modal>
     </View>

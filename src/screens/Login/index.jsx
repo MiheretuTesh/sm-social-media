@@ -35,15 +35,20 @@ const SingInScreen = ({navigation}) => {
     setShowPassword(!showPassword);
   };
 
-  const {user, isLoggedIn, error, loading, socialMediaLoading} = useSelector(
-    state => state.auth,
-  );
+  const {
+    user,
+    isAuthenticated,
+    isLoggedIn,
+    error,
+    loading,
+    socialMediaLoading,
+  } = useSelector(state => state.auth);
 
   useEffect(() => {
     CometChatUIKit.getLoggedInUser()
       .then(user => {
         if (user != null) {
-          navigation.replace('Home');
+          console.log('user is loged in', user);
         }
       })
       .catch(e => console.log('Unable to get loggedInUser', e));

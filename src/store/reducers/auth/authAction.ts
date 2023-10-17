@@ -218,7 +218,7 @@ export const signUpUsingGoogle = () => async dispatch => {
     //  await createUserInFirestore(firebaseUser.uid, responseData);
 
     dispatch(authSuccess(responseData));
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
     } else if (error.code === statusCodes.IN_PROGRESS) {
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
@@ -229,7 +229,7 @@ export const signUpUsingGoogle = () => async dispatch => {
   }
 };
 
-export const loginUsingGoogle = () => async dispatch => {
+export const loginUsingGoogle = () => async (dispatch: any) => {
   try {
     dispatch(authStartSocailLink());
 
@@ -268,13 +268,13 @@ export const loginUsingGoogle = () => async dispatch => {
     };
 
     dispatch(authSuccess(responseData));
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
     } else if (error.code === statusCodes.IN_PROGRESS) {
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
     } else {
       // setLoadingGoogle(false);
-      dispatch(authFail());
+      dispatch(authFail(error));
       console.error('Google Sign-In error:', error);
     }
     dispatch(authFail('Error signing up with Firebase'));
@@ -390,6 +390,9 @@ export const loginUsingFacebook = () => async dispatch => {
 
 export const logout = () => {
   return dispatch => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
     CometChat.logout().then(() => {
       dispatch(logoutSuccess());
     });

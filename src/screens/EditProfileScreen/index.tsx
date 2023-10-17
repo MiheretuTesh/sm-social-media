@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, ScrollView, TextInput, Text, Image} from 'react-native';
+import {View, ScrollView, Text, Image, ActivityIndicator} from 'react-native';
 import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -102,13 +102,6 @@ const EditProfileScreen = ({route, navigation}) => {
     });
   };
 
-  //   useEffect(() => {
-  //     // If there's a profile picture from route params, set it as the selected profile image
-  //     // if (updatedProfilePicture) {
-  //     //   setSelectedProfileImage(updatedProfilePicture);
-  //     // }
-  //   }, []);
-
   const handleBirthDateChange = (event, selectedDate) => {
     if (Platform.OS === 'android') {
       setShowDatePicker(false);
@@ -192,11 +185,10 @@ const EditProfileScreen = ({route, navigation}) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.headerText}>Complete Your Profile</Text>
+      <Text style={styles.headerText}>Update Profile</Text>
       <View style={styles.container}>
         {isLoading ? (
-          // You can show a loading indicator here
-          <Text>Loading...</Text>
+          <ActivityIndicator size={'large'} color="#E51D43" />
         ) : (
           <>
             <View>
