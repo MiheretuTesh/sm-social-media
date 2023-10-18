@@ -22,6 +22,7 @@ import {
 } from '@cometchat/chat-uikit-react-native';
 // import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {styles} from './style.jsx';
+import {FACEBOOKICON, GOOGLEICON, SMLOGO} from '../../assets/icons';
 
 const SingInScreen = ({navigation}) => {
   const {theme} = useContext(CometChatContext);
@@ -67,9 +68,9 @@ const SingInScreen = ({navigation}) => {
     }
   }, [isLoggedIn, user, loading, socialMediaLoading]);
 
-  // const handleFacebookLogin = () => {
-  //   dispatch(loginUsingFacebook());
-  // };
+  const handleFacebookLogin = () => {
+    dispatch(loginUsingFacebook());
+  };
 
   return (
     <View style={styles.loginContainer}>
@@ -81,11 +82,7 @@ const SingInScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.logoContainer}>
-        <Image
-          source={require('../../assets/icons/SM-logo-bg-removed.png')}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        <Image source={SMLOGO} style={styles.image} resizeMode="contain" />
       </View>
 
       <View style={styles.titleContainer}>
@@ -152,10 +149,7 @@ const SingInScreen = ({navigation}) => {
         style={styles.googleLoginButton}
         onPress={handleGoogleLogin}
         disabled={socialMediaLoading}>
-        <Image
-          source={require('../../assets/icons/Google_Icons.webp')}
-          style={{width: 30, height: 30}}
-        />
+        <Image source={GOOGLEICON} style={{width: 30, height: 30}} />
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
@@ -163,10 +157,7 @@ const SingInScreen = ({navigation}) => {
         style={styles.googleLoginButton}
         onPress={handleFacebookLogin}
         disabled={socialMediaLoading}>
-        <Image
-          source={require('../../assets/icons/facebook-icon.png')}
-          style={{width: 30, height: 30}}
-        />
+        <Image source={FACEBOOKICON} style={{width: 30, height: 30}} />
         <Text style={styles.googleButtonText}>Continue with Facebook</Text>
       </TouchableOpacity>
 

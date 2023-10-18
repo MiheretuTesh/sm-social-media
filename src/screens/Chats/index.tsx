@@ -7,9 +7,20 @@ import {
 import {
   CometChat,
   ConversationsConfigurationInterface,
+  ListItemStyleInterface,
 } from '@cometchat/chat-sdk-react-native';
 
 function ChatsScreen({navigation}) {
+  let listItemStyle: ListItemStyleInterface = {
+    backgroundColor: 'rgba(150,150,150,0.7)',
+    height: 85,
+    width: '100%',
+    titleColor: 'blue',
+    titleFont: {fontSize: 22},
+    onPress: () => {
+      console.log('Hello');
+    },
+  };
   let conversationsConfiguration: ConversationsConfigurationInterface = {
     // avatarStyle: {
     //   borderRadius: 20,
@@ -28,6 +39,7 @@ function ChatsScreen({navigation}) {
     <View style={styles.container}>
       <CometChatConversationsWithMessages
         conversationsConfiguration={conversationsConfiguration}
+        // listItemStyle={listItemStyle}
       />
     </View>
   );
