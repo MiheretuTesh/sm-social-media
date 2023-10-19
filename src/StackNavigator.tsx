@@ -15,6 +15,7 @@ import EditInformationScreen from './screens/EditProfileInformationScreen';
 import LoadingScreen from './screens/LoadingScreen';
 import {setUser} from './store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
+import {useDispatch, useSelector} from 'react-redux';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);
