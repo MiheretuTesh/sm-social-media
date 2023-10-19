@@ -1,4 +1,3 @@
-/* eslint-disable no-catch-shadow */
 import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
