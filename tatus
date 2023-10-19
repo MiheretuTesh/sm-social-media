@@ -1,0 +1,608 @@
+[33mcommit a77d482257b521ac11814577ee717a8437c14492[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Thu Oct 19 10:20:36 2023 +0300
+
+    Add first workflow
+
+[33mcommit 92c0f04c5f014438cf272ab3ad42c2004364f002[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 17 11:02:12 2023 +0300
+
+    added delete account warning
+
+[33mcommit 2b13938d3621a7c000434afcacf1f0644e574c4e[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 17 09:18:41 2023 +0300
+
+    fixed loading issue on login
+
+[33mcommit 5bc041b3ffee6ef78ffbc85d19e2e7e7415cd515[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 13 21:48:29 2023 +0300
+
+    added editprofile screen
+
+[33mcommit 12165a3af07e97aaa77411cdd5bc078747c5cef2[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 13 21:41:06 2023 +0300
+
+    added editprofile screen
+
+[33mcommit 1028004a51d62755ed78411533251745ead8662d[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 13 19:09:44 2023 +0300
+
+    added protected navigation
+
+[33mcommit b84c7fc96307d493762db4d26ab308623fe46bbc[m
+Merge: e2ea7eb f33ab74
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 13 18:28:42 2023 +0300
+
+    Merge branch 'main' of https://github.com/MiheretuTesh/social-muslims
+
+[33mcommit e2ea7eb671a26d82f81561d50f1670fe116232c8[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 13 18:28:15 2023 +0300
+
+    code refactore
+
+[33mcommit f33ab744ad69c839a67010a230c148f548674fde[m
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Thu Oct 12 10:58:17 2023 +0300
+
+    Update index.jsx
+
+[33mcommit d527d808394bf9db08fd12b1383a155d9082bc04[m
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Thu Oct 12 10:55:25 2023 +0300
+
+    Update StackNavigator.tsx
+
+[33mcommit e542759e1ed9a162c7579c3ae186564e1bf203fd[m
+Merge: d6732c7 3cd06fd
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Wed Oct 11 23:33:20 2023 +0300
+
+    Merge pull request #22 from MiheretuTesh/style-files
+    
+    feat: style is separated in the style files
+
+[33mcommit 3cd06fd04546c6194eb451637d4ffd42540ec504[m[33m ([m[1;31morigin/style-files[m[33m, [m[1;32mstyle-files[m[33m)[m
+Merge: 6163d52 d6732c7
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 11 23:32:45 2023 +0300
+
+    feat: conflict resolved locally
+
+[33mcommit d6732c7ea0a6dfd0106b083f8d8ea6ebd76e3507[m
+Merge: 7a3d0a0 7457eb7
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Wed Oct 11 23:24:57 2023 +0300
+
+    Merge pull request #21 from MiheretuTesh/fb-login
+    
+    feat: fb login test users
+
+[33mcommit 6163d5224ea0b4bdce81eb9afa67c9d4323ded20[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 11 23:22:50 2023 +0300
+
+    feat: style is seprated in the style files
+
+[33mcommit 7a3d0a054c3d0ffa7eededee9e396e66c69ac41c[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 11 19:37:23 2023 +0300
+
+    added EditProfilescreen
+
+[33mcommit 15930870be1fcec6e3df5e072248bc86a66208b5[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 10 20:49:27 2023 +0300
+
+    updated user-profile screen
+
+[33mcommit 1220838dd2fc51107e02a93b274fc68392784a94[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 10 18:22:00 2023 +0300
+
+    added profile setting
+
+[33mcommit 7457eb7c35ade780e3df326344c59e4086832b2f[m[33m ([m[1;31morigin/fb-login[m[33m, [m[1;32mfb-login[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 10 11:03:26 2023 +0300
+
+    feat: fb login test
+
+[33mcommit 5e6aa90c9de4e42bf7dec9cd5e0f047eafda744e[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Oct 9 20:22:52 2023 +0300
+
+    added name-field validation
+
+[33mcommit 0084145a33a7f05f584b719c7c4e697a64c699f3[m
+Merge: bb91e5d 96ec50f
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Oct 9 20:22:18 2023 +0300
+
+    Merge branch 'main' of https://github.com/MiheretuTesh/social-muslims
+
+[33mcommit bb91e5da35ee474c1a9cc2075b27f32bf2181fd7[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Oct 9 20:19:09 2023 +0300
+
+    added name-field validation
+
+[33mcommit 96ec50f25574543829ecae7146af5b73eefc8154[m
+Merge: dda9ffb 1dbf091
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Oct 7 09:44:36 2023 +0300
+
+    Merge pull request #20 from MiheretuTesh/user-profile
+    
+    feat: user profile works
+
+[33mcommit 1dbf091fb627dfe603f794b840cc48bb8772ab4b[m[33m ([m[1;31morigin/user-profile[m[33m, [m[1;32muser-profile[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Oct 7 09:44:00 2023 +0300
+
+    feat: user profile works
+
+[33mcommit dda9ffbd43d16294d2df41bdd07506e1e4636741[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 6 20:32:13 2023 +0300
+
+    user-profile
+
+[33mcommit 177f8498b6a9c9f3ad7df4766abd465b7163c823[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Oct 6 20:24:52 2023 +0300
+
+    user-profile
+
+[33mcommit b92f657831934282fcfcc58589f3aacb97697591[m
+Merge: 63cfd60 4f55a34
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Wed Oct 4 23:58:56 2023 -0700
+
+    Merge pull request #19 from MiheretuTesh/fb-sign-in
+    
+    feat: fb sign in working
+
+[33mcommit 4f55a34f2bc523ea23c9b9f120f203a72e8c7013[m[33m ([m[1;31morigin/fb-sign-in[m[33m)[m
+Merge: 4eed81e 63cfd60
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Wed Oct 4 23:58:49 2023 -0700
+
+    Merge branch 'main' into fb-sign-in
+
+[33mcommit 4eed81e56387dfa4fbc4bc9b42f28e3b43842b7a[m[33m ([m[1;32mfb-sign-in[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Thu Oct 5 09:55:41 2023 +0300
+
+    feat: fb sign in working
+
+[33mcommit 63cfd600515581f9ca19ad07bc1189bb110bc404[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 4 13:44:15 2023 +0300
+
+    fixed dropdown
+
+[33mcommit 875048c605c3c5b2412e2e8096710bd6bdcf2334[m
+Merge: 2c6175a b43397a
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Tue Oct 3 14:38:12 2023 -0700
+
+    Merge pull request #18 from MiheretuTesh/signup-process
+    
+    Signup process
+
+[33mcommit 2c6175a416fc4d00f25ace1fdeed78b917684d0c[m
+Merge: fbd9d30 bbe2fcb
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Tue Oct 3 14:37:31 2023 -0700
+
+    Merge pull request #17 from MiheretuTesh/calls
+    
+    feat: fb login
+
+[33mcommit bbe2fcbe45fe173fa685902afd20bf2b6a0adf65[m[33m ([m[1;31morigin/calls[m[33m, [m[1;32mcalls[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 4 00:36:17 2023 +0300
+
+    feat: fb login
+
+[33mcommit b43397a09ad71e80a9e08f9ca96f9930a216276c[m[33m ([m[1;31morigin/signup-process[m[33m)[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 4 00:24:11 2023 +0300
+
+    added form and add-info screen
+
+[33mcommit 6a2bc1bdc9be4be048fd011b2d7e4ee029a45f25[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Oct 4 00:17:34 2023 +0300
+
+    added form and add-info screen
+
+[33mcommit a1b9096279de90a05f009be618990fb7e5e9de37[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 3 15:13:02 2023 +0300
+
+    ...
+
+[33mcommit e59b09a176ab0da06cd90594305c23ddec29712e[m
+Merge: 6dfc669 fbd9d30
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 3 12:10:26 2023 +0300
+
+    Merge branch 'main' of https://github.com/MiheretuTesh/social-muslims
+
+[33mcommit 6dfc66903aa0ffeede6203367ad84f63d3e64d78[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 3 12:07:17 2023 +0300
+
+     .. modified
+
+[33mcommit fbd9d30d44829f3385ff4ae89bf495cbd5f16ac0[m
+Merge: c3e094d 3b82b8b
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Mon Oct 2 16:54:00 2023 -0700
+
+    Merge pull request #16 from MiheretuTesh/video-audio-call
+    
+    feat: video and audio call fix
+
+[33mcommit 3b82b8bf2785b64ab601d08a5972ba8384ab2ae4[m[33m ([m[1;31morigin/video-audio-call[m[33m, [m[1;32mvideo-audio-call[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Oct 3 02:52:20 2023 +0300
+
+    feat: video and audio call fix
+
+[33mcommit f6f3d9534264b331e465e46c76fa5b042a2508c0[m
+Merge: 2f1a649 c3e094d
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Oct 2 09:17:46 2023 +0300
+
+    nav issue
+
+[33mcommit 2f1a649d1e9c4a4aa829744a35c36368752d2e5f[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Oct 2 09:03:40 2023 +0300
+
+    nav issue
+
+[33mcommit c3e094dc4220828c8b7599c8acf11a9575622299[m
+Merge: 9dd651f 8c8d1fd
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sun Oct 1 22:20:44 2023 -0700
+
+    Merge pull request #15 from MiheretuTesh/context-provider
+    
+    feat: context provider
+
+[33mcommit 8c8d1fd5b3b290a58823a66ac10c80703e659334[m[33m ([m[1;31morigin/context-provider[m[33m, [m[1;32mcontext-provider[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Oct 2 08:18:32 2023 +0300
+
+    feat: context provider
+
+[33mcommit 9dd651f57a17fc9e97d0f7a5c1540366c7ea75d9[m
+Merge: dc08861 d2cb0bf
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 30 11:33:45 2023 -0700
+
+    Merge pull request #14 from MiheretuTesh/user-tab
+    
+    feat: user tab fix
+
+[33mcommit d2cb0bf9f91775c17a1af83667e3c545477b9a94[m[33m ([m[1;31morigin/user-tab[m[33m, [m[1;32muser-tab[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 30 21:29:46 2023 +0300
+
+    feat: user tab fix
+
+[33mcommit dc08861664ed615e1e75c3721b2ed10aa6cd4f1f[m
+Merge: d613f2d ab13e70
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 30 11:21:57 2023 -0700
+
+    Merge pull request #13 from MiheretuTesh/user-tab
+    
+    feat: user tab added
+
+[33mcommit ab13e70c222727e270627a00bfebca2173af1b0d[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 30 20:08:48 2023 +0300
+
+    feat: user tab added
+
+[33mcommit d613f2d2c104fd435f8344005fcdfad99c03eb11[m
+Merge: 520f7ed db58ff2
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 30 15:08:54 2023 +0300
+
+    added V4 ui-kits
+
+[33mcommit 520f7edc2cc54d4c21293cee452d6af1c4c676c2[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 30 15:02:13 2023 +0300
+
+    added V4 ui-kits
+
+[33mcommit db58ff21de61071a7a3f2d37eed8410f30fc1887[m
+Author: mercy <mercy@mercys-Mac.local>
+Date:   Thu Sep 28 17:15:56 2023 -0700
+
+    ios min version
+
+[33mcommit ba8f80f0d6dae57b872f32def6a1b9ac1c403aac[m
+Merge: 279a7b6 dbee367
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Thu Sep 28 16:39:11 2023 -0700
+
+    Merge pull request #12 from MiheretuTesh/ios-fix
+    
+    feat: ios fix
+
+[33mcommit dbee367b6b743270e8cb1a57c32139722c98a674[m[33m ([m[1;31morigin/ios-fix[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 29 02:36:11 2023 +0300
+
+    feat: ios fix
+
+[33mcommit 279a7b61daa682765ff6050d379dc607ba07ff1a[m
+Merge: c515a6b 536faff
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Mon Sep 25 13:59:03 2023 +0300
+
+    Merge pull request #11 from MiheretuTesh/navigation-fix
+    
+    feat: navigation fix
+
+[33mcommit 536faffc00157584fb12735a0f9ce681cd131c90[m[33m ([m[1;31morigin/navigation-fix[m[33m, [m[1;32mnavigation-fix[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Sep 25 13:58:10 2023 +0300
+
+    feat: navigation fix
+
+[33mcommit c515a6b14dc579eadccb6b6c5865ee18882b705d[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 19:48:25 2023 +0300
+
+    fixed routing issue
+
+[33mcommit 98242b7f90ea1d04990d64534af423fe6ad242d4[m
+Merge: 7633926 f10ae94
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 23 18:12:05 2023 +0300
+
+    Merge pull request #10 from MiheretuTesh/navigation-fix
+    
+    fix: navigation fix for google sign up
+
+[33mcommit f10ae940d7cc3d0fb1db5062205125bbb1d0200a[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 18:11:15 2023 +0300
+
+    fix: navigation fix for google sign uo
+
+[33mcommit 7633926380ed61707a9802fedc106e8a0d51a6db[m
+Merge: 191ba51 5fda50d
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 23 17:54:03 2023 +0300
+
+    Merge pull request #9 from MiheretuTesh/navigation-fix
+    
+    Navigation fix
+
+[33mcommit 5fda50dc47d1037d78e3ac12710bff55cf3ffaed[m
+Merge: 5b7f791 191ba51
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 23 17:53:47 2023 +0300
+
+    Merge branch 'main' into navigation-fix
+
+[33mcommit 5b7f79155e63f4773ac38af4aa79a3a118e40f61[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 17:44:03 2023 +0300
+
+    feat: user navigation
+
+[33mcommit 191ba51483b29b6cb16fee58efddecc779b5319e[m
+Merge: 108ed0b bcb1a51
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 23 17:33:35 2023 +0300
+
+    Merge pull request #8 from MiheretuTesh/auth
+    
+    Auth
+
+[33mcommit bcb1a5115429d62429e87aa492fc040a087ae3e4[m[33m ([m[1;31morigin/auth[m[33m)[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 17:33:05 2023 +0300
+
+    added google sign in
+
+[33mcommit 540e3a957e9df28bfeee372fc8bb25e30254cd4d[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 17:26:24 2023 +0300
+
+    added google sign in
+
+[33mcommit 29d31480fc84f59db8ac16eda8e5f13f4fc8ce1d[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 16:31:23 2023 +0300
+
+    added google signIn
+
+[33mcommit 108ed0bcb3fc4292b615be03ef089c3fc808689d[m
+Merge: 731a086 000b62c
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Sat Sep 23 11:22:36 2023 +0300
+
+    Merge pull request #7 from MiheretuTesh/auth
+    
+    Auth
+
+[33mcommit 000b62c5c80fd50248f5bb30ce07c1044e36496e[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 09:26:15 2023 +0300
+
+    updated signUp
+
+[33mcommit 45b8b38885f72eed4af7e5191048da0a56288d73[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 09:21:26 2023 +0300
+
+    updated index
+
+[33mcommit 894f4281a8da6bf364ce9b38739db642742f32d3[m
+Merge: 3c42eb8 731a086
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 09:20:14 2023 +0300
+
+    Merge branch 'main' into auth
+
+[33mcommit d40fae0db342c6b8ab92180258903941d11e2dd1[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Sat Sep 23 09:10:14 2023 +0300
+
+    fix: navigation problem for the chat is fix
+
+[33mcommit 3c42eb8141426b058b433d82fe57509bd68aaaf2[m[33m ([m[1;32mauth[m[33m)[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 20:05:58 2023 +0300
+
+    user sign up working
+
+[33mcommit 4486237f313b3042930d200a40c288b1c27e4a1d[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 18:54:05 2023 +0300
+
+    added redux
+
+[33mcommit 1fdf8e72ca06ef480ead22785bde6d61b5354b1f[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 11:23:00 2023 +0300
+
+    updated g-service json
+
+[33mcommit 731a086acea7acec51983ec78803570a8cf69985[m[33m ([m[1;32mtemp[m[33m)[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 11:20:40 2023 +0300
+
+    updated g-service
+
+[33mcommit 154724a8e78cbb790159463c643d30521e8a38ee[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 10:12:05 2023 +0300
+
+    fix prettier
+
+[33mcommit 815a723c10932de9f8745d3c9e92327b611b837f[m
+Merge: d6e6b80 b85b060
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Fri Sep 22 10:04:16 2023 +0300
+
+    Merge pull request #6 from MiheretuTesh/sign-login-pages
+    
+    fix: hero page fixed
+
+[33mcommit b85b060fb858f1518b2ac3d430bb5e5d30fa772c[m[33m ([m[1;31morigin/sign-login-pages[m[33m, [m[1;32msign-login-pages[m[33m)[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 10:03:16 2023 +0300
+
+    fix: hero page fixed
+
+[33mcommit d6e6b800e1812afe06e758b41e6c7dc554797dd0[m
+Merge: 0820f5f 5611444
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Fri Sep 22 09:48:16 2023 +0300
+
+    Merge pull request #5 from MiheretuTesh/sign-login-pages
+    
+    fix: some UI issues fixed
+
+[33mcommit 56114441c745aca99e8707b7d0f776bdd917a9df[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Fri Sep 22 09:47:18 2023 +0300
+
+    fix: some UI issues fixed
+
+[33mcommit 0820f5fda2d974720adb8169c5300578fd102aae[m
+Merge: 6bdca19 84d0e44
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Fri Sep 22 09:42:50 2023 +0300
+
+    Merge pull request #4 from MiheretuTesh/UI-kit
+    
+    fixed package name not matching error
+
+[33mcommit 6bdca19a5743b1ecb7521d661cda694ebb665bff[m
+Merge: 236ddd7 4c35580
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Thu Sep 21 23:34:22 2023 +0300
+
+    Merge pull request #3 from MiheretuTesh/sign-login-pages
+    
+    feat: Sign and Login Pages are setup
+
+[33mcommit 4c35580e7e47855ea32780e20b3312e3e144fca5[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Thu Sep 21 23:29:39 2023 +0300
+
+    feat: Sign and Login Pages are setup
+
+[33mcommit 84d0e447f64cd4f197fc8b63e6a769f3d6bff4f7[m[33m ([m[1;31morigin/UI-kit[m[33m)[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Thu Sep 21 09:37:33 2023 +0300
+
+    fixed package name not matching error
+
+[33mcommit 236ddd7960e2335af10a98ea952e0f397595bf0c[m
+Merge: 3c40005 eb63635
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Wed Sep 20 20:50:10 2023 +0300
+
+    Merge pull request #2 from MiheretuTesh/UI-kit
+    
+    added firebase sdk
+
+[33mcommit eb63635b388a32153cd87707e6b16e61f365cd0b[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Wed Sep 20 20:47:22 2023 +0300
+
+    added firebase sdk
+
+[33mcommit 3c400055007ba58e5870cf643b05903b1cd6a81e[m
+Merge: 15d3673 31207d6
+Author: Miheretu Teshale <61537238+MiheretuTesh@users.noreply.github.com>
+Date:   Tue Sep 19 22:58:22 2023 +0300
+
+    Merge pull request #1 from MiheretuTesh/UI-kit
+    
+    UI kit integration
+
+[33mcommit 31207d641f10aac5010bc30dc24c2acab9ab1c55[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Sep 19 22:57:21 2023 +0300
+
+    tested ui kit
+
+[33mcommit 5002c2e30176d2ff38f33283979b66d4ce78dee6[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Sep 19 16:00:54 2023 +0300
+
+    added UI-kit
+
+[33mcommit 15d36735b137ee85794583af22ec26bfd27fd838[m
+Author: miheretutesh <se.miheretu.degebassa@gmail.com>
+Date:   Tue Sep 19 10:06:39 2023 +0300
+
+    test user login done
+
+[33mcommit b9e9d3e88def6c232d57f4e85c5c7e85d8bdb134[m
+Author: MiheretuTesh <se.miheretu.degebassa@gmail.com>
+Date:   Mon Sep 18 23:08:47 2023 +0300
+
+    feat: setup project environment and folder structure

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Home} from './components/home/Home';
-import {useDispatch, useSelector} from 'react-redux';
 import {ConversationComponentList} from './components/conversation';
 import HeroScreen from './screens/Hero';
 import SignUpScreen from './screens/SignUp';
@@ -89,7 +88,7 @@ function StackNavigator(props: any) {
           />
           <Stack.Screen name="user-profile-screen" component={UsersScreen} />
           <Stack.Screen
-            name="ConversationsModule"
+            name="ConversationComponentList"
             component={ConversationComponentList}
           />
         </Stack.Navigator>

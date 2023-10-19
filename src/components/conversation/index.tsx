@@ -1,5 +1,3 @@
-import { ConversationComponentList } from "./ConversationModuleList";
+import ConversationComponentList from './ConversationComponentList';
 
-export {
-    ConversationComponentList
-}
+export {ConversationComponentList};

@@ -11,16 +11,20 @@ import {NameIsRequiredFilled} from '../../utils/ErrorMessages';
 import TextInputField from '../../components/TextInputField';
 import auth from '@react-native-firebase/auth';
 
-const EditProfileScreen = ({route, navigation}) => {
-  const [uid, setUid] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [updatedFullName, setUpdatedFullName] = useState('');
-  const [updatedEmail, setUpdatedEmail] = useState('');
-  const [updatedBirthDate, setUpdatedBirthDate] = useState(new Date());
-  const [updatedProfilePicture, setProfilePicture] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [nameError, setNameError] = useState(null);
-  const [selectedProfileImage, setSelectedProfileImage] = useState(null);
+const EditProfileScreen = ({route, navigation}: any) => {
+  const [uid, setUid] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [updatedFullName, setUpdatedFullName] = useState<string>('');
+  const [updatedEmail, setUpdatedEmail] = useState<string>('');
+  const [updatedBirthDate, setUpdatedBirthDate] = useState<Date>(new Date());
+  const [updatedProfilePicture, setProfilePicture] = useState<string | null>(
+    null,
+  );
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [selectedProfileImage, setSelectedProfileImage] = useState<
+    string | null
+  >(null);
 
   // const user = auth().currentUser;
   const getCurrentUserId = () => {
@@ -43,7 +47,7 @@ const EditProfileScreen = ({route, navigation}) => {
     fetchUserData(id);
   }, [route.params]);
 
-  const fetchUserData = async (userId: string | undefined) => {
+  const fetchUserData = async (userId: string | any) => {
     setIsLoading(true);
     try {
       // Fetch user data from Firestore based on the UID
