@@ -383,17 +383,10 @@ function EditInformationScreen({route, navigation}) {
               onChangeText={text => setPhoneNumber(text)}
             />
             <TextInputField
-              name="Email"
+              name="Additional Email"
               placeholder="Email"
               value={additionalEmail}
               onChangeText={text => setAdditionalEmail(text)}
-            />
-            <TextInput
-              placeholder="Additional Email"
-              value={additionalEmail}
-              onChangeText={text => setAdditionalEmail(text)}
-              style={styles.input}
-              placeholderTextColor="#333"
             />
           </Section>
 

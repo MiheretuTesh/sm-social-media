@@ -14,26 +14,43 @@ import UsersScreen from './screens/Users';
 import EditProfileScreen from './screens/EditProfileScreen';
 import EditInformationScreen from './screens/EditProfileInformationScreen';
 import LoadingScreen from './screens/LoadingScreen';
+import {setUser} from './store/reducers/auth/authSlice';
+import auth from '@react-native-firebase/auth';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);
   // const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
+
+  // const [isLogedIn, setIsLogedIn] = useState(false);
+  const {isAuthenticated, user} = useSelector(state => state.auth);
+
   const [initializing, setInitializing] = useState(true);
   const Stack = createStackNavigator();
 
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    dispatch(setUser(user));
+    if (initializing) {
+      setInitializing(false);
+    }
+  }
+
   useEffect(() => {
-    const initalizeApp = async () => {
-      await CometChatUIKit.getLoggedInUser()
-        .then(user => {
-          if (user != null) {
-            console.log(user);
-            setIsLogedIn(true);
-          }
-          setInitializing(false);
-        })
-        .catch(e => console.log('please loggedIn', e));
-    };
-    initalizeApp();
+    // const initalizeApp = async () => {
+    //   await CometChatUIKit.getLoggedInUser()
+    //     .then(user => {
+    //       if (user != null) {
+    //         console.log(user);
+    //         setIsLogedIn(true);
+    //       }
+    //       setInitializing(false);
+    //     })
+    //     .catch(e => console.log('please loggedIn', e));
+    // };
+    // initalizeApp();
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   });
 
   if (initializing) {
@@ -43,7 +60,7 @@ function StackNavigator(props: any) {
 
   return (
     <NavigationContainer>
-      {isLogedIn ? (
+      {user ? (
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"

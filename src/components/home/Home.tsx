@@ -14,27 +14,12 @@ import {
   CometChatListItem,
 } from '@cometchat/chat-uikit-react-native';
 import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
-import {
-  CometChatContext,
-  CometChatUIKit,
-} from '@cometchat/chat-uikit-react-native';
-
-import AdditionalInformationScreen from '../../screens/AdditionalInformation';
 import UserProfileScreen from '../../screens/Setting';
+
 export const Home = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
   const {setGroup, setUser, setCall} = useContext(UserContext);
-
-  React.useEffect(() => {
-    CometChatUIKit.getLoggedInUser()
-      .then(user => {
-        if (user != null) {
-          navigation.navigate('Home');
-        }
-      })
-      .catch(e => console.log('Unable to get loggedInUser', e));
-  }, []);
 
   useEffect(() => {
     let userRequest = new CometChat.UsersRequestBuilder().setLimit(1).build();
@@ -85,6 +70,8 @@ export const Home = ({navigation}: any) => {
         screenOptions={{headerShown: false}}
         tabBarOptions={{
           keyboardHidesTabBar: true,
+          tabBarActiveTintColor: '#E51D43',
+          tabBarInactiveTintColor: 'gray',
         }}>
         <Tab.Screen
           name="Chats"

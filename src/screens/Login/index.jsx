@@ -36,14 +36,21 @@ const SingInScreen = ({navigation}) => {
     setShowPassword(!showPassword);
   };
 
-  const {user, isLoggedIn, error, loading, socialMediaLoading} = useSelector(
-    state => state.auth,
-  );
+  const {
+    user,
+    isAuthenticated,
+    isLoggedIn,
+    error,
+    loading,
+    socialMediaLoading,
+  } = useSelector(state => state.auth);
 
   useEffect(() => {
     CometChatUIKit.getLoggedInUser()
       .then(user => {
-        if (user != null) navigation.replace('Home');
+        if (user != null) {
+          console.log('user is loged in', user);
+        }
       })
       .catch(e => console.log('Unable to get loggedInUser', e));
   }, []);
@@ -152,14 +159,14 @@ const SingInScreen = ({navigation}) => {
         <Image source={GOOGLEICON} style={{width: 30, height: 30}} />
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
-
+      {/*
       <TouchableOpacity
         style={styles.googleLoginButton}
         onPress={handleFacebookLogin}
         disabled={socialMediaLoading}>
         <Image source={FACEBOOKICON} style={{width: 30, height: 30}} />
         <Text style={styles.googleButtonText}>Continue with Facebook</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {error && (
         <Text style={styles.errorText}>

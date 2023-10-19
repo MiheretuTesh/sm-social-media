@@ -38,6 +38,17 @@ export const styles = StyleSheet.create({
     fontSize: Metrics.measure(14),
     color: 'green',
   },
+  editProfileIcon: {
+    position: 'absolute',
+    top: 20, // Adjust the position from the top as needed
+    right: 10, // Adjust the position from the right as needed
+    //backgroundColor: 'blue', // Background color of the icon
+    borderRadius: 30, // Adjust to make the icon a circle
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   preferencesSection: {
     backgroundColor: 'white',
     borderRadius: Metrics.measure(12),
@@ -65,5 +76,27 @@ export const styles = StyleSheet.create({
   preferenceText: {
     fontSize: Metrics.measure(16),
     color: 'black',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  cancelButton: {
+    fontSize: 16,
+    color: 'blue',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  deleteButton: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
