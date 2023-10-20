@@ -6,29 +6,27 @@ import {ConversationComponentList} from './components/conversation';
 import HeroScreen from './screens/Hero';
 import SignUpScreen from './screens/SignUp';
 import SingInScreen from './screens/Login';
-import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 import AdditionalInformationScreen from './screens/AdditionalInformation';
 import ProfileCompletionScreen from './screens/UserProfile';
 import UsersScreen from './screens/Users';
 import EditProfileScreen from './screens/EditProfileScreen';
 import EditInformationScreen from './screens/EditProfileInformationScreen';
+import ChatDetailScreen from './screens/ChatDetail';
 import LoadingScreen from './screens/LoadingScreen';
 import {setUser} from './store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
+import OutgoingCall from './components/calls/OutGoingCall';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);
-  // const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
-  // const [isLogedIn, setIsLogedIn] = useState(false);
   const {isAuthenticated, user} = useSelector(state => state.auth);
 
   const [initializing, setInitializing] = useState(true);
   const Stack = createStackNavigator();
 
-  // Handle user state changes
   function onAuthStateChanged(user) {
     dispatch(setUser(user));
     if (initializing) {
@@ -91,6 +89,17 @@ function StackNavigator(props: any) {
           <Stack.Screen
             name="ConversationComponentList"
             component={ConversationComponentList}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ChatDetailScreen"
+            component={ChatDetailScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="OutgoingCallScreen"
+            component={OutgoingCall}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       ) : (

@@ -1,20 +1,24 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
-import {CometChatMessages} from '@cometchat/chat-uikit-react-native';
 import {
   CometChat,
   ThreadedMessagesConfigurationInterface,
   MessageHeaderConfigurationInterface,
 } from '@cometchat-pro/react-native-chat';
 import Ionicons from 'react-native-vector-icons';
+import MessageHeader from '../../components/Message/Messageheader';
+import MessageList from '../../components/Message/MessageList';
+import MessageComposer from '../../components/Message/MessageComposer';
 
 const ChatDetailScreen = ({navigation, route}) => {
-  // const {uid, name} = route.params;
-  // console.log(uid, name, 'Works');
-  // let user = new CometChat.User(uid, name);
+  const {user} = route.params;
 
-  let messageHeaderConfiguration = {
-    hideBackIcon: false,
+  const handleNavigation = () => {
+    navigation.replace('ConversationComponentList');
+  };
+
+  const handleCallClick = () => {
+    navigation.replace('OutgoingCallScreen');
   };
 
   useEffect(() => {
@@ -31,10 +35,13 @@ const ChatDetailScreen = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1}}>
-      {/* <CometChatMessages
+      <MessageHeader
         user={user}
-        messageHeaderConfiguration={messageHeaderConfiguration}
-      /> */}
+        handleNavigation={handleNavigation}
+        handleCallClick={handleCallClick}
+      />
+      <MessageList user={user} />
+      <MessageComposer user={user} />
     </View>
   );
 };
