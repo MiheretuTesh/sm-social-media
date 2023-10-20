@@ -13,6 +13,7 @@ import {
   CometChatUsersWithMessages,
   CometChatListItem,
 } from '@cometchat/chat-uikit-react-native';
+import {ConversationComponentList} from '../conversation';
 import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
 import UserProfileScreen from '../../screens/Setting';
 
@@ -75,7 +76,7 @@ export const Home = ({navigation}: any) => {
         }}>
         <Tab.Screen
           name="Chats"
-          component={CometChatConversationsWithMessages}
+          component={ConversationComponentList}
           options={{
             tabBarIcon: ({color, size}) => (
               <Icon name="comments" color={color} size={size} />
