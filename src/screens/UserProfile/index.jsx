@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -16,11 +17,12 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {firebase} from '@react-native-firebase/storage';
 import {styles} from './style';
 import TextInputField from '../../components/TextInputField';
+import {setUser} from '../../store/reducers/auth/authSlice';
 
 const ProfileCompletionScreen = ({route, navigation}) => {
   // Extract user information from props
-  const {name, email, birthDate, password, profile, uid} = route.params;
-
+  const {name, email, birthDate, password, profile} = route.params;
+  const [uid, setUID] = useState(null);
   const [updatedFullName, setUpdatedFullName] = useState(name || '');
   const [updatedEmail, setUpdatedEmail] = useState(email || '');
   const [updatedBirthDate, setBirthDate] = useState(birthDate || new Date());
@@ -55,6 +57,10 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     // if (updatedProfilePicture) {
     //   setSelectedProfileImage(updatedProfilePicture);
     // }
+    const getUser = async () => {
+      await CometChat.getLoggedinUser().then(user => setUID(user.uid));
+    };
+    getUser();
   }, []);
 
   const handleBirthDateChange = (event, selectedDate) => {

@@ -17,6 +17,7 @@ import {setUser} from './store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import OutgoingCall from './components/calls/OutGoingCall';
+import ChatUserDetailScreen from '../src/screens/ChatUserDetailScreen';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);
@@ -99,6 +100,11 @@ function StackNavigator(props: any) {
           <Stack.Screen
             name="OutgoingCallScreen"
             component={OutgoingCall}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ChatUserDetailScreen"
+            component={ChatUserDetailScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

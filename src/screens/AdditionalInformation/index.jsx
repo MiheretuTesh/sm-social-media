@@ -100,7 +100,7 @@ function AdditionalInformationScreen({route, navigation}) {
 
   // Groups & Organizations
   const [organizations, setOrganizations] = useState('');
-  const [lookingTO, setLookingTo] = useState('');
+  const [seeking, setLookingTo] = useState('');
 
   const handleStartDateChange = (event, selectedDate) => {
     if (Platform.OS === 'android') {
@@ -158,7 +158,7 @@ function AdditionalInformationScreen({route, navigation}) {
           religionBackground,
           prayerFrequency,
           dietaryPreferences,
-          lookingTO,
+          seeking,
         },
       };
       console.log(userProfileData);

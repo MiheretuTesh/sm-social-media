@@ -16,6 +16,9 @@ const ChatDetailScreen = ({navigation, route}) => {
   const handleNavigation = () => {
     navigation.replace('ConversationComponentList');
   };
+  const handleUserDetailNavigation = () => {
+    navigation.navigate('ChatUserDetailScreen');
+  };
 
   const handleCallClick = () => {
     navigation.replace('OutgoingCallScreen');
@@ -39,6 +42,7 @@ const ChatDetailScreen = ({navigation, route}) => {
         user={user}
         handleNavigation={handleNavigation}
         handleCallClick={handleCallClick}
+        handleUserDetailNavigation={handleUserDetailNavigation}
       />
       <MessageList user={user} />
       <MessageComposer user={user} />
