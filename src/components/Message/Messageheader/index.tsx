@@ -42,7 +42,7 @@ const CustomerHeaderStyle = ({
           onPress={() => {
             handleNavigation();
           }}>
-          <Icon name="arrow-back" size={26} color="black" />
+          <Icon name="arrow-back" size={26} color="#2F9AFF" />
         </TouchableOpacity>
         <View
           style={{
@@ -56,7 +56,7 @@ const CustomerHeaderStyle = ({
           <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
             {name.length > 10 ? `${name.slice(0, 10)}...` : name}
           </Text>
-          <Text style={{color: status === 'online' ? 'blue' : 'black'}}>
+          <Text style={{color: status === 'online' ? '#2F9AFF' : 'black'}}>
             {status}
           </Text>
         </View>
@@ -66,10 +66,14 @@ const CustomerHeaderStyle = ({
           onPress={() => {
             handleCallClick();
           }}>
-          <CallIcon name="call-outline" size={26} color="black" />
+          <CallIcon name="call-outline" size={26} style={{color: '#2F9AFF'}} />
         </TouchableOpacity>
-        <VideoIcon name="videocam-outline" size={30} color="black" />
-        <ExclamanationIcon name="exclamationcircleo" size={24} color="black" />
+        <VideoIcon name="videocam-outline" size={30} color={'#2F9AFF'} />
+        <ExclamanationIcon
+          name="exclamationcircleo"
+          size={24}
+          color="#2F9AFF"
+        />
       </View>
     </View>
   );
