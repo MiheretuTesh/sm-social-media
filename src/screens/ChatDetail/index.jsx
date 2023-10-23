@@ -1,11 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
-import {
-  CometChat,
-  ThreadedMessagesConfigurationInterface,
-  MessageHeaderConfigurationInterface,
-} from '@cometchat-pro/react-native-chat';
-import Ionicons from 'react-native-vector-icons';
 import MessageHeader from '../../components/Message/Messageheader';
 import MessageList from '../../components/Message/MessageList';
 import MessageComposer from '../../components/Message/MessageComposer';
@@ -17,7 +11,7 @@ const ChatDetailScreen = ({navigation, route}) => {
     navigation.replace('ConversationComponentList');
   };
   const handleUserDetailNavigation = () => {
-    navigation.navigate('ChatUserDetailScreen');
+    navigation.navigate('ChatUserDetailScreen', {user: user});
   };
 
   const handleCallClick = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,61 @@ import {
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const ChatUserDetailScreen = ({navigation}) => {
-  const handleBlockUser = user => {
-    CometChat.blockUsers(user).then(
+const ChatUserDetailScreen = ({navigation, route}) => {
+  const {user} = route.params;
+  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
+  const [messages, setMessages] = useState(null);
+  const [audioFiles, setAudioFiles] = useState([]);
+  const [videoFiles, setVideoFiles] = useState([]);
+
+  useEffect(() => {
+    setIsLoadingMessages(true);
+
+    const getMessages = async () => {
+      let limit = 30;
+      let parentMessageId = 0;
+      let messagesRequest = new CometChat.MessagesRequestBuilder()
+        .setUID(user.uid)
+        .setLimit(limit)
+        .build();
+
+      messagesRequest.fetchPrevious().then(
+        messages => {
+          console.log('Messages for thread fetched successfully', messages);
+          setMessages(messages);
+
+          // Extract audio and video files while fetching messages
+          const extractedAudioFiles = [];
+          const extractedVideoFiles = [];
+
+          messages.forEach(message => {
+            if (message.data.type === 'audio') {
+              const audioUrl = message.data.url;
+              const audioName = message.data.name;
+              extractedAudioFiles.push({name: audioName, url: audioUrl});
+            } else if (message.data.type === 'video') {
+              const videoUrl = message.data.url;
+              const videoName = message.data.name;
+              extractedVideoFiles.push({name: videoName, url: videoUrl});
+            }
+          });
+
+          setAudioFiles(extractedAudioFiles);
+          setVideoFiles(extractedVideoFiles);
+        },
+        error => {
+          console.log('Message fetching failed with error:', error);
+        },
+      );
+    };
+    getMessages();
+    setIsLoadingMessages(false);
+  }, []);
+
+  console.log('messages', messages);
+
+  const handleBlockUser = userId => {
+    CometChat.blockUsers(userId).then(
       list => {
         console.log('users list blocked', {list});
       },
@@ -21,6 +73,7 @@ const ChatUserDetailScreen = ({navigation}) => {
       },
     );
   };
+
   return (
     <View style={styles.container}>
       <View>
@@ -34,21 +87,21 @@ const ChatUserDetailScreen = ({navigation}) => {
         <View style={styles.profileDetailContainer}>
           <Image source={{uri: 'avatarUrl'}} style={styles.avatar} />
           <View style={styles.profileDetail}>
-            <Text style={styles.userName}>User's Name</Text>
-            <Text style={styles.userStatus}>User's Status</Text>
+            <Text style={styles.userName}>{user.name}</Text>
+            <Text style={styles.userStatus}>{user.status}</Text>
           </View>
         </View>
-
         <TouchableOpacity
-          onPress={() => navigation.navigate('UserProfileScreen')}>
+          onPress={() => navigation.navigate('InChatUserOptionsScreen')}>
           <Ionicons name="information-circle" size={30} />
         </TouchableOpacity>
       </View>
 
       <View style={styles.actionsSection}>
         <Text style={styles.sectionHeader}>ACTIONS</Text>
+        <View style={styles.horizontalLine} />
         <View style={styles.sectionList}>
-          <TouchableOpacity onPress={() => navigation.navigate('chat')}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.actionButton}>Send Message</Text>
           </TouchableOpacity>
         </View>
@@ -56,8 +109,9 @@ const ChatUserDetailScreen = ({navigation}) => {
 
       <View style={styles.privacySection}>
         <Text style={styles.sectionHeader}>PRIVACY & SUPPORT</Text>
+        <View style={styles.horizontalLine} />
         <View style={styles.sectionList}>
-          <TouchableOpacity onPress={() => handleBlockUser}>
+          <TouchableOpacity onPress={() => handleBlockUser(user.uid)}>
             <Text style={styles.privacyButton}>Block User</Text>
           </TouchableOpacity>
         </View>
@@ -65,9 +119,10 @@ const ChatUserDetailScreen = ({navigation}) => {
 
       <View style={styles.sharedMediaSection}>
         <Text style={styles.sectionHeader}>SHARED MEDIA</Text>
+        <View style={styles.horizontalLine} />
         <View style={styles.mediaTabs}>
           <TouchableOpacity onPress={() => navigation.navigate('chat')}>
-            <Text style={styles.mediaTab}>Photo</Text>
+            <Text style={styles.activeTab}>Photo</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('chat')}>
             <Text style={styles.mediaTab}>Video</Text>
@@ -76,6 +131,7 @@ const ChatUserDetailScreen = ({navigation}) => {
             <Text style={styles.mediaTab}>Files</Text>
           </TouchableOpacity>
         </View>
+        <View>{isLoadingMessages ? <Text>Loading ...</Text> : <></>}</View>
       </View>
     </View>
   );
@@ -109,8 +165,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingHorizontal: 5,
     paddingVertical: 5,
-    borderTopWidth: 1,
-    borderColor: 'gray',
   },
   avatar: {
     width: 50,
@@ -157,14 +211,25 @@ const styles = StyleSheet.create({
   mediaTabs: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    borderTopWidth: 1,
-    borderColor: 'gray',
     justifyContent: 'space-between',
     margin: 5,
-    paddingVertical: 10,
+    paddingVertical: 4,
+    borderRadius: 5,
+    backgroundColor: '#E1E1E1',
   },
   mediaTab: {
     fontSize: 16,
+  },
+  horizontalLine: {
+    borderBottomWidth: 0.5,
+    borderColor: 'gray',
+    margin: 5,
+  },
+  activeTab: {
+    // paddingHorizontal: 5,
+    borderRadius: 5,
+    fontSize: 16,
+    //backgroundColor: '#B8B8B8',
   },
 });
 
