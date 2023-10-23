@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Text, Image, ActivityIndicator} from 'react-native';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -28,7 +29,7 @@ const EditProfileScreen = ({route, navigation}: any) => {
 
   // const user = auth().currentUser;
   const getCurrentUserId = () => {
-    const user = auth().currentUser;
+    const user = CometChat.getLoggedinUser();
 
     if (user) {
       const userId = user.uid;

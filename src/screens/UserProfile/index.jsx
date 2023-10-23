@@ -110,15 +110,14 @@ const ProfileCompletionScreen = ({route, navigation}) => {
   };
 
   const handleSubmit = async () => {
-    const user = uid;
-    console.log(user);
+    // const user = uid;
     let profilePictureUrl = updatedProfilePicture || ' ';
 
     // If a new profile picture is selected, upload it to Firebase Storage
     if (selectedProfileImage) {
       profilePictureUrl = await uploadProfilePictureToStorage(
         selectedProfileImage,
-        user,
+        uid,
       );
     }
 
@@ -130,8 +129,8 @@ const ProfileCompletionScreen = ({route, navigation}) => {
       isProfileCompleted: false,
     };
 
-    await createUserInFirestore(user, userProfileData);
-    navigation.navigate('AdditionalInformationScreen', {uid: user});
+    await createUserInFirestore(uid, userProfileData);
+    navigation.navigate('AdditionalInformationScreen', {uid: uid});
   };
   // validate name and submit form
   const validateForm = () => {

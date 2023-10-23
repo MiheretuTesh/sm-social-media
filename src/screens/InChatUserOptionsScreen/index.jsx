@@ -15,7 +15,7 @@ const UserProfileScreen = ({route, navigation}) => {
 
   // Mock user data
   const mockUser = {
-    firstName: 'John',
+    firstName: 'Jod',
     biography: 'I love exploring new places.',
     maritalStatus: 'Single',
     seeking: 'Friendship',
