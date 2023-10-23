@@ -28,8 +28,8 @@ const EditProfileScreen = ({route, navigation}: any) => {
   >(null);
 
   // const user = auth().currentUser;
-  const getCurrentUserId = () => {
-    const user = CometChat.getLoggedinUser();
+  const getCurrentUserId = async () => {
+    const user = await CometChat.getLoggedinUser();
 
     if (user) {
       const userId = user.uid;
