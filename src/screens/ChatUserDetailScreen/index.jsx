@@ -36,7 +36,6 @@ const getUserProfileData = async userUID => {
 
 const ChatUserDetailScreen = ({navigation, route}) => {
   const {user} = route.params;
-
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
   const [messages, setMessages] = useState(null);
   const [audioFiles, setAudioFiles] = useState([]);
