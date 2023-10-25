@@ -27,7 +27,7 @@ import {
   fieldOFstudyList,
   skillsList,
 } from '../../constants/Constants';
-import {styles} from './style';
+import {styles} from './index.style';
 
 function RNDropDown({data, name, selectedValue, onValueChange, title}) {
   return (

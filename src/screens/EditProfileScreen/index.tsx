@@ -7,7 +7,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {firebase} from '@react-native-firebase/storage';
-import {styles} from './styles';
+import {styles} from './index.styles';
 import {NameIsRequiredFilled} from '../../utils/ErrorMessages';
 import TextInputField from '../../components/TextInputField';
 
