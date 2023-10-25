@@ -13,6 +13,7 @@
     "@cometchat/calls-sdk-react-native": "^4.0.0",
     "@cometchat/chat-sdk-react-native": "^4.0.1",
     "@cometchat/chat-uikit-react-native": "^4.0.0",
+    "@gorhom/bottom-sheet": "^4.5.1",
     "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-native-community/cli-platform-android": "^11.3.8",
     "@react-native-community/clipboard": "^1.5.1",

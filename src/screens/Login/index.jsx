@@ -63,17 +63,17 @@ const SingInScreen = ({navigation}) => {
     dispatch(loginUser(email, password));
   }, [dispatch, email, password]);
 
-  useEffect(() => {
-    if (isLoggedIn === true) {
-      CometChatUIKit.getLoggedInUser()
-        .then(user => {
-          if (user != null) {
-            navigation.replace('Home');
-          }
-        })
-        .catch(e => console.log('Unable to get loggedInUser', e));
-    }
-  }, [isLoggedIn, user, loading, socialMediaLoading]);
+  // useEffect(() => {
+  //   if (isLoggedIn === true) {
+  //     CometChatUIKit.getLoggedInUser()
+  //       .then(user => {
+  //         if (user != null) {
+  //           navigation.replace('Home');
+  //         }
+  //       })
+  //       .catch(e => console.log('Unable to get loggedInUser', e));
+  //   }
+  // }, [isLoggedIn, user, loading, socialMediaLoading]);
 
   const handleFacebookLogin = () => {
     dispatch(loginUsingFacebook());

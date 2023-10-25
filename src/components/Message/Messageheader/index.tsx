@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
+/* eslint-disable react/no-unstable-nested-components */
+import {Pressable, Image, Text, View} from 'react-native';
 import React from 'react';
 import {CometChatMessageHeader} from '@cometchat/chat-uikit-react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
@@ -12,56 +13,52 @@ import CallIcon from 'react-native-vector-icons/Ionicons';
 interface MessageHeaderProps {
   user?: CometChat.User;
   name?: string;
+  avatar?: string;
   status?: string;
   handleNavigation: Function;
   handleCallClick: Function;
+  handleUserDetailNavigation: Function;
 }
 
 const CustomerHeaderStyle = ({
   name,
+  avatar,
   status,
   handleNavigation,
   handleCallClick,
+  handleUserDetailNavigation,
 }: MessageHeaderProps) => {
+  const tempProfile = name.slice(0, 2);
+
+  let displayName = name?.split(' ');
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        gap: 10,
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 10,
-          alignItems: 'center',
-        }}>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <TouchableOpacity
           onPress={() => {
             handleNavigation();
           }}>
           <Icon name="arrow-back" size={26} color="#2F9AFF" />
         </TouchableOpacity>
-        <View
-          style={{
-            width: 50,
-            height: 50,
-            backgroundColor: '#a3a3a3',
-            borderRadius: 50,
-          }}></View>
-        <View
-          style={{flexDirection: 'column', justifyContent: 'space-between'}}>
-          <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
-            {name.length > 10 ? `${name.slice(0, 10)}...` : name}
-          </Text>
-          <Text style={{color: status === 'online' ? '#2F9AFF' : 'black'}}>
-            {status}
-          </Text>
+        <View style={styles.avatorContainer}>
+          <Image
+            source={{uri: avatar}}
+            style={styles.image}
+            resizeMode="cover"
+          />
         </View>
+        <Pressable
+          style={styles.nameContainer}
+          onPress={() => handleUserDetailNavigation()}>
+          <View>
+            <Text style={styles.nameText}>{displayName && displayName[0]}</Text>
+            <Text style={{color: status === 'online' ? 'blue' : 'black'}}>
+              {status}
+            </Text>
+          </View>
+        </Pressable>
       </View>
-      <View style={{flexDirection: 'row', gap: 20, alignItems: 'center'}}>
+      <View style={styles.actionButtonsWrapper}>
         <TouchableOpacity
           onPress={() => {
             handleCallClick();
@@ -81,9 +78,9 @@ const CustomerHeaderStyle = ({
 
 const MessageHeader = ({
   user,
-  navigation,
   handleNavigation,
   handleCallClick,
+  handleUserDetailNavigation,
 }: MessageHeaderProps & {navigation: any}) => {
   return (
     <View style={styles.container}>
@@ -94,9 +91,11 @@ const MessageHeader = ({
           <View>
             <CustomerHeaderStyle
               name={user?.name}
-              status={user.status}
+              avatar={user?.avatar}
+              status={user?.status}
               handleNavigation={handleNavigation}
               handleCallClick={handleCallClick}
+              handleUserDetailNavigation={handleUserDetailNavigation}
             />
           </View>
         )}

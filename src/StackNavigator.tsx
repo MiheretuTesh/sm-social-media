@@ -17,6 +17,8 @@ import {setUser} from './store/reducers/auth/authSlice';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import OutgoingCall from './components/calls/OutGoingCall';
+import ChatUserDetailScreen from '../src/screens/ChatUserDetailScreen';
+import InChatUserOptionsScreen from './screens/InChatUserOptionsScreen';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);
@@ -35,20 +37,8 @@ function StackNavigator(props: any) {
   }
 
   useEffect(() => {
-    // const initalizeApp = async () => {
-    //   await CometChatUIKit.getLoggedInUser()
-    //     .then(user => {
-    //       if (user != null) {
-    //         console.log(user);
-    //         setIsLogedIn(true);
-    //       }
-    //       setInitializing(false);
-    //     })
-    //     .catch(e => console.log('please loggedIn', e));
-    // };
-    // initalizeApp();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   });
 
   if (initializing) {
@@ -99,6 +89,16 @@ function StackNavigator(props: any) {
           <Stack.Screen
             name="OutgoingCallScreen"
             component={OutgoingCall}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ChatUserDetailScreen"
+            component={ChatUserDetailScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="InChatUserOptionsScreen"
+            component={InChatUserOptionsScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
