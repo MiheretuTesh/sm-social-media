@@ -109,6 +109,24 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     }
   };
 
+  // update comet chat user
+  const updateCometUserProfile = async (userID, userData) => {
+    let userId = userID;
+    let updatedUserName = userData.fullName;
+    let avatar = userData.profilePicture;
+
+    let user = new CometChat.User(userId, updatedUserName);
+    user.setAvatar(avatar);
+
+    CometChatUIKit.update(user)
+      .then(user => {
+        console.log('User updated successfully');
+      })
+      .catch(error => {
+        console.log('Updating  user failed with exception:', error);
+      });
+  };
+
   const handleSubmit = async () => {
     // const user = uid;
     let profilePictureUrl = updatedProfilePicture || ' ';
@@ -130,8 +148,11 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     };
 
     await createUserInFirestore(uid, userProfileData);
+    // update comet chat user profile
+    await updateCometUserProfile(uid, userProfileData);
     navigation.navigate('AdditionalInformationScreen', {uid: uid});
   };
+
   // validate name and submit form
   const validateForm = () => {
     if (!updatedFullName) {

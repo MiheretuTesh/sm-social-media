@@ -3,9 +3,8 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    //paddingHorizontal: 6,
-    paddingVertical: 2,
-    gap: 10,
+    paddingHorizontal: 6,
+    gap: 4,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -35,6 +34,7 @@ export const styles = StyleSheet.create({
   actionButtonsWrapper: {
     flexDirection: 'row',
     gap: 15,
+    marginHorizontal: 6,
     alignItems: 'center',
     alignSelf: 'center',
   },

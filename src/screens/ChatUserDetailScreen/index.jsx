@@ -9,6 +9,29 @@ import {
 } from 'react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firebase from '@react-native-firebase/app';
+import {setUser} from '../../store/reducers/auth/authSlice';
+
+const getUserProfileData = async userUID => {
+  try {
+    const userDoc = await firebase
+      .firestore()
+      .collection('user-profiles')
+      .doc(userUID)
+      .get();
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      console.log('uerinFO', userData);
+      return userData;
+    } else {
+      console.log('User profile not found.');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching user profile data:', error);
+    return null;
+  }
+};
 
 const ChatUserDetailScreen = ({navigation, route}) => {
   const {user} = route.params;
@@ -16,10 +39,15 @@ const ChatUserDetailScreen = ({navigation, route}) => {
   const [messages, setMessages] = useState(null);
   const [audioFiles, setAudioFiles] = useState([]);
   const [videoFiles, setVideoFiles] = useState([]);
+  const [userInfo, setUserInfo] = useState(null);
+  // Fetch user profile data
 
   useEffect(() => {
     setIsLoadingMessages(true);
-
+    const getUserData = async () => {
+      const userData = await getUserProfileData(user.uid);
+      setUserInfo(userData);
+    };
     const getMessages = async () => {
       let limit = 30;
       let parentMessageId = 0;
@@ -58,8 +86,9 @@ const ChatUserDetailScreen = ({navigation, route}) => {
       );
     };
     getMessages();
+    getUserData();
     setIsLoadingMessages(false);
-  }, []);
+  }, [user.uid]);
 
   console.log('messages', messages);
 
@@ -85,14 +114,21 @@ const ChatUserDetailScreen = ({navigation, route}) => {
       </View>
       <View style={styles.profileSection}>
         <View style={styles.profileDetailContainer}>
-          <Image source={{uri: 'avatarUrl'}} style={styles.avatar} />
+          <Image
+            source={{
+              uri: userInfo && userInfo.profilePicture,
+            }}
+            style={styles.avatar}
+          />
           <View style={styles.profileDetail}>
             <Text style={styles.userName}>{user.name}</Text>
             <Text style={styles.userStatus}>{user.status}</Text>
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('InChatUserOptionsScreen')}>
+          onPress={() =>
+            navigation.navigate('InChatUserOptionsScreen', {user: userInfo})
+          }>
           <Ionicons name="information-circle" size={30} />
         </TouchableOpacity>
       </View>

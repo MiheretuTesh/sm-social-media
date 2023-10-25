@@ -37,20 +37,8 @@ function StackNavigator(props: any) {
   }
 
   useEffect(() => {
-    // const initalizeApp = async () => {
-    //   await CometChatUIKit.getLoggedInUser()
-    //     .then(user => {
-    //       if (user != null) {
-    //         console.log(user);
-    //         setIsLogedIn(true);
-    //       }
-    //       setInitializing(false);
-    //     })
-    //     .catch(e => console.log('please loggedIn', e));
-    // };
-    // initalizeApp();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   });
 
   if (initializing) {

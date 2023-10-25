@@ -10,9 +10,8 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const UserProfileScreen = ({route, navigation}) => {
-  //  const {user} = route.params;
-
+const InChatUserOptionsScreen = ({route, navigation}) => {
+  const {user} = route.params;
   // Mock user data
   const mockUser = {
     firstName: 'Jod',
@@ -22,11 +21,13 @@ const UserProfileScreen = ({route, navigation}) => {
     age: 28,
     occupation: 'Software Developer',
   };
-
+  if (!user) {
+    return <Text>Loading</Text>;
+  }
   return (
     <ImageBackground
       source={{
-        uri: 'https://firebasestorage.googleapis.com/v0/b/social-muslims.appspot.com/o/profiles%2Fclwzi5nuzfwaj1kclliimcbjvi72%2Fclwzi5nuzfwaj1kclliimcbjvi72.jpeg?alt=media&token=7e1bb199-b991-4679-a7f1-9dca84227a37',
+        uri: user.profilePicture,
       }}
       style={styles.container}>
       <View style={styles.closeButtonContainer}>
@@ -54,9 +55,11 @@ const UserProfileScreen = ({route, navigation}) => {
         </View>
         <View style={styles.userInfoContainer}>
           <View style={styles.userInfo}>
-            <Text style={styles.userNameText}>{mockUser.firstName}</Text>
+            <Text style={styles.userNameText}>{user.fulllname}</Text>
             <Text style={styles.userInfoText}>Age: {mockUser.age}</Text>
-            <Text style={styles.userInfoText}>{mockUser.biography}</Text>
+            <Text style={styles.userInfoText}>
+              {user.personalInformaition.aboutMe}
+            </Text>
             <Text style={styles.userInfoText}>
               Marital Status: {mockUser.maritalStatus}
             </Text>
@@ -95,7 +98,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   closeButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 20,
     padding: 10,
   },
@@ -146,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfileScreen;
+export default InChatUserOptionsScreen;

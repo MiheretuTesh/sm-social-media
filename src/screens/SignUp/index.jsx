@@ -69,7 +69,7 @@ const SignUpScreen = ({navigation}) => {
       if (firebaseUser) {
         const cometChatUser = new CometChat.User(firebaseUser.uid);
         cometChatUser.setName(userInfo.user.name);
-
+        cometChatUser.setAvatar(firebaseUser.photoURL);
         CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
           createdUser => {
             // login user
