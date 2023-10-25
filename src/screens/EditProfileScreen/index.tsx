@@ -68,8 +68,6 @@ const EditProfileScreen = ({route, navigation}: any) => {
         setUpdatedFullName(userData.fullName || '');
         setUpdatedEmail(userData.email || '');
         setUpdatedBirthDate(birthDate);
-        console.log('just fetched bdate', updatedBirthDate);
-
         setProfilePicture(userData.profilePicture);
 
         // Set the user data in the form fields

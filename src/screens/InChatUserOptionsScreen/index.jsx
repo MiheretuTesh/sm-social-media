@@ -12,15 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const InChatUserOptionsScreen = ({route, navigation}) => {
   const {user} = route.params;
-  // Mock user data
-  const mockUser = {
-    firstName: 'Jod',
-    biography: 'I love exploring new places.',
-    maritalStatus: 'Single',
-    seeking: 'Friendship',
-    age: 28,
-    occupation: 'Software Developer',
-  };
+
   if (!user) {
     return <Text>Loading</Text>;
   }
@@ -55,19 +47,19 @@ const InChatUserOptionsScreen = ({route, navigation}) => {
         </View>
         <View style={styles.userInfoContainer}>
           <View style={styles.userInfo}>
-            <Text style={styles.userNameText}>{user.fulllname}</Text>
-            <Text style={styles.userInfoText}>Age: {mockUser.age}</Text>
+            <Text style={styles.userNameText}>{user.fullName}</Text>
+            <Text style={styles.userInfoText}>
+              Age: {user.birthDate.toDate('YYYY/MM/DD').toDateString()}
+            </Text>
             <Text style={styles.userInfoText}>
               {user.personalInformaition.aboutMe}
             </Text>
             <Text style={styles.userInfoText}>
-              Marital Status: {mockUser.maritalStatus}
+              Marital Status: {user.maritalStatus}
             </Text>
+            <Text style={styles.userInfoText}>Looking for {user.seeking}</Text>
             <Text style={styles.userInfoText}>
-              Looking for {mockUser.seeking}
-            </Text>
-            <Text style={styles.userInfoText}>
-              Occupation: {mockUser.occupation}
+              Occupation: {user.occupation}
             </Text>
           </View>
         </View>
