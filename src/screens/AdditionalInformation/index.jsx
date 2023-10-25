@@ -100,7 +100,7 @@ function AdditionalInformationScreen({route, navigation}) {
 
   // Groups & Organizations
   const [organizations, setOrganizations] = useState('');
-  const [lookingTO, setLookingTo] = useState('');
+  const [seeking, setLookingTo] = useState('');
 
   const handleStartDateChange = (event, selectedDate) => {
     if (Platform.OS === 'android') {
@@ -158,7 +158,7 @@ function AdditionalInformationScreen({route, navigation}) {
           religionBackground,
           prayerFrequency,
           dietaryPreferences,
-          lookingTO,
+          seeking,
         },
       };
       console.log(userProfileData);
@@ -237,26 +237,14 @@ function AdditionalInformationScreen({route, navigation}) {
           value={jobTitle}
           onChangeText={text => setJobTitle(text)}
         />
-        {/* <TextInput
-          placeholder="Job Title"
-          value={jobTitle}
-          onChangeText={text => setJobTitle(text)}
-          style={styles.input}
-          placeholderTextColor="#333"
-        /> */}
+
         <TextInputField
           name="Company name"
           placeholder="Company Name"
           value={companyName}
           onChangeText={text => setCompanyName(text)}
         />
-        {/* <TextInput
-          placeholder="Company Name"
-          value={companyName}
-          onChangeText={text => setCompanyName(text)}
-          style={styles.input}
-          placeholderTextColor="#333"
-        /> */}
+
         <View style={styles.datePickerContainer}>
           <View>
             <Text style={{color: '#333'}}>Start Date: </Text>
@@ -316,20 +304,7 @@ function AdditionalInformationScreen({route, navigation}) {
           onChange={item => setSkills(item.value)}
           selected={skills}
         />
-        {/* <MultiSelector
-          label="Skills"
-          data={skillsList}
-          max={5}
-          selectedItems={skills}
-          setSelectedItems={setSkills}
-        /> */}
-        {/* <TextInput
-          placeholder="Skills"
-          value={skills}
-          onChangeText={text => setSkills(text)}
-          style={styles.input}
-          placeholderTextColor="#333"
-        /> */}
+
         <TextInput
           placeholder="Add Endorsement"
           value={addEndorsement}
@@ -432,7 +407,7 @@ function AdditionalInformationScreen({route, navigation}) {
         <RNDropDown
           name="Looking To"
           data={lookingForList}
-          selectedValue={lookingTO}
+          selectedValue={seeking}
           onValueChange={event => setLookingTo(event.value)}
         />
       </Section>

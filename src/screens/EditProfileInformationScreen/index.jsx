@@ -97,7 +97,7 @@ function EditInformationScreen({route, navigation}) {
 
   // Groups & Organizations
   const [organizations, setOrganizations] = useState('');
-  const [lookingTO, setLookingTo] = useState('');
+  const [seeking, setSeeking] = useState('');
 
   const handleStartDateChange = (event, selectedDate) => {
     if (Platform.OS === 'android') {
@@ -171,9 +171,9 @@ function EditInformationScreen({route, navigation}) {
           setDietaryPreferences(userData.dietaryPreferences);
 
           setOrganizations(userData.organizations);
-          setLookingTo(userData.lookingTO);
+          setSeeking(userData.seeking);
 
-          setIsLoading(false); // Data has been fetched, loading is complete
+          setIsLoading(false);
         }
       })
       .catch(error => {
@@ -214,7 +214,7 @@ function EditInformationScreen({route, navigation}) {
           religionBackground,
           prayerFrequency,
           dietaryPreferences,
-          lookingTO,
+          seeking,
         },
       };
 
@@ -436,8 +436,8 @@ function EditInformationScreen({route, navigation}) {
             <RNDropDown
               name="Looking To"
               data={lookingForList}
-              selectedValue={lookingTO}
-              onValueChange={event => setLookingTo(event.value)}
+              selectedValue={seeking}
+              onValueChange={event => setSeeking(event.value)}
             />
           </Section>
           <View style={styles.bottomContainer}>

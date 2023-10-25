@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Text, Image, ActivityIndicator} from 'react-native';
 import {Button} from 'react-native-elements';
@@ -9,10 +10,9 @@ import {firebase} from '@react-native-firebase/storage';
 import {styles} from './styles';
 import {NameIsRequiredFilled} from '../../utils/ErrorMessages';
 import TextInputField from '../../components/TextInputField';
-import auth from '@react-native-firebase/auth';
 
 const EditProfileScreen = ({route, navigation}: any) => {
-  const [uid, setUid] = useState<string | null>(null);
+  const [uid, setUid] = useState<string | null>(route.params.uid);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [updatedFullName, setUpdatedFullName] = useState<string>('');
   const [updatedEmail, setUpdatedEmail] = useState<string>('');
@@ -27,25 +27,24 @@ const EditProfileScreen = ({route, navigation}: any) => {
   >(null);
 
   // const user = auth().currentUser;
-  const getCurrentUserId = () => {
-    const user = auth().currentUser;
+  // const getCurrentUserId = async () => {
+  //   const user = await CometChat.getLoggedinUser();
 
-    if (user) {
-      const userId = user.uid;
-      console.log('User ID:', userId);
-      return userId;
-    } else {
-      console.log('No user is currently logged in.');
-      return null; // Or handle the case where there's no logged-in user
-    }
-  };
+  //   if (user) {
+  //     //const userId = user.uid;
+  //     console.log(user);
+  //     setUid(user.uid);
+  //     console.log('User ID:', userId);
+  //     // return userId;
+  //   } else {
+  //     console.log('No user is currently logged in.');
+  //     return null; // Or handle the case where there's no logged-in user
+  //   }
+  // };
 
   useEffect(() => {
-    //setUid(getCurrentUserId());
-    const id = getCurrentUserId();
-    setUid(id);
-    fetchUserData(id);
-  }, [route.params]);
+    fetchUserData(uid);
+  }, [uid]);
 
   const fetchUserData = async (userId: string | any) => {
     setIsLoading(true);
@@ -60,7 +59,6 @@ const EditProfileScreen = ({route, navigation}: any) => {
         // Extract user data
         const userData = userDoc.data();
 
-        // Convert Firestore timestamp to a JavaScript Date object
         const birthDateTimestamp = userData.birthDate;
         const birthDate = birthDateTimestamp
           ? birthDateTimestamp.toDate()
@@ -70,8 +68,6 @@ const EditProfileScreen = ({route, navigation}: any) => {
         setUpdatedFullName(userData.fullName || '');
         setUpdatedEmail(userData.email || '');
         setUpdatedBirthDate(birthDate);
-        console.log('just fetched bdate', updatedBirthDate);
-
         setProfilePicture(userData.profilePicture);
 
         // Set the user data in the form fields
@@ -80,12 +76,10 @@ const EditProfileScreen = ({route, navigation}: any) => {
         setIsLoading(false);
       } else {
         console.warn('User data not found for UID:', userId);
-        // Handle the case where user data is not found.
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
       setIsLoading(false);
-      // Handle the error here.
     }
   };
 
@@ -106,7 +100,10 @@ const EditProfileScreen = ({route, navigation}: any) => {
     });
   };
 
-  const handleBirthDateChange = (event, selectedDate) => {
+  const handleBirthDateChange = (
+    event: {type: string},
+    selectedDate: React.SetStateAction<Date>,
+  ) => {
     if (Platform.OS === 'android') {
       setShowDatePicker(false);
     }
@@ -121,7 +118,10 @@ const EditProfileScreen = ({route, navigation}: any) => {
     }
   };
 
-  const updateUserInFirestore = async (userId, userData) => {
+  const updateUserInFirestore = async (
+    userId: string,
+    userData: {[x: string]: any},
+  ) => {
     try {
       // Reference to the Firestore collection for users
       const usersCollection = firestore().collection('user-profiles');
@@ -134,7 +134,10 @@ const EditProfileScreen = ({route, navigation}: any) => {
     }
   };
 
-  const uploadProfilePictureToStorage = async (imageUri, userId) => {
+  const uploadProfilePictureToStorage = async (
+    imageUri: string,
+    userId: string,
+  ) => {
     try {
       const storageRef = firebase.storage().ref();
       const profilePictureRef = storageRef.child(`profiles2/${userId}`);
@@ -225,7 +228,9 @@ const EditProfileScreen = ({route, navigation}: any) => {
               name={'Full Name'}
               placeholder={updatedFullName}
               value={updatedFullName}
-              onChangeText={event => setUpdatedFullName(event)}
+              onChangeText={(event: React.SetStateAction<string>) =>
+                setUpdatedFullName(event)
+              }
             />
             {nameError && <Text style={{color: 'red'}}>{nameError}</Text>}
 

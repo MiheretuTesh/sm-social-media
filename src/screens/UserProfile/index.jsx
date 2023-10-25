@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -16,11 +17,12 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {firebase} from '@react-native-firebase/storage';
 import {styles} from './style';
 import TextInputField from '../../components/TextInputField';
+import {setUser} from '../../store/reducers/auth/authSlice';
 
 const ProfileCompletionScreen = ({route, navigation}) => {
   // Extract user information from props
-  const {name, email, birthDate, password, profile, uid} = route.params;
-
+  const {name, email, birthDate, password, profile} = route.params;
+  const [uid, setUID] = useState(null);
   const [updatedFullName, setUpdatedFullName] = useState(name || '');
   const [updatedEmail, setUpdatedEmail] = useState(email || '');
   const [updatedBirthDate, setBirthDate] = useState(birthDate || new Date());
@@ -55,6 +57,10 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     // if (updatedProfilePicture) {
     //   setSelectedProfileImage(updatedProfilePicture);
     // }
+    const getUser = async () => {
+      await CometChat.getLoggedinUser().then(user => setUID(user.uid));
+    };
+    getUser();
   }, []);
 
   const handleBirthDateChange = (event, selectedDate) => {
@@ -103,16 +109,33 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     }
   };
 
+  // update comet chat user
+  const updateCometUserProfile = async (userID, userData) => {
+    let userId = userID;
+    let updatedUserName = userData.fullName;
+    let avatar = userData.profilePicture;
+
+    let user = new CometChat.User(userId, updatedUserName);
+    user.setAvatar(avatar);
+
+    CometChatUIKit.update(user)
+      .then(user => {
+        console.log('User updated successfully');
+      })
+      .catch(error => {
+        console.log('Updating  user failed with exception:', error);
+      });
+  };
+
   const handleSubmit = async () => {
-    const user = uid;
-    console.log(user);
+    // const user = uid;
     let profilePictureUrl = updatedProfilePicture || ' ';
 
     // If a new profile picture is selected, upload it to Firebase Storage
     if (selectedProfileImage) {
       profilePictureUrl = await uploadProfilePictureToStorage(
         selectedProfileImage,
-        user,
+        uid,
       );
     }
 
@@ -124,9 +147,12 @@ const ProfileCompletionScreen = ({route, navigation}) => {
       isProfileCompleted: false,
     };
 
-    await createUserInFirestore(user, userProfileData);
-    navigation.navigate('AdditionalInformationScreen', {uid: user});
+    await createUserInFirestore(uid, userProfileData);
+    // update comet chat user profile
+    await updateCometUserProfile(uid, userProfileData);
+    navigation.navigate('AdditionalInformationScreen', {uid: uid});
   };
+
   // validate name and submit form
   const validateForm = () => {
     if (!updatedFullName) {
