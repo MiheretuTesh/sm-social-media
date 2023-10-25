@@ -49,15 +49,18 @@ const InChatUserOptionsScreen = ({route, navigation}) => {
           <View style={styles.userInfo}>
             <Text style={styles.userNameText}>{user.fullName}</Text>
             <Text style={styles.userInfoText}>
-              Age: {user.birthDate.toDate('YYYY/MM/DD').toDateString()}
+              {' Male'}
+              {' - '}
+              {user.birthDate.toDate().getFullYear()}
             </Text>
+            <Text style={styles.userInfoText}>Looking for {user.seeking}</Text>
             <Text style={styles.userInfoText}>
               {user.personalInformaition.aboutMe}
             </Text>
             <Text style={styles.userInfoText}>
               Marital Status: {user.maritalStatus}
             </Text>
-            <Text style={styles.userInfoText}>Looking for {user.seeking}</Text>
+
             <Text style={styles.userInfoText}>
               Occupation: {user.occupation}
             </Text>
