@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Alert, Pressable} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {CometChatAvatar} from '@cometchat/chat-uikit-react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -10,14 +10,16 @@ import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {styles} from './style.tsx';
 
 function UserProfileScreen({navigation}) {
-  const [user, setUser] = useState(null);
+  const {user} = useSelector(state => state.auth);
+  console.log(user);
+  const [userInfo, setUserInfo] = useState(null);
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     CometChat.getLoggedinUser().then(userInfo => {
-      setUser(userInfo);
+      setUserInfo(userInfo);
     });
   }, []);
 
@@ -36,7 +38,7 @@ function UserProfileScreen({navigation}) {
           text: 'Delete',
           onPress: () => {
             if (user) {
-              dispatch(deleteAccount(user.uid));
+              dispatch(deleteAccount(userInfo.uid));
             }
             setDeleteModalVisible(false);
           },
@@ -56,7 +58,7 @@ function UserProfileScreen({navigation}) {
         <Pressable
           style={styles.editProfileIcon}
           onPress={() =>
-            navigation.navigate('EditProfileScreen', {uid: user.uid})
+            navigation.navigate('EditProfileScreen', {uid: userInfo.uid})
           }>
           <Icon name="pencil" size={18} />
         </Pressable>
@@ -67,7 +69,7 @@ function UserProfileScreen({navigation}) {
           style={styles.avatar}
         />
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>{user ? user.name : ''}</Text>
+          <Text style={styles.name}>{user ? user.fullName : ''}</Text>
           <View style={styles.statusContainer}>
             <Text style={styles.statusText}>
               {user ? user.status : 'offline'}

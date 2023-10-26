@@ -422,9 +422,6 @@ function EditInformationScreen({route, navigation}) {
           </Section>
 
           <Section sectionHeaderText="Languages Spoken">
-            {
-              //  change with multiselector
-            }
             <MultiSelectComponent
               data={languagesList}
               onChange={item => setLanguages(item)}

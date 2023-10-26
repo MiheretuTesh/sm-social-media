@@ -296,12 +296,9 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Skills and Endorsements">
-        {
-          // replace with multi selectors
-        }
         <MultiSelectComponent
           data={skillsList}
-          onChange={item => setSkills(item.value)}
+          onChange={item => setSkills(item)}
           selected={skills}
         />
 
@@ -321,14 +318,6 @@ function AdditionalInformationScreen({route, navigation}) {
           onChangeText={text => setAboutMe(text)}
           multiline={true}
         />
-        {/* <TextInput
-          placeholder="About Me"
-          value={aboutMe}
-          onChangeText={text => setAboutMe(text)}
-          multiline={true}
-          style={styles.input}
-          placeholderTextColor="#333"
-        /> */}
       </Section>
 
       <Section sectionHeaderText="Contact Information">
@@ -338,13 +327,6 @@ function AdditionalInformationScreen({route, navigation}) {
           value={phoneNumber}
           onChangeText={text => setPhoneNumber(text)}
         />
-        {/* <TextInput
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChangeText={text => setPhoneNumber(text)}
-          style={styles.input}
-          placeholderTextColor="#333"
-        /> */}
         <TextInputField
           name="Email"
           placeholder="Email"
@@ -392,14 +374,10 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Languages Spoken">
-        {
-          //  change with multiselector
-        }
-        <RNDropDown
-          name="Languages"
+        <MultiSelectComponent
           data={languagesList}
-          selectedValue={languages}
-          onValueChange={event => setLanguages(event.value)}
+          onChange={item => setLanguages(item)}
+          selected={languages}
         />
       </Section>
 

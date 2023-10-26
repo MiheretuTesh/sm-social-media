@@ -19,6 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import OutgoingCall from './components/calls/OutGoingCall';
 import ChatUserDetailScreen from '../src/screens/ChatUserDetailScreen';
 import InChatUserOptionsScreen from './screens/InChatUserOptionsScreen';
+import firebase from '@react-native-firebase/app';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);
@@ -44,6 +45,33 @@ function StackNavigator(props: any) {
   if (initializing) {
     // Render a loading screen while initializing
     return <LoadingScreen />;
+  }
+
+  const getUserProfileData = async (userUID: string | undefined) => {
+    try {
+      const userDoc = await firebase
+        .firestore()
+        .collection('user-profiles')
+        .doc(userUID)
+        .get();
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        setUser(userData);
+        console.log('uerinFO', userData);
+        return userData;
+      } else {
+        console.log('User profile not found.');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching user profile data:', error);
+      return null;
+    }
+  };
+  // update user profile data from databse
+  if (user) {
+    let id = user.uid.toLowerCase();
+    getUserProfileData(id);
   }
 
   return (
