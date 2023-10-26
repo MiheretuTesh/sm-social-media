@@ -1,13 +1,6 @@
 /* eslint-disable no-undef */
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  ScrollView,
-  TextInput,
-  Text,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import {View, ScrollView, TextInput, Text, Image} from 'react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
@@ -18,6 +11,7 @@ import {firebase} from '@react-native-firebase/storage';
 import {styles} from './style';
 import TextInputField from '../../components/TextInputField';
 import {setUser} from '../../store/reducers/auth/authSlice';
+import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 
 const ProfileCompletionScreen = ({route, navigation}) => {
   // Extract user information from props
@@ -83,6 +77,8 @@ const ProfileCompletionScreen = ({route, navigation}) => {
       // Reference to the Firestore collection for users
       const usersCollection = firestore().collection('user-profiles');
 
+      console.log(userId, 'userId');
+
       // Add a new document with a generated ID
       await usersCollection.doc(userId).set(userData);
 
@@ -118,7 +114,7 @@ const ProfileCompletionScreen = ({route, navigation}) => {
     let user = new CometChat.User(userId, updatedUserName);
     user.setAvatar(avatar);
 
-    CometChatUIKit.update(user)
+    CometChat.updateUser(user)
       .then(user => {
         console.log('User updated successfully');
       })

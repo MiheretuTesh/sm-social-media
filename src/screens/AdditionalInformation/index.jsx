@@ -174,7 +174,7 @@ function AdditionalInformationScreen({route, navigation}) {
           console.log('User profile data saved in Firestore');
         })
         .catch(error => {
-          console.error('Error saving user profile data:', error);
+          console.error('Error saving user profile datasss:', error);
         });
 
       // Navigate to the next screen or perform any other action
@@ -374,7 +374,11 @@ function AdditionalInformationScreen({route, navigation}) {
       </Section>
 
       <Section sectionHeaderText="Languages Spoken">
+        {
+          //  change with multiselector
+        }
         <MultiSelectComponent
+          name="Languages"
           data={languagesList}
           onChange={item => setLanguages(item)}
           selected={languages}

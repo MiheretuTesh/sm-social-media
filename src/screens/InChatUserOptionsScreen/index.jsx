@@ -8,7 +8,8 @@ import {
   Pressable,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {styles} from './index.styles';
+import {styles} from './index.style';
+
 const InChatUserOptionsScreen = ({route, navigation}) => {
   const {user} = route.params;
 
