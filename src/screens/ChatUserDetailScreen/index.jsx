@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Pressable} from 'react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firebase from '@react-native-firebase/app';

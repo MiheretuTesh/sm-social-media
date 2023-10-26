@@ -70,11 +70,13 @@ const SignUpScreen = ({navigation}) => {
         const cometChatUser = new CometChat.User(firebaseUser.uid);
         cometChatUser.setName(userInfo.user.name);
         cometChatUser.setAvatar(firebaseUser.photoURL);
+
         CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
           createdUser => {
             // login user
             CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(
               user => {
+                console.log(user, 'user user user user user');
                 setLoadingGoogle(false);
                 // Navigate to the CometChat UI
                 // dispatch(authSuccess(responseData));

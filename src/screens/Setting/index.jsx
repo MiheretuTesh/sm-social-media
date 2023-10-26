@@ -63,17 +63,16 @@ function UserProfileScreen({navigation}) {
           <Icon name="pencil" size={18} />
         </Pressable>
         <CometChatAvatar
+          image={user?.photoURL}
           cornerRadius={60}
           borderColor="white"
           borderWidth={2}
           style={styles.avatar}
         />
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>{user ? user.fullName : ''}</Text>
+          <Text style={styles.name}>{user ? user.displayName : ''}</Text>
           <View style={styles.statusContainer}>
-            <Text style={styles.statusText}>
-              {user ? user.status : 'offline'}
-            </Text>
+            <Text style={styles.statusText}>{user ? 'online' : 'offline'}</Text>
           </View>
         </View>
       </View>
@@ -86,7 +85,7 @@ function UserProfileScreen({navigation}) {
         <TouchableOpacity
           style={styles.preferenceItem}
           onPress={() =>
-            navigation.navigate('EditProfileScreen', {uid: user.uid})
+            navigation.navigate('EditProfileScreen', {uid: userInfo.uid})
           }>
           <Icon name="pencil" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Edit Profile</Text>
@@ -94,7 +93,9 @@ function UserProfileScreen({navigation}) {
         <TouchableOpacity
           style={styles.preferenceItem}
           onPress={() =>
-            navigation.navigate('EditProfileInformationScreen', {uid: user.uid})
+            navigation.navigate('EditProfileInformationScreen', {
+              uid: userInfo.uid,
+            })
           }>
           <Icon name="user" size={24} style={styles.preferenceIcon} />
           <Text style={styles.preferenceText}>Edit Personal Info</Text>

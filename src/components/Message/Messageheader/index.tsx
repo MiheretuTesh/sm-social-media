@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {Pressable, Text, View} from 'react-native';
+import {Pressable, Text, View, Image} from 'react-native';
 import React from 'react';
 import {CometChatMessageHeader} from '@cometchat/chat-uikit-react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
@@ -46,23 +46,6 @@ const CustomerHeaderStyle = ({
             resizeMode="cover"
           />
         </View>
-        <View
-          style={{
-            width: 50,
-            height: 50,
-            backgroundColor: '#a3a3a3',
-            borderRadius: 50,
-          }}></View>
-        <View
-          style={{flexDirection: 'column', justifyContent: 'space-between'}}>
-          <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
-            {name.length > 10 ? `${name.slice(0, 10)}...` : name}
-          </Text>
-          <Text style={{color: status === 'online' ? '#2F9AFF' : 'black'}}>
-            {status}
-          </Text>
-        </View>
-        <View style={styles.avatorContainer} />
         <Pressable
           style={styles.nameContainer}
           onPress={() => handleUserDetailNavigation()}>
