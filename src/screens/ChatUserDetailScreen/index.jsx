@@ -39,7 +39,6 @@ const ChatUserDetailScreen = ({navigation, route}) => {
   const [audioFiles, setAudioFiles] = useState([]);
   const [videoFiles, setVideoFiles] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-  // Fetch user profile data
 
   useEffect(() => {
     setIsLoadingMessages(true);
@@ -115,7 +114,11 @@ const ChatUserDetailScreen = ({navigation, route}) => {
         <View style={styles.profileDetailContainer}>
           <Image
             source={{
-              uri: userInfo && userInfo.profilePicture,
+              uri:
+                userInfo &&
+                (userInfo.profilePicture
+                  ? userInfo.profilePicture
+                  : userInfo.imageUrl),
             }}
             style={styles.avatar}
           />

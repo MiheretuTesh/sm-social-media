@@ -218,7 +218,6 @@ const ProfileCompletionScreen = ({route, navigation}) => {
               style={styles.date}
               onPress={() => setShowDatePicker(true)}>
               <Text>
-                {' '}
                 {updatedBirthDate.toLocaleDateString('en-US', {
                   year: '2-digit',
                   month: '2-digit',

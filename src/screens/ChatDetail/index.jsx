@@ -5,17 +5,17 @@ import MessageList from '../../components/Message/MessageList';
 import MessageComposer from '../../components/Message/MessageComposer';
 
 const ChatDetailScreen = ({navigation, route}) => {
-  const {user} = route.params;
+  const {user, userMoreDetail} = route.params;
 
   const handleNavigation = () => {
-    navigation.replace('ConversationComponentList');
+    navigation.replace('Home');
   };
   const handleUserDetailNavigation = () => {
     navigation.navigate('ChatUserDetailScreen', {user: user});
   };
 
   const handleCallClick = () => {
-    navigation.replace('OutgoingCallScreen');
+    navigation.replace('OutgoingCallScreen', {userMoreDetail: userMoreDetail});
   };
 
   useEffect(() => {

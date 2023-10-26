@@ -8,16 +8,6 @@ import {
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 
 const ConversationComponentList = ({navigation}) => {
-  // let listItemStyle: ListItemStyleInterface = {
-  // backgroundColor: 'rgba(150,150,150,0.7)',
-  // height: 85,
-  // width: '100%',
-  // titleColor: 'blue',
-  //   // titleFont: {fontSize: 22},
-  //   onPress: () => {
-  //     console.log('Hello');
-  //   },
-  // };
   let conversationsConfiguration = {
     // avatarStyle: {
     //   borderRadius: 20,
@@ -30,7 +20,10 @@ const ConversationComponentList = ({navigation}) => {
       CometChat.getUser(UID).then(
         user => {
           console.log('User details fetched for user:', user);
-          navigation.push('ChatDetailScreen', {user: user});
+          navigation.push('ChatDetailScreen', {
+            user: user,
+            userMoreDetail: value,
+          });
         },
         error => {
           console.log('User details fetching failed with error:', error);

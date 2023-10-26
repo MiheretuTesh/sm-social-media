@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import React from 'react';
 import {CometChatMessageHeader} from '@cometchat/chat-uikit-react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
@@ -14,6 +14,7 @@ import style from '@cometchat/chat-uikit-react-native/src/shared/views/CometChat
 interface MessageHeaderProps {
   user?: CometChat.User;
   name?: string;
+  avatar?: string;
   status?: string;
   handleNavigation: Function;
   handleCallClick: Function;
@@ -22,6 +23,7 @@ interface MessageHeaderProps {
 
 const CustomerHeaderStyle = ({
   name,
+  avatar,
   status,
   handleNavigation,
   handleCallClick,
@@ -35,8 +37,31 @@ const CustomerHeaderStyle = ({
           onPress={() => {
             handleNavigation();
           }}>
-          <Icon name="arrow-back" size={26} color="black" />
+          <Icon name="arrow-back" size={26} color="#2F9AFF" />
         </TouchableOpacity>
+        <View style={styles.avatorContainer}>
+          <Image
+            source={{uri: avatar}}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        </View>
+        <View
+          style={{
+            width: 50,
+            height: 50,
+            backgroundColor: '#a3a3a3',
+            borderRadius: 50,
+          }}></View>
+        <View
+          style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+          <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
+            {name.length > 10 ? `${name.slice(0, 10)}...` : name}
+          </Text>
+          <Text style={{color: status === 'online' ? '#2F9AFF' : 'black'}}>
+            {status}
+          </Text>
+        </View>
         <View style={styles.avatorContainer} />
         <Pressable
           style={styles.nameContainer}
@@ -54,10 +79,14 @@ const CustomerHeaderStyle = ({
           onPress={() => {
             handleCallClick();
           }}>
-          <CallIcon name="call-outline" size={26} color="black" />
+          <CallIcon name="call-outline" size={26} style={{color: '#2F9AFF'}} />
         </TouchableOpacity>
-        <VideoIcon name="videocam-outline" size={30} color="black" />
-        <ExclamanationIcon name="exclamationcircleo" size={24} color="black" />
+        <VideoIcon name="videocam-outline" size={30} color={'#2F9AFF'} />
+        <ExclamanationIcon
+          name="exclamationcircleo"
+          size={24}
+          color="#2F9AFF"
+        />
       </View>
     </View>
   );
@@ -78,7 +107,8 @@ const MessageHeader = ({
           <View>
             <CustomerHeaderStyle
               name={user?.name}
-              status={user.status}
+              avatar={user?.avatar}
+              status={user?.status}
               handleNavigation={handleNavigation}
               handleCallClick={handleCallClick}
               handleUserDetailNavigation={handleUserDetailNavigation}
