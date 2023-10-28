@@ -185,7 +185,7 @@ const EditProfileScreen = ({route, navigation}: any) => {
       setIsLoading(false);
     } else {
       setNameError(null);
-      handleSubmit;
+      handleSubmit();
       setIsLoading(false);
     }
   };

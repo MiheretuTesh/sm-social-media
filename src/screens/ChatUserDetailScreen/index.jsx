@@ -81,8 +81,6 @@ const ChatUserDetailScreen = ({navigation, route}) => {
     setIsLoadingMessages(false);
   }, [user.uid]);
 
-  // console.log('messages', messages);
-
   const handleBlockUser = userId => {
     CometChat.blockUsers(userId).then(
       list => {

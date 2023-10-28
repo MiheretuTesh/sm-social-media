@@ -20,6 +20,7 @@ import OutgoingCall from './components/calls/OutGoingCall';
 import ChatUserDetailScreen from '../src/screens/ChatUserDetailScreen';
 import InChatUserOptionsScreen from './screens/InChatUserOptionsScreen';
 import firebase from '@react-native-firebase/app';
+import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);

@@ -1,10 +1,16 @@
 import {Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from './index.style';
 import {CometChatOutgoingCall} from '@cometchat/chat-uikit-react-native';
 
-const OutgoingCall = ({navigation, route}) => {
+const OutgoingCall = ({navigation, route}: any) => {
   const {userMoreDetail} = route.params;
+
+  const [senderInfo, setSenderInfo] = useState({});
+
+  useEffect(() => {
+    setSenderInfo({});
+  }, []);
 
   console.log(userMoreDetail, 'userMoreDetail userMoreDetail userMoreDetail');
   let msgObj = {
@@ -28,36 +34,36 @@ const OutgoingCall = ({navigation, route}) => {
       return {
         getAvatar: () =>
           'https://data-us.cometchat.io/assets/images/avatars/ironman.png',
-        getBlockedByMe: () => userMoreDetail.sender.blockedByMe,
-        getDeactivatedAt: () => userMoreDetail.sender.deactivatedAt,
-        getHasBlockedMe: () => userMoreDetail.sender.hasBlockedMe,
-        getLastActiveAt: () => userMoreDetail.sender.lastActiveAt,
-        getName: () => userMoreDetail.sender.name,
-        getRole: () => userMoreDetail.sender.role,
-        getStatus: () => userMoreDetail.sender.status,
-        getUid: () => userMoreDetail.sender.uid,
+        getBlockedByMe: () => userMoreDetail.lastMessage.sender.blockedByMe,
+        getDeactivatedAt: () => userMoreDetail.lastMessage.sender.deactivatedAt,
+        getHasBlockedMe: () => userMoreDetail.lastMessage.sender.hasBlockedMe,
+        getLastActiveAt: () => userMoreDetail.lastMessage.sender.lastActiveAt,
+        getName: () => userMoreDetail.lastMessage.sender.name,
+        getRole: () => userMoreDetail.lastMessage.sender.role,
+        getStatus: () => userMoreDetail.lastMessage.sender.status,
+        getUid: () => userMoreDetail.lastMessage.sender.uid,
       };
     },
     callInitiator: {
-      blockedByMe: false,
-      deactivatedAt: 0,
-      hasBlockedMe: false,
-      lastActiveAt: 1693573660,
-      name: 'Hulk',
-      role: 'default',
-      status: 'online',
-      uid: 'hulk123',
+      blockedByMe: userMoreDetail.lastMessage.sender.blockedByMe,
+      deactivatedAt: userMoreDetail.lastMessage.sender.deactivatedAt,
+      hasBlockedMe: userMoreDetail.lastMessage.sender.hasBlockedMe,
+      lastActiveAt: userMoreDetail.lastMessage.sender.lastActiveAt,
+      name: userMoreDetail.lastMessage.sender.name,
+      role: userMoreDetail.lastMessage.sender.role,
+      status: userMoreDetail.lastMessage.sender.status,
+      uid: userMoreDetail.lastMessage.sender.uid,
     },
     callReceiver: {
       avatar: 'https://data-us.cometchat.io/assets/images/avatars/ironman.png',
-      blockedByMe: false,
-      deactivatedAt: 0,
-      hasBlockedMe: false,
-      lastActiveAt: 1684838515,
-      name: 'Iron Man',
-      role: 'default',
-      status: 'online',
-      uid: 'superhero1',
+      blockedByMe: userMoreDetail.conversationWith.blockedByMe,
+      deactivatedAt: userMoreDetail.conversationWith.deactivatedAt,
+      hasBlockedMe: userMoreDetail.conversationWith.hasBlockedMe,
+      lastActiveAt: userMoreDetail.conversationWith.lastActiveAt,
+      name: userMoreDetail.conversationWith.name,
+      role: userMoreDetail.conversationWith.role,
+      status: userMoreDetail.conversationWith.status,
+      uid: userMoreDetail.conversationWith.uid,
     },
     category: 'call',
     conversationId: 'hulk123_user_superhero1',
@@ -72,51 +78,53 @@ const OutgoingCall = ({navigation, route}) => {
     joinedAt: 1693576153,
     rawMessage: {
       category: 'call',
-      conversationId: 'hulk123_user_superhero1',
+      conversationId:
+        'bu859njgggapkaamlpksdbczyvf3_user_cmelo7jds3fl5xnnpyugu2nsmvx2',
       data: {
         action: 'initiated',
         entities: [Object],
         resource:
           'REACT_NATIVE-4_0_0-d4c7ff98-7df0-4cda-87a0-042d24c7d592-1693575737245',
       },
-      id: '2889',
-      receiver: 'vsbfwjn4otu7bg7icndf6xisrga2',
+      id: '12430',
+      receiver: 'bu859njgggapkaamlpksdbczyvf3',
       receiverType: 'user',
-      sender: 'hulk123',
-      sentAt: 1693576153,
+      sender: 'cmelo7jds3fl5xnnpyugu2nsmvx2',
+      sentAt: 1698387847,
       type: 'audio',
-      updatedAt: 1693576153,
+      updatedAt: 1698387847,
     },
     receiver: {
       avatar: 'https://data-us.cometchat.io/assets/images/avatars/ironman.png',
-      blockedByMe: false,
-      deactivatedAt: 0,
-      hasBlockedMe: false,
-      lastActiveAt: 1684838515,
-      name: 'Iron Man',
-      role: 'default',
-      status: 'online',
-      uid: 'vsbfwjn4otu7bg7icndf6xisrga2',
+      blockedByMe: userMoreDetail.conversationWith.blockedByMe,
+      deactivatedAt: userMoreDetail.conversationWith.deactivatedAt,
+      hasBlockedMe: userMoreDetail.conversationWith.hasBlockedMe,
+      lastActiveAt: userMoreDetail.conversationWith.lastActiveAt,
+      name: userMoreDetail.conversationWith.name,
+      role: userMoreDetail.conversationWith.role,
+      status: userMoreDetail.conversationWith.status,
+      uid: userMoreDetail.conversationWith.uid,
     },
-    receiverId: 'superhero1',
+    receiverId: 'bu859njgggapkaamlpksdbczyvf3',
     receiverType: 'user',
     sender: {
-      blockedByMe: false,
-      deactivatedAt: 0,
-      hasBlockedMe: false,
-      lastActiveAt: 1693573660,
-      name: 'Hulk',
-      role: 'default',
-      status: 'online',
-      uid: 'bu859njgggapkaamlpksdbczyvf3',
+      blockedByMe: userMoreDetail.lastMessage.sender.blockedByMe,
+      deactivatedAt: userMoreDetail.lastMessage.sender.deactivatedAt,
+      hasBlockedMe: userMoreDetail.lastMessage.sender.hasBlockedMe,
+      lastActiveAt: userMoreDetail.lastMessage.sender.lastActiveAt,
+      name: userMoreDetail.lastMessage.sender.name,
+      role: userMoreDetail.lastMessage.sender.role,
+      status: userMoreDetail.lastMessage.sender.status,
+      uid: userMoreDetail.lastMessage.sender.uid,
     },
-    sentAt: 1693576153,
+    sentAt: 1698387847,
     sessionId:
       'v1.us.239414efb0e4882a.1693576153e0dfe098a411c7c30f25e4382a150c64104f228e',
     status: 'initiated',
     type: 'audio',
     updatedAt: 1693576153,
   };
+
   return (
     <View style={styles.container}>
       <CometChatOutgoingCall
@@ -129,81 +137,3 @@ const OutgoingCall = ({navigation, route}) => {
 };
 
 export default OutgoingCall;
-
-const t = {
-  conversationId:
-    'bu859njgggapkaamlpksdbczyvf3_user_vsbfwjn4otu7bg7icndf6xisrga2',
-  conversationType: 'user',
-  conversationWith: {
-    blockedByMe: false,
-    conversationId:
-      'bu859njgggapkaamlpksdbczyvf3_user_vsbfwjn4otu7bg7icndf6xisrga2',
-    deactivatedAt: 0,
-    hasBlockedMe: false,
-    lastActiveAt: 1697529741,
-    name: 'Jod an',
-    role: 'default',
-    status: 'offline',
-    uid: 'bu859njgggapkaamlpksdbczyvf3',
-  },
-  lastMessage: {
-    category: 'message',
-    conversationId:
-      'bu859njgggapkaamlpksdbczyvf3_user_vsbfwjn4otu7bg7icndf6xisrga2',
-    data: {
-      entities: [Object],
-      metadata: [Object],
-      resource:
-        'REACT_NATIVE-4_0_0-84cc5397-99dc-4cbe-a8d4-cc62f08265e2-1697460913983',
-      text: 'Hi ',
-    },
-    deliveredAt: 1697557184,
-    id: '12140',
-    metadata: {'@injected': [Object]},
-    muid: '1697462157',
-    rawMessage: {
-      category: 'message',
-      conversationId:
-        'bu859njgggapkaamlpksdbczyvf3_user_vsbfwjn4otu7bg7icndf6xisrga2',
-      data: [Object],
-      deliveredAt: 1697557184,
-      id: '12140',
-      muid: '1697462157',
-      readAt: 1697557184,
-      receiver: 'vsbfwjn4otu7bg7icndf6xisrga2',
-      receiverType: 'user',
-      sender: 'bu859njgggapkaamlpksdbczyvf3',
-      sentAt: 1697462157,
-      type: 'text',
-      updatedAt: 1697557184,
-    },
-    readAt: 1697557184,
-    receiver: {
-      blockedByMe: false,
-      deactivatedAt: 0,
-      hasBlockedMe: false,
-      lastActiveAt: 1697226397,
-      name: 'Miheretu Degebassa',
-      role: 'default',
-      status: 'offline',
-      uid: 'vsbfwjn4otu7bg7icndf6xisrga2',
-    },
-    receiverId: 'vsbfwjn4otu7bg7icndf6xisrga2',
-    receiverType: 'user',
-    sender: {
-      blockedByMe: false,
-      deactivatedAt: 0,
-      hasBlockedMe: false,
-      lastActiveAt: 1697461993,
-      name: 'Jod an',
-      role: 'default',
-      status: 'online',
-      uid: 'bu859njgggapkaamlpksdbczyvf3',
-    },
-    sentAt: 1697462157,
-    text: 'Hi ',
-    type: 'text',
-    updatedAt: 1697557184,
-  },
-  unreadMessageCount: 0,
-};
