@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>228143531734-ba90s059kfpsga4s4nh30jq0k8jdm29f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.228143531734-ba90s059kfpsga4s4nh30jq0k8jdm29f</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>228143531734-c3o82kgnh3p5a05ls5k412or1r5q6lbe.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAuVi6-6k4775VfTHBjLH6DlcK_RfdhDEw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>228143531734</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.SocialMuslims</string>
+	<key>PROJECT_ID</key>
+	<string>social-muslims</string>
+	<key>STORAGE_BUCKET</key>
+	<string>social-muslims.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:228143531734:ios:5bc3257f6026b1dc2fab77</string>
+	<key>DATABASE_URL</key>
+	<string>https://social-muslims-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>

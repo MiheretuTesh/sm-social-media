@@ -36,24 +36,7 @@ const SingInScreen = ({navigation}) => {
     setShowPassword(!showPassword);
   };
 
-  const {
-    user,
-    isAuthenticated,
-    isLoggedIn,
-    error,
-    loading,
-    socialMediaLoading,
-  } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    CometChatUIKit.getLoggedInUser()
-      .then(user => {
-        if (user != null) {
-          console.log('user is loged in', user);
-        }
-      })
-      .catch(e => console.log('Unable to get loggedInUser', e));
-  }, []);
+  const {error, loading, socialMediaLoading} = useSelector(state => state.auth);
 
   const handleGoogleLogin = async () => {
     dispatch(loginUsingGoogle());
@@ -100,6 +83,8 @@ const SingInScreen = ({navigation}) => {
 
       <View style={styles.inputContainer}>
         <TextInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#969BA1"

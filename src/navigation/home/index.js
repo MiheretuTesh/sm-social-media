@@ -17,10 +17,7 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
     <Tab.Navigator
-      screenOptions={{headerShown: false}}
-      tabBarOptions={{
-        keyboardHidesTabBar: true,
-      }}>
+      screenOptions={{headerShown: false, keyboardHidesTabBar: true}}>
       {/* <Tab.Screen
         name="Messages"
         component={CometChatMessages}
