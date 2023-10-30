@@ -1,21 +1,11 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '13'
+platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
-use_frameworks! :linkage => :static
 ENV['USE_HERMES'] = '0'
 
 $RNFirebaseAsStaticFramework = true
-# If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
-# because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
-#
-# To fix this you can also exclude `react-native-flipper` using a `react-native.config.js`
-# ```js
-# module.exports = {
-#   dependencies: {
-#     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
-# ```
 
 post_install do |installer|
       react_native_post_install(
@@ -31,11 +21,12 @@ post_install do |installer|
       end
     end
 
-target 'SocialMuslims' do
-  config = use_native_modules!
 
+abstract_target 'App' do
+  config = use_native_modules!
   # Flags change depending on the env values.
   flags = get_default_flags()
+  use_frameworks! :linkage => :static
 
   use_react_native!(
      :path => config[:reactNativePath],
@@ -49,13 +40,15 @@ target 'SocialMuslims' do
      # Note that if you have use_frameworks! enabled, Flipper will not work and
      # you should disable the next line.
      :flipper_configuration => FlipperConfiguration.disabled,
-
      # An absolute path to your application root.
      :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  target 'SocialMuslims' do
+    #Production-specific pods
+  end
+
   target 'SocialMuslimsTests' do
-    inherit! :complete
-    # Pods for testing
+    #Development-specific pods
   end
 end
