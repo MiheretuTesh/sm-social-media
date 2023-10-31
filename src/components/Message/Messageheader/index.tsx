@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import VideoIcon from 'react-native-vector-icons/Ionicons';
 import ExclamanationIcon from 'react-native-vector-icons/AntDesign';
 import CallIcon from 'react-native-vector-icons/Ionicons';
-import style from '@cometchat/chat-uikit-react-native/src/shared/views/CometChatReceipt/style';
 
 interface MessageHeaderProps {
   user?: CometChat.User;
@@ -39,19 +38,24 @@ const CustomerHeaderStyle = ({
           }}>
           <Icon name="arrow-back" size={26} color="#2F9AFF" />
         </TouchableOpacity>
-        <View style={styles.avatorContainer}>
-          <Image
-            source={{uri: avatar}}
-            style={styles.image}
-            resizeMode="cover"
-          />
-        </View>
+        <Pressable onPress={() => handleUserDetailNavigation()}>
+          <View style={styles.avatorContainer}>
+            <Image
+              source={{uri: avatar}}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          </View>
+        </Pressable>
         <Pressable
           style={styles.nameContainer}
           onPress={() => handleUserDetailNavigation()}>
           <View>
             <Text style={styles.nameText}>{displayName && displayName[0]}</Text>
-            <Text style={{color: status === 'online' ? 'blue' : 'black'}}>
+            <Text
+              style={
+                status === 'online' ? styles.statusOnline : styles.statusOffline
+              }>
               {status}
             </Text>
           </View>
@@ -65,11 +69,13 @@ const CustomerHeaderStyle = ({
           <CallIcon name="call-outline" size={26} style={{color: '#2F9AFF'}} />
         </TouchableOpacity>
         <VideoIcon name="videocam-outline" size={30} color={'#2F9AFF'} />
-        <ExclamanationIcon
-          name="exclamationcircleo"
-          size={24}
-          color="#2F9AFF"
-        />
+        <Pressable onPress={() => handleUserDetailNavigation()}>
+          <ExclamanationIcon
+            name="exclamationcircleo"
+            size={24}
+            color="#2F9AFF"
+          />
+        </Pressable>
       </View>
     </View>
   );

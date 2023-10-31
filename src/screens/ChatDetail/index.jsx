@@ -8,7 +8,7 @@ const ChatDetailScreen = ({navigation, route}) => {
   const {user, userMoreDetail} = route.params;
 
   const handleNavigation = () => {
-    navigation.replace('Home');
+    navigation.goBack();
   };
   const handleUserDetailNavigation = () => {
     navigation.navigate('ChatUserDetailScreen', {user: user});
