@@ -60,6 +60,11 @@ export const loginUser = (email: string, password: string) => {
         CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
           loggedInUser => {
             console.log('Logged in to CometChat:', loggedInUser);
+            CometChatUIKit.getLoggedInUser()
+              .then(user => {
+                console.log('CometChatUIKit Logged In Successfully');
+              })
+              .catch(e => console.log('Unable to get loggedInUser', e));
           },
           error => {
             console.error('Error logging in to CometChat:', error);
@@ -122,14 +127,9 @@ export const signUp =
           COMETCHAT_AUTHID,
         );
         CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
-          console.log('User Created Successfully', user);
-
           CometChatUIKit.getLoggedInUser().then(user => {
-            if (user != null) {
-              // navigation.navigate('Home');
-            }
+            console.log('CometChatUIKit Logged In Successfully');
           });
-
           // Dispatch success action
           dispatch(authSuccess(responseData));
         });
@@ -186,20 +186,23 @@ export const signUpUsingGoogle = () => async dispatch => {
       await CometChat.createUser(cometChatUser, COMETCHAT_AUTHID).then(
         async createdUser => {
           CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(user => {
-            // Navigate to the CometChat UI
+            CometChatUIKit.getLoggedInUser()
+              .then(user => {
+                console.log('CometChatUIKit Logged In Successfully');
+              })
+              .catch(e => console.log('Unable to get loggedInUser', e));
           });
 
-          await CometChatUIKit.login(firebaseUser.uid).then(
-            user => {
-              console.log('Login Successful:', {user});
-            },
-            error => {
-              console.log('Login failed with exception:', {error});
-            },
-          );
+          // await CometChatUIKit.login(firebaseUser.uid).then(
+          //   user => {
+          //     console.log('Login Successful:', {user});
+          //   },
+          //   error => {
+          //     console.log('Login failed with exception:', {error});
+          //   },
+          // );
         },
         error => {
-          // setLoadingGoogle(false);
           dispatch(authFail());
           console.error('Error creating CometChat user:', error);
         },
@@ -215,7 +218,6 @@ export const signUpUsingGoogle = () => async dispatch => {
       profile: firebaseUser.photoURL,
       uid: firebaseUser.uid,
     };
-    //  await createUserInFirestore(firebaseUser.uid, responseData);
 
     dispatch(authSuccess(responseData));
   } catch (error: any) {
@@ -251,7 +253,13 @@ export const loginUsingGoogle = () => async (dispatch: any) => {
       const firebaseUID = firebaseUser.uid;
 
       CometChat.login(firebaseUID, COMETCHAT_AUTHID).then(
-        loggedInUser => {},
+        loggedInUser => {
+          CometChatUIKit.getLoggedInUser()
+            .then(user => {
+              console.log('CometChatUIKit Logged In Successfully');
+            })
+            .catch(e => console.log('Unable to get loggedInUser', e));
+        },
         error => {
           console.error('Error logging in to CometChat:', error);
         },
@@ -273,7 +281,6 @@ export const loginUsingGoogle = () => async (dispatch: any) => {
     } else if (error.code === statusCodes.IN_PROGRESS) {
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
     } else {
-      // setLoadingGoogle(false);
       dispatch(authFail(error));
       console.error('Google Sign-In error:', error);
     }
@@ -326,7 +333,6 @@ export const loginUsingFacebook = () => async dispatch => {
             CometChatUIKit.getLoggedInUser()
               .then(user => {
                 if (user != null) {
-                  //  navigation.navigate('Home');
                 }
               })
               .catch(e => console.log('Unable to get loggedInUser', e));
@@ -339,7 +345,6 @@ export const loginUsingFacebook = () => async dispatch => {
         CometChatUIKit.getLoggedInUser()
           .then(user => {
             if (user != null) {
-              //navigation.navigate('Home');
             }
           })
           .catch(e => console.log('Unable to get loggedInUser', e));
@@ -360,7 +365,6 @@ export const loginUsingFacebook = () => async dispatch => {
         CometChatUIKit.getLoggedInUser()
           .then(user => {
             if (user != null) {
-              // navigation.navigate('Home');
             }
           })
           .catch(e => console.log('Unable to get loggedInUser', e));
@@ -380,8 +384,6 @@ export const loginUsingFacebook = () => async dispatch => {
     } else if (error.code === statusCodes.IN_PROGRESS) {
     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
     } else {
-      // setLoadingGoogle(false);
-
       console.error('Google Sign-In error:', error);
     }
     dispatch(authFail('Error signing up with Firebase'));

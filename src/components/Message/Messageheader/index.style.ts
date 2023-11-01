@@ -1,47 +1,53 @@
 import {StyleSheet} from 'react-native';
+import Metrics from '../../../constants/Metrics';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 6,
-    gap: 4,
+    paddingHorizontal: Metrics.measure(6),
+    gap: Metrics.measure(4),
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   header: {
     flexDirection: 'row',
-    paddingHorizontal: 8,
-    gap: 4,
+    paddingHorizontal: Metrics.measure(8),
+    gap: Metrics.measure(4),
     alignItems: 'center',
   },
   avatorContainer: {
-    width: 42,
-    height: 42,
-    marginLeft: 6,
+    width: Metrics.measure(42),
+    height: Metrics.measure(42),
+    marginLeft: Metrics.measure(6),
     backgroundColor: '#a3a3a3',
-    borderRadius: 50,
+    borderRadius: Metrics.measure(50),
   },
   image: {
     flex: 1,
     width: undefined,
     height: undefined,
-    borderRadius: 50,
+    borderRadius: Metrics.measure(50),
   },
   nameContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    marginHorizontal: 4,
+    marginHorizontal: Metrics.measure(4),
   },
   nameText: {
     color: 'black',
-    fontSize: 15,
+    fontSize: Metrics.measure(15),
     fontWeight: 'bold',
   },
   actionButtonsWrapper: {
     flexDirection: 'row',
-    gap: 15,
-    marginHorizontal: 6,
+    gap: Metrics.measure(15),
+    marginHorizontal: Metrics.measure(6),
     alignItems: 'center',
     alignSelf: 'center',
   },
+
+  statusOnline: {
+    color: '#2F9AFF',
+  },
+  statusOffline: {color: 'black'},
 });

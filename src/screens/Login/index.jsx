@@ -36,7 +36,14 @@ const SingInScreen = ({navigation}) => {
     setShowPassword(!showPassword);
   };
 
-  const {error, loading, socialMediaLoading} = useSelector(state => state.auth);
+  const {
+    user,
+    isAuthenticated,
+    isLoggedIn,
+    error,
+    loading,
+    socialMediaLoading,
+  } = useSelector(state => state.auth);
 
   const handleGoogleLogin = async () => {
     dispatch(loginUsingGoogle());
@@ -47,15 +54,11 @@ const SingInScreen = ({navigation}) => {
   }, [dispatch, email, password]);
 
   // useEffect(() => {
-  //   if (isLoggedIn === true) {
-  //     CometChatUIKit.getLoggedInUser()
-  //       .then(user => {
-  //         if (user != null) {
-  //           navigation.replace('Home');
-  //         }
-  //       })
-  //       .catch(e => console.log('Unable to get loggedInUser', e));
-  //   }
+  //   CometChatUIKit.getLoggedInUser()
+  //     .then(user => {
+  //       console.log('CometChatUIKit Logged In Successfully');
+  //     })
+  //     .catch(e => console.log('Unable to get loggedInUser', e));
   // }, [isLoggedIn, user, loading, socialMediaLoading]);
 
   const handleFacebookLogin = () => {

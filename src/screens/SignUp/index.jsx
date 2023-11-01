@@ -21,6 +21,7 @@ import {COMETCHAT_AUTHID, FIREBASE_WEB_CLIENTID} from '@env';
 import {signUp} from '../../store/reducers/auth/authAction';
 import {styles} from './style';
 import {authSuccess} from '../../store/reducers/auth/authSlice';
+import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
 
 const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -45,6 +46,17 @@ const SignUpScreen = ({navigation}) => {
   const handleSignUp = useCallback(async () => {
     dispatch(signUp(email, password));
   }, [dispatch, email, password]);
+
+  // useEffect(() => {
+  //   if (isLoggedIn === true) {
+  //     navigation.replace('ProfileCompletionScreen', {
+  //       name: firebaseUser.displayName,
+  //       email: firebaseUser.email,
+  //       profile: firebaseUser.photoURL,
+  //       uid: firebaseUser.uid,
+  //     });
+  //   }
+  // }, [isLoggedIn]);
 
   const handleGoogleSignIn = async () => {
     try {
@@ -76,10 +88,13 @@ const SignUpScreen = ({navigation}) => {
             // login user
             CometChat.login(createdUser.getUid(), COMETCHAT_AUTHID).then(
               user => {
-                console.log(user, 'user user user user user');
                 setLoadingGoogle(false);
+
                 // Navigate to the CometChat UI
-                // dispatch(authSuccess(responseData));
+
+                CometChatUIKit.getLoggedInUser().then(user => {
+                  console.log('CometChatUIKit Logged In Successfully');
+                });
                 navigation.replace('ProfileCompletionScreen', {
                   name: firebaseUser.displayName,
                   email: firebaseUser.email,
