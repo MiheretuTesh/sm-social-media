@@ -86,6 +86,8 @@ const SingInScreen = ({navigation}) => {
 
       <View style={styles.inputContainer}>
         <TextInput
+          autoCapitalize={'none'}
+          autoCorrect={false}
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#969BA1"

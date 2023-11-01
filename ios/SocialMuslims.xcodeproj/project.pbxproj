@@ -8,12 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SocialMuslimsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SocialMuslimsTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-SocialMuslims.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-SocialMuslims.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-SocialMuslims-SocialMuslimsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-SocialMuslims-SocialMuslimsTests.a */; };
+		6C88BBB32AED549E00F6F7FC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 6C88BBB22AED549E00F6F7FC /* main.jsbundle */; };
+		6CBA2B852AED41550069BFB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B842AED41550069BFB7 /* GoogleService-Info.plist */; };
+		6CBA2B9A2AED48AA0069BFB7 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B872AED48AA0069BFB7 /* Fontisto.ttf */; };
+		6CBA2B9B2AED48AA0069BFB7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B882AED48AA0069BFB7 /* Octicons.ttf */; };
+		6CBA2B9C2AED48AA0069BFB7 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B892AED48AA0069BFB7 /* Feather.ttf */; };
+		6CBA2B9D2AED48AA0069BFB7 /* FontAwesome6_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B8A2AED48AA0069BFB7 /* FontAwesome6_Regular.ttf */; };
+		6CBA2B9E2AED48AA0069BFB7 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B8B2AED48AA0069BFB7 /* Entypo.ttf */; };
+		6CBA2B9F2AED48AA0069BFB7 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B8C2AED48AA0069BFB7 /* FontAwesome5_Brands.ttf */; };
+		6CBA2BA02AED48AA0069BFB7 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B8D2AED48AA0069BFB7 /* MaterialCommunityIcons.ttf */; };
+		6CBA2BA12AED48AA0069BFB7 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B8E2AED48AA0069BFB7 /* AntDesign.ttf */; };
+		6CBA2BA22AED48AA0069BFB7 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B8F2AED48AA0069BFB7 /* Foundation.ttf */; };
+		6CBA2BA32AED48AA0069BFB7 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B902AED48AA0069BFB7 /* Ionicons.ttf */; };
+		6CBA2BA42AED48AA0069BFB7 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B912AED48AA0069BFB7 /* FontAwesome5_Solid.ttf */; };
+		6CBA2BA52AED48AA0069BFB7 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B922AED48AA0069BFB7 /* FontAwesome5_Regular.ttf */; };
+		6CBA2BA62AED48AA0069BFB7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B932AED48AA0069BFB7 /* FontAwesome.ttf */; };
+		6CBA2BA72AED48AA0069BFB7 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B942AED48AA0069BFB7 /* Zocial.ttf */; };
+		6CBA2BA82AED48AA0069BFB7 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B952AED48AA0069BFB7 /* EvilIcons.ttf */; };
+		6CBA2BA92AED48AA0069BFB7 /* FontAwesome6_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B962AED48AA0069BFB7 /* FontAwesome6_Solid.ttf */; };
+		6CBA2BAA2AED48AA0069BFB7 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B972AED48AA0069BFB7 /* SimpleLineIcons.ttf */; };
+		6CBA2BAB2AED48AA0069BFB7 /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B982AED48AA0069BFB7 /* FontAwesome6_Brands.ttf */; };
+		6CBA2BAC2AED48AA0069BFB7 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B992AED48AA0069BFB7 /* MaterialIcons.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AB6A83EA814417852AAB858B /* Pods_App_SocialMuslims.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B47863E1146E398F6E622C4E /* Pods_App_SocialMuslims.framework */; };
+		DD6F52ED01C9F525368EAC99 /* Pods_App_SocialMuslimsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A843355B0CE7A780B8946B4A /* Pods_App_SocialMuslimsTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +57,38 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SocialMuslims/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SocialMuslims/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SocialMuslims/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-SocialMuslims-SocialMuslimsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialMuslims-SocialMuslimsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-SocialMuslims.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialMuslims.debug.xcconfig"; path = "Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims.debug.xcconfig"; sourceTree = "<group>"; };
+		4567B5F97127EE2C12E233EA /* Pods-App-SocialMuslimsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-SocialMuslimsTests.debug.xcconfig"; path = "Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-SocialMuslims.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialMuslims.release.xcconfig"; path = "Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig"; path = "Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-SocialMuslims.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialMuslims.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C88BBB22AED549E00F6F7FC /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		6CBA2B842AED41550069BFB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6CBA2B872AED48AA0069BFB7 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		6CBA2B882AED48AA0069BFB7 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		6CBA2B892AED48AA0069BFB7 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		6CBA2B8A2AED48AA0069BFB7 /* FontAwesome6_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Regular.ttf; sourceTree = "<group>"; };
+		6CBA2B8B2AED48AA0069BFB7 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		6CBA2B8C2AED48AA0069BFB7 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		6CBA2B8D2AED48AA0069BFB7 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		6CBA2B8E2AED48AA0069BFB7 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		6CBA2B8F2AED48AA0069BFB7 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		6CBA2B902AED48AA0069BFB7 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		6CBA2B912AED48AA0069BFB7 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		6CBA2B922AED48AA0069BFB7 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		6CBA2B932AED48AA0069BFB7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		6CBA2B942AED48AA0069BFB7 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		6CBA2B952AED48AA0069BFB7 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		6CBA2B962AED48AA0069BFB7 /* FontAwesome6_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Solid.ttf; sourceTree = "<group>"; };
+		6CBA2B972AED48AA0069BFB7 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		6CBA2B982AED48AA0069BFB7 /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
+		6CBA2B992AED48AA0069BFB7 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SocialMuslims/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SocialMuslims-SocialMuslimsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialMuslims-SocialMuslimsTests.release.xcconfig"; path = "Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests.release.xcconfig"; sourceTree = "<group>"; };
+		A843355B0CE7A780B8946B4A /* Pods_App_SocialMuslimsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_SocialMuslimsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B47863E1146E398F6E622C4E /* Pods_App_SocialMuslims.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_SocialMuslims.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7E7251D9C64E9F0E38EFB5D /* Pods-App-SocialMuslimsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-SocialMuslimsTests.release.xcconfig"; path = "Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests.release.xcconfig"; sourceTree = "<group>"; };
+		DCDCF9855114D2CF4B674561 /* Pods-App-SocialMuslims.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-SocialMuslims.release.xcconfig"; path = "Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims.release.xcconfig"; sourceTree = "<group>"; };
+		E893AEDA99A4DC575907914B /* Pods-App-SocialMuslims.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-SocialMuslims.debug.xcconfig"; path = "Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-SocialMuslims-SocialMuslimsTests.a in Frameworks */,
+				DD6F52ED01C9F525368EAC99 /* Pods_App_SocialMuslimsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-SocialMuslims.a in Frameworks */,
+				AB6A83EA814417852AAB858B /* Pods_App_SocialMuslims.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +132,8 @@
 		13B07FAE1A68108700A75B9A /* SocialMuslims */ = {
 			isa = PBXGroup;
 			children = (
+				6CBA2B862AED48AA0069BFB7 /* Fonts */,
+				6CBA2B842AED41550069BFB7 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -100,10 +148,36 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-SocialMuslims.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-SocialMuslims-SocialMuslimsTests.a */,
+				B47863E1146E398F6E622C4E /* Pods_App_SocialMuslims.framework */,
+				A843355B0CE7A780B8946B4A /* Pods_App_SocialMuslimsTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6CBA2B862AED48AA0069BFB7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6CBA2B872AED48AA0069BFB7 /* Fontisto.ttf */,
+				6CBA2B882AED48AA0069BFB7 /* Octicons.ttf */,
+				6CBA2B892AED48AA0069BFB7 /* Feather.ttf */,
+				6CBA2B8A2AED48AA0069BFB7 /* FontAwesome6_Regular.ttf */,
+				6CBA2B8B2AED48AA0069BFB7 /* Entypo.ttf */,
+				6CBA2B8C2AED48AA0069BFB7 /* FontAwesome5_Brands.ttf */,
+				6CBA2B8D2AED48AA0069BFB7 /* MaterialCommunityIcons.ttf */,
+				6CBA2B8E2AED48AA0069BFB7 /* AntDesign.ttf */,
+				6CBA2B8F2AED48AA0069BFB7 /* Foundation.ttf */,
+				6CBA2B902AED48AA0069BFB7 /* Ionicons.ttf */,
+				6CBA2B912AED48AA0069BFB7 /* FontAwesome5_Solid.ttf */,
+				6CBA2B922AED48AA0069BFB7 /* FontAwesome5_Regular.ttf */,
+				6CBA2B932AED48AA0069BFB7 /* FontAwesome.ttf */,
+				6CBA2B942AED48AA0069BFB7 /* Zocial.ttf */,
+				6CBA2B952AED48AA0069BFB7 /* EvilIcons.ttf */,
+				6CBA2B962AED48AA0069BFB7 /* FontAwesome6_Solid.ttf */,
+				6CBA2B972AED48AA0069BFB7 /* SimpleLineIcons.ttf */,
+				6CBA2B982AED48AA0069BFB7 /* FontAwesome6_Brands.ttf */,
+				6CBA2B992AED48AA0069BFB7 /* MaterialIcons.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -116,6 +190,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6C88BBB22AED549E00F6F7FC /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* SocialMuslims */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SocialMuslimsTests */,
@@ -144,6 +219,10 @@
 				5709B34CF0A7D63546082F79 /* Pods-SocialMuslims.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-SocialMuslims-SocialMuslimsTests.release.xcconfig */,
+				E893AEDA99A4DC575907914B /* Pods-App-SocialMuslims.debug.xcconfig */,
+				DCDCF9855114D2CF4B674561 /* Pods-App-SocialMuslims.release.xcconfig */,
+				4567B5F97127EE2C12E233EA /* Pods-App-SocialMuslimsTests.debug.xcconfig */,
+				D7E7251D9C64E9F0E38EFB5D /* Pods-App-SocialMuslimsTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -242,8 +321,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C88BBB32AED549E00F6F7FC /* main.jsbundle in Resources */,
+				6CBA2BA32AED48AA0069BFB7 /* Ionicons.ttf in Resources */,
+				6CBA2B9B2AED48AA0069BFB7 /* Octicons.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				6CBA2BA62AED48AA0069BFB7 /* FontAwesome.ttf in Resources */,
+				6CBA2B9C2AED48AA0069BFB7 /* Feather.ttf in Resources */,
+				6CBA2B9F2AED48AA0069BFB7 /* FontAwesome5_Brands.ttf in Resources */,
+				6CBA2BAC2AED48AA0069BFB7 /* MaterialIcons.ttf in Resources */,
+				6CBA2B9D2AED48AA0069BFB7 /* FontAwesome6_Regular.ttf in Resources */,
+				6CBA2BA82AED48AA0069BFB7 /* EvilIcons.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				6CBA2BA42AED48AA0069BFB7 /* FontAwesome5_Solid.ttf in Resources */,
+				6CBA2BAB2AED48AA0069BFB7 /* FontAwesome6_Brands.ttf in Resources */,
+				6CBA2BA02AED48AA0069BFB7 /* MaterialCommunityIcons.ttf in Resources */,
+				6CBA2B9E2AED48AA0069BFB7 /* Entypo.ttf in Resources */,
+				6CBA2BA92AED48AA0069BFB7 /* FontAwesome6_Solid.ttf in Resources */,
+				6CBA2B9A2AED48AA0069BFB7 /* Fontisto.ttf in Resources */,
+				6CBA2BA22AED48AA0069BFB7 /* Foundation.ttf in Resources */,
+				6CBA2BA52AED48AA0069BFB7 /* FontAwesome5_Regular.ttf in Resources */,
+				6CBA2BA12AED48AA0069BFB7 /* AntDesign.ttf in Resources */,
+				6CBA2BAA2AED48AA0069BFB7 /* SimpleLineIcons.ttf in Resources */,
+				6CBA2BA72AED48AA0069BFB7 /* Zocial.ttf in Resources */,
+				6CBA2B852AED41550069BFB7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,15 +372,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -298,7 +398,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SocialMuslims-SocialMuslimsTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-App-SocialMuslimsTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -320,7 +420,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SocialMuslims-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-App-SocialMuslims-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -333,15 +433,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -350,15 +450,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslims/Pods-App-SocialMuslims-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -367,15 +467,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -430,7 +530,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig */;
+			baseConfigurationReference = 4567B5F97127EE2C12E233EA /* Pods-App-SocialMuslimsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -457,7 +557,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-SocialMuslims-SocialMuslimsTests.release.xcconfig */;
+			baseConfigurationReference = D7E7251D9C64E9F0E38EFB5D /* Pods-App-SocialMuslimsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -481,18 +581,22 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-SocialMuslims.debug.xcconfig */;
+			baseConfigurationReference = E893AEDA99A4DC575907914B /* Pods-App-SocialMuslims.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DZD6P63HNR;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SocialMuslims/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -500,6 +604,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SocialMuslims;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -508,17 +613,20 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-SocialMuslims.release.xcconfig */;
+			baseConfigurationReference = DCDCF9855114D2CF4B674561 /* Pods-App-SocialMuslims.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DZD6P63HNR;
 				INFOPLIST_FILE = SocialMuslims/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -526,6 +634,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SocialMuslims;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -572,6 +681,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -598,6 +708,8 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -638,6 +750,10 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -661,6 +777,8 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

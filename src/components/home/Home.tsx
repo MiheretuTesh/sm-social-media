@@ -77,8 +77,8 @@ export const Home = ({navigation}: any) => {
   return (
     <View style={AppStyle.container}>
       <Tab.Navigator
-        screenOptions={{headerShown: false}}
-        tabBarOptions={{
+        screenOptions={{
+            headerShown: false,
           keyboardHidesTabBar: true,
           tabBarActiveTintColor: '#E51D43',
           tabBarInactiveTintColor: 'gray',
