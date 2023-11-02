@@ -32,7 +32,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  RCTAppSetupPrepareApp(application);
+  RCTAppSetupPrepareApp(application, true);
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
 #if RCT_NEW_ARCH_ENABLED
@@ -54,7 +54,7 @@
   appProperties[kRNConcurrentRoot] = @([self concurrentRootEnabled]);
   #endif
 
-  RCTRootView *rootView = (RCTRootView *)RCTAppSetupDefaultRootView(bridge, @"SocialMuslims", initProps);
+  RCTRootView *rootView = (RCTRootView *)RCTAppSetupDefaultRootView(bridge, @"SocialMuslims", initProps, true);
 
   if (@available(iOS 13.0, *)) {
       rootView.backgroundColor = [UIColor systemBackgroundColor];

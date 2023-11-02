@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@cometchat-pro/react-native-chat": "^3.0.13",
     "@cometchat/calls-sdk-react-native": "^4.0.0",
     "@cometchat/chat-sdk-react-native": "^4.0.1",
     "@cometchat/chat-uikit-react-native": "^4.0.0",
@@ -31,7 +32,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "emoji-mart-native": "^0.6.5-beta",
     "react": "18.2.0",
-    "react-native": "0.70.14",
+    "react-native": "0.71.0",
     "react-native-autolink": "^4.1.0",
     "react-native-background-timer": "^2.4.1",
     "react-native-callstats": "^3.73.7",

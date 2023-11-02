@@ -8,7 +8,6 @@ import {
   CometChatGroupList,
   CometChatConversationListWithMessages,
   CometChatConversationList,
-  CometChatConversationsWithMessages,
 } from '@cometchat/chat-uikit-react-native';
 
 import {NavigationContainer} from '@react-navigation/native';

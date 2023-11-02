@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Home} from './components/home/Home';
-import {ConversationComponentList} from './components/conversation';
 import HeroScreen from './screens/Hero';
 import SignUpScreen from './screens/SignUp';
 import SingInScreen from './screens/Login';
@@ -21,6 +20,7 @@ import ChatUserDetailScreen from '../src/screens/ChatUserDetailScreen';
 import InChatUserOptionsScreen from './screens/InChatUserOptionsScreen';
 import firebase from '@react-native-firebase/app';
 import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
+import ConversationComponentList from "./components/conversation/ChatsView";
 
 function StackNavigator(props: any) {
   const [isLogedIn, setIsLogedIn] = useState(false);

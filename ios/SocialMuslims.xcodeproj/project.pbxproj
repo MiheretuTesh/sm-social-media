@@ -11,7 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		6C88BBB32AED549E00F6F7FC /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 6C88BBB22AED549E00F6F7FC /* main.jsbundle */; };
 		6CBA2B852AED41550069BFB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B842AED41550069BFB7 /* GoogleService-Info.plist */; };
 		6CBA2B9A2AED48AA0069BFB7 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B872AED48AA0069BFB7 /* Fontisto.ttf */; };
 		6CBA2B9B2AED48AA0069BFB7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBA2B882AED48AA0069BFB7 /* Octicons.ttf */; };
@@ -61,7 +60,6 @@
 		4567B5F97127EE2C12E233EA /* Pods-App-SocialMuslimsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-SocialMuslimsTests.debug.xcconfig"; path = "Target Support Files/Pods-App-SocialMuslimsTests/Pods-App-SocialMuslimsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-SocialMuslims.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialMuslims.release.xcconfig"; path = "Target Support Files/Pods-SocialMuslims/Pods-SocialMuslims.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig"; path = "Target Support Files/Pods-SocialMuslims-SocialMuslimsTests/Pods-SocialMuslims-SocialMuslimsTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6C88BBB22AED549E00F6F7FC /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		6CBA2B842AED41550069BFB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CBA2B872AED48AA0069BFB7 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		6CBA2B882AED48AA0069BFB7 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				6C88BBB22AED549E00F6F7FC /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* SocialMuslims */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SocialMuslimsTests */,
@@ -321,7 +318,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C88BBB32AED549E00F6F7FC /* main.jsbundle in Resources */,
 				6CBA2BA32AED48AA0069BFB7 /* Ionicons.ttf in Resources */,
 				6CBA2B9B2AED48AA0069BFB7 /* Octicons.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
@@ -368,7 +364,7 @@
 		};
 		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -590,13 +586,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DZD6P63HNR;
 				ENABLE_BITCODE = NO;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = SocialMuslims/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
