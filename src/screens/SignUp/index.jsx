@@ -151,7 +151,7 @@ const SignUpScreen = ({navigation}) => {
 
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.input}
+          style={styles.input} autoCapitalize={'none'}
           placeholder="Email"
           placeholderTextColor="#969BA1"
           onChangeText={text => setEmail(text)}

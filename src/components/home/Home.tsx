@@ -9,12 +9,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {CometChatUsersWithMessages} from '@cometchat/chat-uikit-react-native';
 import {CometChatConversationsWithMessages} from '@cometchat/chat-uikit-react-native';
-import {ConversationComponentList} from '../conversation';
 import {CometChatUsersList} from '../User';
 import {CometChatGroupsWithMessages} from '@cometchat/chat-uikit-react-native';
 import UserProfileScreen from '../../screens/Setting';
 import {useSelector} from 'react-redux';
 import {CometChatUIKit} from '@cometchat/chat-uikit-react-native';
+import ConversationComponentList from "../conversation/ConversationComponentList";
 
 export const Home = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
@@ -85,6 +85,7 @@ export const Home = ({navigation}: any) => {
         }}>
         <Tab.Screen
           name="Chats"
+          //component={ConversationComponentList} bu editlenebilir hali chat in
           component={CometChatConversationsWithMessages}
           options={{
             tabBarIcon: ({color, size}) => (
