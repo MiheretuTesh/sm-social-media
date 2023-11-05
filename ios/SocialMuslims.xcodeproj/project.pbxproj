@@ -586,7 +586,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DZD6P63HNR;
 				ENABLE_BITCODE = NO;
-				EXCLUDED_ARCHS = "";
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = SocialMuslims/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
