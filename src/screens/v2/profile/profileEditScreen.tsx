@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Alert, Image, Platform, ScrollView, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, Alert, Image, Platform, ScrollView, Text, TextInput, View} from 'react-native';
 import {CometChat} from '@cometchat/chat-sdk-react-native';
 import {Button} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
@@ -12,6 +12,9 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 const ProfileEditScreen = ({route, navigation}) => {
     const fromProfileEdit = route?.params?.fromProfileEdit;
+    const isAndroid = Platform.OS === 'android'
+    const calenderRef = useRef()
+
     const [uid, setUID] = useState(null);
     const [gender, setGender] = useState(null);
     const [displayName, setDisplayName] = useState('');
@@ -21,6 +24,8 @@ const ProfileEditScreen = ({route, navigation}) => {
     const [seeking, setSeeking] = useState('');
     const [aboutMe, setAboutMe] = useState('');
     const [selectedProfileImage, setSelectedProfileImage] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [calenderVisible, setCalenderVisible] = useState(false);
 
     useEffect(() => {
         getUser()
@@ -45,6 +50,9 @@ const ProfileEditScreen = ({route, navigation}) => {
                     setBirthDate(new Date(userData?.birthDate))
                     setSelectedProfileImage(userData?.profilePicture)
                 }
+                setTimeout(() => {
+                    setIsLoading(false)
+                }, 500)
 
                 //await usersCollection.doc(userId).set(userData);
                 setUID(user.uid)
@@ -148,10 +156,62 @@ const ProfileEditScreen = ({route, navigation}) => {
         }
     };
 
+    const renderDatePicker = () => {
+        const dayToFormat = new Date(birthDate);
+        const yyyy = dayToFormat.getFullYear();
+        let mm = dayToFormat.getMonth() + 1; // Months start at 0!
+        let dd = dayToFormat.getDate();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        const formattedToday = dd + '/' + mm + '/' + yyyy;
+
+        if (isAndroid)
+            return <TouchableOpacity style={{zIndex: 10}} onPress={() => {
+                setCalenderVisible(true)
+                setTimeout(() => {
+                    calenderRef?.current?.open()
+                }, 250)
+            }}>
+                <Text style={{
+                    width: '100%',
+                    borderRadius: 8,
+                    borderColor: grey,
+                    borderWidth: 2,
+                    padding: 8,
+                    paddingVertical: 12,
+                    fontSize: 16,
+                    zIndex: 1,
+                    color: 'black'
+                }}>
+                    {formattedToday}
+                </Text>
+            </TouchableOpacity>
+
+        return <View style={{
+            width: '100%',
+            borderRadius: 8,
+            borderColor: grey,
+            borderWidth: 2,
+            padding: 8,
+            alignItems: 'flex-start'
+        }}>
+            <DateTimePicker value={birthDate} style={{marginLeft: -6, width: 126}} maximumDate={new Date()}
+                            onChange={(val, date) => setBirthDate(date)}
+            />
+        </View>
+    }
+
     const grey = 'rgba(121,113,113,0.2)'
     const InnerPadding = 12
     const marginBetweenElements = 10
     const red = 'rgba(162,21,21,0.81)'
+
+    if (isLoading)
+        return <View style={{flex: 1, backgroundColor: 'white', padding: 16}}>
+            <ActivityIndicator size='large' color={grey}/>
+        </View>
 
     return <View style={{flex: 1, backgroundColor: 'white', padding: 16}}>
         <ScrollView style={{height: '85%'}} automaticallyAdjustKeyboardInsets={true}
@@ -280,7 +340,14 @@ const ProfileEditScreen = ({route, navigation}) => {
                            }}/>
             </View>
             <View style={{marginTop: marginBetweenElements}}>
-                {!birthDate ? <TouchableOpacity onPress={() => setBirthDate(new Date())}>
+                {!birthDate ? <TouchableOpacity onPress={() => {
+                    console.log('pressed')
+                    setCalenderVisible(true)
+                    setBirthDate(new Date())
+                    setTimeout(() => {
+                        calenderRef?.current?.open()
+                    }, 250)
+                }}>
                     <TextInput placeholder={'Birthdate'} editable={false}
                                value={birthDate}
                                style={{
@@ -292,18 +359,7 @@ const ProfileEditScreen = ({route, navigation}) => {
                                    paddingVertical: 12,
                                    fontSize: 16
                                }}/>
-                </TouchableOpacity> : <View style={{
-                    width: '100%',
-                    borderRadius: 8,
-                    borderColor: grey,
-                    borderWidth: 2,
-                    padding: 8,
-                    alignItems: 'flex-start'
-                }}>
-                    <DateTimePicker value={birthDate} style={{marginLeft: -6, width: 126}} maximumDate={new Date()}
-                                    onChange={(val, date) => setBirthDate(date)}
-                    />
-                </View>}
+                </TouchableOpacity> : renderDatePicker()}
             </View>
             <View style={{marginTop: marginBetweenElements}}>
                 <TextInput placeholder={'Seeking'}
@@ -338,6 +394,15 @@ const ProfileEditScreen = ({route, navigation}) => {
             <Button onPress={validateForm} buttonStyle={{backgroundColor: red, borderRadius: 8, padding: 12}}
                     title={'Looks Great! 👍🏻'}/>
         </View>
+        {calenderVisible && isAndroid &&
+        <DateTimePicker ref={calenderRef} value={birthDate} style={{marginLeft: -6, width: 126}}
+                        maximumDate={new Date()}
+                        onChange={(val, date) => {
+                            calenderRef.current?.close()
+                            setCalenderVisible(false)
+                            setBirthDate(date)
+                        }}/>
+        }
     </View>
 };
 
